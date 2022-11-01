@@ -20,12 +20,6 @@ class Lesson {
   @Column({ length: 60 })
   name: string;
 
-  @Column()
-  videoId: string;
-
-  @Column()
-  studyTopicId: string;
-
   @OneToMany(() => Text, (text) => text.lesson)
   texts: Text[];
 
