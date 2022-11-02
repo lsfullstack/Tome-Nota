@@ -13,7 +13,7 @@ const ensureEmailAlreadyExistMiddleware = async (req: Request, res: Response, ne
     const userExist = await userRepository.findOneBy({email});
 
     if(userExist){
-        throw new AppError("E-mail already registered", 401);
+        throw new AppError("E-mail already exists", 409);
     }
 
     return next();
