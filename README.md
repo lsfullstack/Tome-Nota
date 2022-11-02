@@ -50,7 +50,6 @@
 >   "email": "lucas.silva@mail.com",
 >   "isAdm": true,
 >   "isActive": true,
->   "studyTopics": [],
 >   "createdAt": "2022-10-21T23:19:09.501Z",
 >   "updatedAt": "2022-10-21T23:19:09.501Z"
 > }
