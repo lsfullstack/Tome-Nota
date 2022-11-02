@@ -12,7 +12,7 @@ const ensureIsActiveMiddleware = async (req: Request, res: Response, next: NextF
     const user = await userRepository.findOneBy({id});
 
     if(!user?.isActive){
-        throw new AppError("inactive user", 401);
+        throw new AppError("User not found", 404);
     }
 
     return next();
