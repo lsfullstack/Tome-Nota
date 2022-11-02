@@ -9,11 +9,11 @@ const deleteUserService = async (isAdm : boolean, id : string, idLoggedUser: str
     const findUser = await userRepository.findOneBy({id});
     
     if(id !== idLoggedUser && !isAdm){
-        throw new AppError("User is not admin", 401)
+        throw new AppError("User is not admin", 401);
     }
 
     if(!findUser || !findUser.isActive){
-        throw new AppError("User not found", 404)
+        throw new AppError("User not found", 404);
     }
 
     await userRepository.update(
