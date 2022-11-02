@@ -7,10 +7,10 @@ import updateUserController from "../controllers/users/updateUser.controller";
 import userProfileController from "../controllers/users/userProfile.controller";
 import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
 import ensureIsAdmMiddleware from "../middlewares/ensureIsAdm.middleware";
-
+import ensureEmailAlreadyExistMiddleware from "../middlewares/ensureEmailAlreadyExists.middleware";
 const usersRoutes = Router();
 
-usersRoutes.post("", createUserController); //falta middleware email
+usersRoutes.post("", ensureEmailAlreadyExistMiddleware, createUserController); //falta middleware email
 usersRoutes.get("/profile", ensureAuthMiddleware, userProfileController);
 usersRoutes.get("/:id", ensureAuthMiddleware, retrieveUserController);
 usersRoutes.get("", ensureAuthMiddleware, ensureIsAdmMiddleware, listUsersController);
