@@ -1,14 +1,14 @@
-import { AppError } from "../errors/AppError"
-import { Request, Response, NextFunction } from 'express'
+import { AppError } from "../errors/AppError";
+import { Request, Response, NextFunction } from 'express';
 
-const ensureIsAdm = (req: Request, res: Response, next: NextFunction) => {
-    const isAdm = req.user.isAdm
+const ensureIsAdmMiddleware = (req: Request, res: Response, next: NextFunction) => {
+    const isAdm = req.user.isAdm;
 
     if(!isAdm){
-        throw new AppError("User is not admin", 401)
+        throw new AppError("User is not admin", 401);
     }
 
-    next()
+    return next();
 }
 
-export default ensureIsAdm
+export default ensureIsAdmMiddleware;

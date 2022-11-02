@@ -1,20 +1,20 @@
-import { Router } from "express"
-import createUserController from "../controllers/createUser.controller"
-import deleteUserController from "../controllers/deleteUser.controller"
-import listUsersController from "../controllers/listUsers.controller"
-import retrieveUserController from "../controllers/retrieveUser.controller"
-import updateUserController from "../controllers/updateUser.controller"
-import userProfileController from "../controllers/userProfile.controller"
-import ensureAuth from "../middlewares/ensureAuth.middleware"
-import ensureIsAdm from "../middlewares/ensureIsAdm.middleware"
+import { Router } from "express";
+import createUserController from "../controllers/users/createUser.controller";
+import deleteUserController from "../controllers/users/deleteUser.controller";
+import listUsersController from "../controllers/users/listUsers.controller";
+import retrieveUserController from "../controllers/users/retrieveUser.controller";
+import updateUserController from "../controllers/users/updateUser.controller";
+import userProfileController from "../controllers/users/userProfile.controller";
+import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
+import ensureIsAdmMiddleware from "../middlewares/ensureIsAdm.middleware";
 
-const router = Router()
+const usersRoutes = Router();
 
-router.post("", createUserController);
-router.get("/profile", ensureAuth, userProfileController) // User Profile
-router.get("/:id", ensureAuth, retrieveUserController) // Retrieve User
-router.get("", ensureAuth, ensureIsAdm, listUsersController) // List Users
-router.patch("/:id", ensureAuth, updateUserController);
-router.delete("/:id", ensureAuth, deleteUserController);
+usersRoutes.post("", createUserController); //falta middleware email
+usersRoutes.get("/profile", ensureAuthMiddleware, userProfileController);
+usersRoutes.get("/:id", ensureAuthMiddleware, retrieveUserController);
+usersRoutes.get("", ensureAuthMiddleware, ensureIsAdmMiddleware, listUsersController);
+usersRoutes.patch("/:id", ensureAuthMiddleware, updateUserController);
+usersRoutes.delete("/:id", ensureAuthMiddleware, deleteUserController);
 
-export default router
+export default usersRoutes;

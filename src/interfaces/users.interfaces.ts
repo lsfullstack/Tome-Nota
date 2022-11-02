@@ -12,7 +12,6 @@ export interface IUser {
     createdAt: Date
     updatedAt: Date
     isActive: boolean
-    password: string
 }
 
 

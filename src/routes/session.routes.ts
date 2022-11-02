@@ -1,8 +1,8 @@
 import { Router } from "express";
-import createSessionController from "../controllers/cretateSession.controller";
+import createSessionController from "../controllers/sessions/cretateSession.controller";
 
-const router = Router()
+const sessionRoutes = Router();
 
-router.post("", createSessionController)
+sessionRoutes.post("", createSessionController); // falta middleware isActive
 
-export default router
+export default sessionRoutes;
