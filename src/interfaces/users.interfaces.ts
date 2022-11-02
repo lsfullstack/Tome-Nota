@@ -14,7 +14,6 @@ export interface IUser {
     isActive: boolean
 }
 
-
 export interface IUserLogin {
     email: string
     password: string
