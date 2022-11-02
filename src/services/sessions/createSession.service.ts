@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { IUserLogin } from "../../interfaces/users.interfaces";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppError";
+import "dotenv/config";
 
 const createSessionService = async ({email, password}: IUserLogin): Promise<string> => {
 
