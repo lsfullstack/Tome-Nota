@@ -50,6 +50,7 @@
 >   "email": "lucas.silva@mail.com",
 >   "isAdm": true,
 >   "isActive": true,
+>   "studyTopics": [],
 >   "createdAt": "2022-10-21T23:19:09.501Z",
 >   "updatedAt": "2022-10-21T23:19:09.501Z"
 > }
@@ -57,11 +58,11 @@
 > ## E-mail já cadastrado
 >> ## Formato da resposta:
 >
-> * Status: `400 BAD REQUEST`;
+> * Status: `409 CONFLICT`;
 >
 >```json
 > {
->   "message": "E-mail already registered"
+>   "message": "E-mail already exists"
 > }
 >```
 >---
@@ -103,7 +104,7 @@
 
 <br>
 
-> # Retrieve User - GET `/users/<id>`
+> # Retrieve User - GET `/users/:id_user`
 >> ## Formato da requisição:
 >
 > * Necessário autenticação por `token`;
@@ -222,10 +223,11 @@
 
 <br>
 
-> # Update User - PATCH `/users/:id`
+> # Update User - PATCH `/users/:id_user`
 >> ## Formato da requisição:
 >
 > * Necessário autenticação por `token`;
+> * Apenas o `administrador` pode atualizar `outros usuários`;
 > * Apenas os campos de `name`, `email` e `password` podem ser alterados;
 >  
 >```json
@@ -271,14 +273,35 @@
 >   "message": "User not found",
 > }
 >```
+> ## Atualizando outro usuário sem ser administrador
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "User is not admin"
+> }
+>```
+> ## Atualizando outros campos
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Fields isAdm, id and isActive cannot be changed"
+> }
+>```
 >---
 
 <br>
 
-> # Delete User - DELETE `/users/:id`
+> # Delete User - DELETE `/users/:id_user`
 >> ## Formato da requisição:
 >
 > * Necessário autenticação por `token`;
+> * Apenas o `administrador` pode deletear `outros usuários`;
 > 
 >> ## Formato da resposta:
 >
@@ -305,6 +328,16 @@
 >   "message": "User not found"
 > }
 >```
+> ## Deletando outro usuário sem ser administrador
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "User is not admin"
+> }
+>```
 >---
 
 <br>
@@ -321,7 +354,7 @@
 >>
 >```json
 > {
->   "email": "nainare.reis@mail.com",
+>   "email": "naiane.reis@mail.com",
 >   "password": "3256"
 > }
 >```
@@ -337,7 +370,7 @@
 > ## E-mail ou senha inválidos
 >> ## Formato da resposta:
 >
-> * Status: `401 UNAUTHORIZED`;
+> * Status: `403 FORBIDDEN`;
 >
 >```json
 > {
@@ -353,3 +386,313 @@
 
 <br>
 
+> # Create Study Topic - POST `/studyTopics`
+>> ## Formato da requisição:
+> 
+> * Necessário autenticação por `token`;
+> 
+>```json
+> {
+>   "name": "Desenvolvimento Web Front-End",
+>   "categories": [
+>     "Tecnologia da Informação",
+>     "Desenvolvimento Web"
+>   ]
+> }
+>```
+>> ## Formato da resposta:
+> 
+> * Status: `201 CREATED`;
+> 
+>```json
+> {
+>   "id": "11547a442-0b6a-4920-9177-455e4769931c",
+>   "name": "Desenvolvimento Web Front-End",
+>   "categories": [
+>     "Tecnologia da Informação",
+>     "Desenvolvimento Web"
+>   ],
+>   "lessons": [],
+>   "user": {
+>     "id": "c95d139f-5c57-46ec-9ca7-545944a2b10b",
+>     "name": "Maria Belchior",
+>     "email": "maria.belchior@mail.com",
+>     "isAdm": false,
+>     "isActive": true,
+>     "createdAt": "2022-10-21T23:19:09.501Z",
+>     "updatedAt": "2022-10-21T23:19:09.501Z"
+>   },
+>   "createdAt": "2022-10-20T20:47:27.856Z",
+>   "updatedAt": "2022-10-20T20:47:27.856Z"
+> }
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+> 
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+>---
+
+<br>
+
+> # Retrieve Study Topic - GET `/studyTopics/:id_studyTopic`
+>> ## Formato da resposta:
+>
+> * Necessário autenticação por `token`;
+> 
+>> ## Formato da resposta:
+>
+> * Status: `200 OK`;
+>
+>```json
+> {
+>   "id": "11547a442-0b6a-4920-9177-455e4769931c",
+>   "name": "Desenvolvimento Web Front-End",
+>   "categories": [
+>     "Tecnologia da Informação",
+>     "Desenvolvimento Web"
+>   ],
+>   "lessons": [
+>     {
+>       "id": "6c485c93-3dc5-422c-bbc4-51223eb4ace5",
+>       "name": "Estrutura básica do HTML",
+>     },
+>     {
+>       "id": "8acbc942-3f8f-416e-95e7-9c288ec33f39",
+>       "name": "Aplicando CSS no HTML",
+>     }
+>   ],
+>   "user": {
+>     "id": "c95d139f-5c57-46ec-9ca7-545944a2b10b",
+>     "name": "Maria Belchior",
+>     "email": "maria.belchior@mail.com",
+>     "isAdm": false,
+>     "isActive": true,
+>     "createdAt": "2022-10-21T23:19:09.501Z",
+>     "updatedAt": "2022-10-21T23:19:09.501Z"
+>   },
+>   "createdAt": "2022-10-20T20:47:27.856Z",
+>   "updatedAt": "2022-10-20T20:47:27.856Z"
+> }
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+> 
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>  
+> * Status: `404 NOT FOUND`;
+>
+>```json
+> {
+>   "message": "Study topic not found",
+> }
+>```
+>---
+
+<br>
+
+> # List Study Topics - GET `/studyTopics`
+>> ## Formato da resposta:
+>
+> * Necessário autenticação por `token`;
+>
+>> ## Formato da resposta:
+>
+> * Status: `200 OK`;
+>
+>```json
+> [
+>   {
+>     "id": "11547a442-0b6a-4920-9177-455e4769931c",
+>     "name": "Desenvolvimento Web Front-End",
+>     "categories": [
+>       "Tecnologia da Informação",
+>       "Desenvolvimento Web"
+>     ],
+>     "lessons": [
+>       {
+>         "id": "6c485c93-3dc5-422c-bbc4-51223eb4ace5",
+>         "name": "Estrutura básica do HTML",
+>       },
+>       {
+>         "id": "8acbc942-3f8f-416e-95e7-9c288ec33f39",
+>         "name": "Aplicando CSS no HTML",
+>       }
+>     ],
+>     "user": {
+>       "id": "c95d139f-5c57-46ec-9ca7-545944a2b10b",
+>       "name": "Maria Belchior",
+>       "email": "maria.belchior@mail.com",
+>       "isAdm": false,
+>       "isActive": true,
+>       "createdAt": "2022-10-21T23:19:09.501Z",
+>       "updatedAt": "2022-10-21T23:19:09.501Z"
+>     },
+>     "createdAt": "2022-02-20T15:50:12.856Z",
+>     "updatedAt": "2022-02-20T15:50:12.856Z"
+>   },
+>   {
+>     "id": "18637a442-0b6a-4033-9177-428e4947939e",
+>     "name": "JavaScript",
+>     "categories": [
+>       "Programação",
+>       "Lógica de Programação"
+>     ],
+>     "lessons": [
+>       {
+>         "id": "2ff79724-455d-4a41-b160-382640580f95",
+>         "name": "Métodos de Array",
+>       },
+>     ],
+>     "user": {
+>       "id": "c95d139f-5c57-46ec-9ca7-545944a2b10b",
+>       "name": "Maria Belchior",
+>       "email": "maria.belchior@mail.com",
+>       "isAdm": false,
+>       "isActive": true,
+>       "createdAt": "2022-10-21T23:19:09.501Z",
+>       "updatedAt": "2022-10-21T23:19:09.501Z"
+>     },
+>     "createdAt": "2022-10-25T20:47:27.856Z",
+>     "updatedAt": "2022-10-25T20:47:27.856Z"
+>   },
+> ]
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+> 
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+>---
+
+<br>
+
+> # Update Study Topic - PATCH `/studyTopics/:id_studyTopic`
+>> ## Formato da resposta:
+>
+> * Necessário autenticação por `token`;
+> * Apenas `name` e `categories` podem ser alterados;
+>
+>```json
+> {
+>   "name": "Front-End",
+>   "categories": [
+>     "Programação",
+>     "Desenvolvimento Web"
+>   ],
+> }
+>```
+>> ## Formato da resposta:
+>
+> * Status: `200 OK`;
+>
+>```json
+> {
+>   "id": "11547a442-0b6a-4920-9177-455e4769931c",
+>   "name": "Front-End",
+>   "categories": [
+>     "Programação",
+>     "Desenvolvimento Web"
+>   ],
+>   "lessons": [
+>     {
+>       "id": "6c485c93-3dc5-422c-bbc4-51223eb4ace5",
+>       "name": "Estrutura básica do HTML",
+>     },
+>     {
+>       "id": "8acbc942-3f8f-416e-95e7-9c288ec33f39",
+>       "name": "Aplicando CSS no HTML",
+>     }
+>   ],
+>   "user": {
+>     "id": "c95d139f-5c57-46ec-9ca7-545944a2b10b",
+>     "name": "Maria Belchior",
+>     "email": "maria.belchior@mail.com",
+>     "isAdm": false,
+>     "isActive": true,
+>     "createdAt": "2022-10-21T23:19:09.501Z",
+>     "updatedAt": "2022-10-21T23:19:09.501Z"
+>   },
+>   "createdAt": "2022-10-20T20:47:27.856Z",
+>   "updatedAt": "2022-12-05T15:12:51.856Z"
+> }
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+> 
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>  
+> * Status: `404 NOT FOUND`;
+>
+>```json
+> {
+>   "message": "Study topic not found",
+> }
+>```
+>---
+
+<br>
+
+> # Delete Study Topic - DELETE `/studyTopics/:id_studyTopic`
+>> ## Formato da resposta:
+>
+> * Necessário autenticação por `token`;
+> 
+>> ## Formato da resposta:
+>
+> * Status: `204`;
+>
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+> 
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>  
+> * Status: `404 NOT FOUND`;
+>
+>```json
+> {
+>   "message": "Study topic not found",
+> }
+>```
+>---
+
+<br>
+
+---
+---
+
+<br>
