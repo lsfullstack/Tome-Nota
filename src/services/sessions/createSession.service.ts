@@ -14,13 +14,13 @@ const createSessionService = async ({email, password}: IUserLogin): Promise<stri
     });
 
     if(!user){
-        throw new AppError('Invalid user or password', 403);
+        throw new AppError('Invalid email or password', 403);
     }
     
     const passwordMatch = await compare(password, user.password);
 
     if(!passwordMatch){
-        throw new AppError('Invalid user or password', 403);
+        throw new AppError('Invalid email or password', 403);
     }
 
     const token = jwt.sign({
