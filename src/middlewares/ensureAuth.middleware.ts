@@ -5,7 +5,7 @@ const ensureAuthMiddleware = async (req: Request, res: Response, next: NextFunct
 
   let token = req.headers.authorization;
 
-  if(!token){
+  if (!token) {
     return res.status(401).json({
       message: "Missing authorization headers"
     });
@@ -15,7 +15,7 @@ const ensureAuthMiddleware = async (req: Request, res: Response, next: NextFunct
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   jwt.verify(token, process.env.SECRET_KEY as string, (error: any, decoded: any) => {
-    if(error){
+    if (error) {
       return res.status(401).json({
         message: "Missing authorization headers"
       });
