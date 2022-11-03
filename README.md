@@ -289,7 +289,7 @@
 >
 >```json
 > {
->   "message": "Fields isAdm, id and isActive cannot be changed"
+>   "message": "Only the name, email and password fields can be changed"
 > }
 >```
 >---
@@ -654,6 +654,16 @@
 >   "message": "Study topic not found",
 > }
 >```
+> ## Atualizando outros campos
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Only the name and categories fields can be changed"
+> }
+>```
 >---
 
 <br>
@@ -726,7 +736,6 @@
 >   }
 > }
 >```
->---
 > ## Sem token / token inválido
 >> ## Formato da resposta:
 >
@@ -737,10 +746,20 @@
 >   "message": "Missing authorization headers",
 > }
 >```
+> ## Id inválido
+>
+>> ## Formato da resposta:
+>
+> * Status: `404 NOT FOUND`;
+>
+>```json
+> {
+>   "message": "Study topic not found"
+> }
+>```
 >---
 
 <br>
-
 
 > # List Lessons - GET `/lesson/:id-study-topic`
 >> ## Formato da requisição:
@@ -855,7 +874,6 @@
 
 <br>
 
-
 > # Update Lesson - PATCH `/lesson/:id-lesson`
 >> ## Formato da resposta:
 >
@@ -907,6 +925,16 @@
 >   "message": "Lesson not found",
 > }
 >```
+> ## Atualizando outros campos
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Only the name field can be changed"
+> }
+>```
 >---
 
 <br>
@@ -949,3 +977,203 @@
 
 <br>
 
+> # Create Category - POST `/categories`
+>> ## Formato da requisição:
+>
+> * Necessário autenticação por `token`;
+>
+>```json
+> {
+>   "name": "Idiomas"
+> }
+>```
+>> ## Formato da resposta:
+>
+> * Status: `201 CREATED`;
+>
+>```json
+> {
+>   "id": "5f307bd9-57a3-4f08-b393-07c9bcfe6a91",
+>   "name": "Idiomas"
+> }
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Missing authorization headers",
+> }
+>```
+>---
+
+<br>
+
+> # List Categories - GET `/categories`
+>> ## Formato da requisição:
+>
+> * Necessário autenticação por `token`;
+>      
+>> ## Formato da resposta:
+>
+> * Status: `200 OK`;
+>
+>```json
+> {
+>   {
+>     "id": "5f307bd9-57a3-4f08-b393-07c9bcfe6a91",
+>     "name": "Idiomas"
+>   },
+>   {
+>     "id": "a17845de-564d-420d-afce-0ef6877854ba",
+>     "name": "Programação"
+>   }
+> }
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Missing authorization headers",
+> }
+>```
+>---
+
+<br>
+
+> # Retrieve Category - GET `/categories/:id-categories`
+>> ## Formato da requisição:
+>
+> * Necessário autenticação por `token`;
+>
+>> ## Formato da resposta:
+>
+> * Status: `200 OK`;
+>
+>```json
+> {
+>   "id": "5f307bd9-57a3-4f08-b393-07c9bcfe6a91",
+>   "name": "Idiomas"
+> }
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>
+> * Status: `404 NOT FOUND`;
+>```json
+> {
+>   "message": "category not found"
+> }
+>```
+>---
+
+<br>
+
+> # Update Category - PATCH `/categories/:id-categories`
+>> ## Formato da resposta:
+>
+> * Necessário autenticação por `token`;
+> * Apenas `name` pode ser alterado;
+>
+>```json
+> {
+>   "name": "Linguagem de programação"
+> }
+>```
+>> ## Formato da resposta:
+>
+> * Status: `200 OK`;
+>
+>```json
+> {
+>   "id": "a17845de-564d-420d-afce-0ef6877854ba",
+>   "name": "Linguagem Programação"
+> }
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+> 
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>  
+> * Status: `404 NOT FOUND`;
+>
+>```json
+> {
+>   "message": "category not found",
+> }
+>```
+> ## Atualizando outros campos
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Only the name field can be changed"
+> }
+>```
+>---
+
+<br>
+
+> # Delete Category - DELETE `/lesson/:id-categories`
+>> ## Formato da resposta:
+>
+> * Necessário autenticação por `token`;
+> 
+>> ## Formato da resposta:
+>
+> * Status: `204 NO CONTENT`;
+>
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+> 
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>  
+> * Status: `404 NOT FOUND`;
+>
+>```json
+> {
+>   "message": "Category not found",
+> }
+>```
+>---
+
+<br>
+
+---
+---
+
+<br>
+
+ 

@@ -11,7 +11,7 @@ const updateUserService = async (isAdm: boolean, id: string, user: any, idLogged
   const verifyBlockedFields = Object.keys(user).some(e => e === 'isAdm' || e === 'id' || e === 'isActive');
 
   if (verifyBlockedFields) {
-    throw new AppError("Fields isAdm, id and isActive cannot be changed", 401);
+    throw new AppError("Only the name, email and password fields can be changed", 401);
   };
 
   if (id !== idLoggedUser && !isAdm) {
