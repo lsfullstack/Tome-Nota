@@ -15,8 +15,8 @@ const ensureAuthMiddleware = async (req: Request, res: Response, next: NextFunct
 
     jwt.verify(token, process.env.SECRET_KEY as string, (error: any, decoded: any) => {
         if(error){
-            return res.status(403).json({
-                message: "Invalid e-mail or password"
+            return res.status(401).json({
+                message: "Missing authorization headers"
             });
         }
 
