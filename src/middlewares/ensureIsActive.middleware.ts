@@ -12,7 +12,7 @@ const ensureIsActiveMiddleware = async (req: Request, res: Response, next: NextF
     email
   });
 
-  if(!user || !user?.isActive){
+  if (!user || !user?.isActive) {
     throw new AppError("User not found", 404);
   }
 

@@ -103,7 +103,7 @@
 
 <br>
 
-> # Retrieve User - GET `/users/:id_user`
+> # Retrieve User - GET `/users/:id-user`
 >> ## Formato da requisição:
 >
 > * Necessário autenticação por `token`;
@@ -222,7 +222,7 @@
 
 <br>
 
-> # Update User - PATCH `/users/:id_user`
+> # Update User - PATCH `/users/:id-user`
 >> ## Formato da requisição:
 >
 > * Necessário autenticação por `token`;
@@ -296,7 +296,7 @@
 
 <br>
 
-> # Delete User - DELETE `/users/:id_user`
+> # Delete User - DELETE `/users/:id-user`
 >> ## Formato da requisição:
 >
 > * Necessário autenticação por `token`;
@@ -305,7 +305,7 @@
 >> ## Formato da resposta:
 >
 > * Propriedade isActive passa para `false`;
-> * Status: `204`;
+> * Status: `204 NO CONTENT`;
 >
 > ## Sem token / token inválido
 >> ## Formato da resposta:
@@ -385,7 +385,7 @@
 
 <br>
 
-> # Create Study Topic - POST `/studyTopics`
+> # Create Study Topic - POST `/study-topics`
 >> ## Formato da requisição:
 > 
 > * Necessário autenticação por `token`;
@@ -439,7 +439,7 @@
 
 <br>
 
-> # Retrieve Study Topic - GET `/studyTopics/:id_studyTopic`
+> # Retrieve Study Topic - GET `/study-topics/:id-study-topic`
 >> ## Formato da resposta:
 >
 > * Necessário autenticação por `token`;
@@ -503,7 +503,7 @@
 
 <br>
 
-> # List Study Topics - GET `/studyTopics`
+> # List Study Topics - GET `/study-topics`
 >> ## Formato da resposta:
 >
 > * Necessário autenticação por `token`;
@@ -584,7 +584,7 @@
 
 <br>
 
-> # Update Study Topic - PATCH `/studyTopics/:id_studyTopic`
+> # Update Study Topic - PATCH `/study-topics/:id-study-topic`
 >> ## Formato da resposta:
 >
 > * Necessário autenticação por `token`;
@@ -658,14 +658,14 @@
 
 <br>
 
-> # Delete Study Topic - DELETE `/studyTopics/:id_studyTopic`
+> # Delete Study Topic - DELETE `/study-topics/:id-study-topic`
 >> ## Formato da resposta:
 >
 > * Necessário autenticação por `token`;
 > 
 >> ## Formato da resposta:
 >
-> * Status: `204`;
+> * Status: `204 NO CONTENT`;
 >
 > ## Sem token / token inválido
 >> ## Formato da resposta:
@@ -695,3 +695,257 @@
 ---
 
 <br>
+
+> # Create Lesson - POST `/lesson/:id-study-topic`
+>> ## Formato da requisição:
+>
+> * Necessário autenticação por `token`;
+>
+>```json
+> {
+>   "name": "JavaScript - Métodos de Array"
+> }
+>```
+>> ## Formato da resposta:
+>
+> * Status: `201 CREATED`;
+>
+>```json
+> {
+>   "id": "6f7b8806-38f4-4bc6-b8d7-02a0c330ef7f",
+>   "name": "JavaScript - Métodos de Array",
+>   "studyTopic": {
+>     "id": "18637a442-0b6a-4033-9177-428e4947939e",
+>     "name": "JavaScript",
+>     "categories": [
+>       "Programação",
+>       "Lógica de Programação"
+>     ],
+>     "createdAt": "2022-10-25T20:47:27.856Z",
+>     "updatedAt": "2022-10-25T20:47:27.856Z"
+>   }
+> }
+>```
+>---
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Missing authorization headers",
+> }
+>```
+>---
+
+<br>
+
+
+> # List Lessons - GET `/lesson/:id-study-topic`
+>> ## Formato da requisição:
+>
+> * Necessário autenticação por `token`;
+>      
+>> ## Formato da resposta:
+>
+> * Status: `200 OK`;
+>
+>```json
+> {
+>   {
+>     "id": "6f7b8806-38f4-4bc6-b8d7-02a0c330ef7f",
+>     "name": "JavaScript - Métodos de Array",
+>     "studyTopic": {
+>       "id": "18637a442-0b6a-4033-9177-428e4947939e",
+>       "name": "JavaScript",
+>       "categories": [
+>         "Programação",
+>         "Lógica de Programação"
+>       ],
+>       "createdAt": "2022-10-25T20:47:27.856Z",
+>       "updatedAt": "2022-10-25T20:47:27.856Z"
+>     }
+>   },
+>   {
+>     "id": "399c8de1-8881-486b-8434-4e06a968549e",
+>     "name": "Funções Anônimas",
+>     "studyTopic": {
+>       "id": "18637a442-0b6a-4033-9177-428e4947939e",
+>       "name": "JavaScript",
+>       "categories": [
+>         "Programação",
+>         "Lógica de Programação"
+>       ],
+>       "createdAt": "2022-10-25T20:30:27.856Z",
+>       "updatedAt": "2022-10-25T20:30:27.856Z"
+>     }
+>   }
+> }
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Missing authorization headers",
+> }
+>```
+> ## Id inválido
+>
+>> ## Formato da resposta:
+>
+> * Status: `404 NOT FOUND`;
+>
+>```json
+> {
+>   "message": "Study topic not found"
+> }
+>```
+>---
+
+<br>
+
+> # Retrieve Lesson - GET `/lesson/:id-lesson`
+>> ## Formato da requisição:
+>
+> * Necessário autenticação por `token`;
+>
+>> ## Formato da resposta:
+>
+> * Status: `200 OK`;
+>
+>```json
+> {
+>   "id": "6f7b8806-38f4-4bc6-b8d7-02a0c330ef7f",
+>   "name": "JavaScript - Métodos de Array",
+>   "studyTopic": {
+>     "id": "18637a442-0b6a-4033-9177-428e4947939e",
+>     "name": "JavaScript",
+>     "categories": [
+>       "Programação",
+>       "Lógica de Programação"
+>     ],
+>     "createdAt": "2022-10-25T20:47:27.856Z",
+>     "updatedAt": "2022-10-25T20:47:27.856Z"
+>   }
+> }
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>
+> * Status: `404 NOT FOUND`;
+>```json
+> {
+>   "message": "Lesson not found"
+> }
+>```
+>---
+
+<br>
+
+
+> # Update Lesson - PATCH `/lesson/:id-lesson`
+>> ## Formato da resposta:
+>
+> * Necessário autenticação por `token`;
+> * Apenas `name` pode ser alterado;
+>
+>```json
+> {
+>   "name": "Principais métodos de Array"
+> }
+>```
+>> ## Formato da resposta:
+>
+> * Status: `200 OK`;
+>
+>```json
+> {
+>   "id": "6f7b8806-38f4-4bc6-b8d7-02a0c330ef7f",
+>   "name": "Principais métodos de Array",
+>   "studyTopic": {
+>     "id": "18637a442-0b6a-4033-9177-428e4947939e",
+>     "name": "JavaScript",
+>     "categories": [
+>       "Programação",
+>       "Lógica de Programação"
+>     ],
+>     "createdAt": "2022-10-25T20:47:27.856Z",
+>     "updatedAt": "2022-10-25T20:47:27.856Z"
+>   }
+> }
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+> 
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>  
+> * Status: `404 NOT FOUND`;
+>
+>```json
+> {
+>   "message": "Lesson not found",
+> }
+>```
+>---
+
+<br>
+
+> # Delete Lesson - DELETE `/lesson/:id-lesson`
+>> ## Formato da resposta:
+>
+> * Necessário autenticação por `token`;
+> 
+>> ## Formato da resposta:
+>
+> * Status: `204 NO CONTENT`;
+>
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+> 
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>  
+> * Status: `404 NOT FOUND`;
+>
+>```json
+> {
+>   "message": "Lesson not found",
+> }
+>```
+>---
+
+<br>
+
+---
+---
+
+<br>
+
