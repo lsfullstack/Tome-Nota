@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class createTables1667322804601 implements MigrationInterface {
-    name = 'createTables1667322804601'
+export class updatedCategoryMigration1667579493527 implements MigrationInterface {
+    name = 'updatedCategoryMigration1667579493527'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "extra_content" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying(100) NOT NULL, "link" character varying(300) NOT NULL, "lessonId" uuid, CONSTRAINT "PK_4c2f93222a702859f875ebae6db" PRIMARY KEY ("id"))`);
@@ -9,7 +9,7 @@ export class createTables1667322804601 implements MigrationInterface {
         await queryRunner.query(`CREATE TABLE "text" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "title" character varying(100) NOT NULL, "lessonId" uuid, CONSTRAINT "PK_ef734161ea7c326fedf699309f9" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "timeline" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "time" TIME NOT NULL, "description" character varying(100) NOT NULL, "videoId" uuid, CONSTRAINT "PK_f841188896cefd9277904ec40b9" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "video" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying(60) NOT NULL, "link" character varying(300) NOT NULL, CONSTRAINT "PK_1a2f3856250765d72e7e1636c8e" PRIMARY KEY ("id"))`);
-        await queryRunner.query(`CREATE TABLE "lesson" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying(60) NOT NULL, "videoId" uuid NOT NULL, "studyTopicId" uuid NOT NULL, CONSTRAINT "REL_e35de5d5260a5dd79077dfb731" UNIQUE ("videoId"), CONSTRAINT "PK_0ef25918f0237e68696dee455bd" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "lesson" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying(60) NOT NULL, "studyTopicId" uuid, "videoId" uuid, CONSTRAINT "REL_e35de5d5260a5dd79077dfb731" UNIQUE ("videoId"), CONSTRAINT "PK_0ef25918f0237e68696dee455bd" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "users" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying(60) NOT NULL, "email" character varying(60) NOT NULL, "password" character varying(120) NOT NULL, "isAdm" boolean NOT NULL, "isActive" boolean NOT NULL DEFAULT true, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "UQ_97672ac88f789774dd47f7c8be3" UNIQUE ("email"), CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "study_topic" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying(60) NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "userId" uuid, CONSTRAINT "PK_1c508b27fdcee2e802cb5a08d0d" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "studyTopic_categories" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "studyTopicId" uuid, "categoryId" uuid, CONSTRAINT "PK_77435d98b7a061b66cd5a1d96dc" PRIMARY KEY ("id"))`);
