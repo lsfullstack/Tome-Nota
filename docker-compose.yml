@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  api:
+    container_name: api
+    build: .
+    ports:
+      - $PORT:$PORT
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - .:/app
+
+  postgres:
+    container_name: db_M4
+    image: postgres:latest
+    ports:
+      - $PGPORT:$PGPORT
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
