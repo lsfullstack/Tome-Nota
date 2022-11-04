@@ -71,6 +71,48 @@ describe("/users", () => {
     });
   });
 
+  test("GET /users/profile - Should be able to return the logged user data", async () => {
+    const userLoginResponse = await request(app)
+      .post("/login")
+      .send(userLoginMock);
+
+    const userData = await request(app)
+      .get("/users/profile")
+      .set("Authorization", `Bearer ${userLoginResponse.body.token}`);
+
+    expect(userData.status).toBe(200);
+    expect(userData.body).toHaveProperty("id");
+    expect(userData.body).toHaveProperty("name");
+    expect(userData.body).toHaveProperty("email");
+    expect(userData.body).toHaveProperty("isActive");
+    expect(userData.body).toHaveProperty("createdAt");
+    expect(userData.body).toHaveProperty("updatedAt");
+    expect(userData.body).toHaveProperty("isAdm");
+    expect(userData.body).not.toHaveProperty("password");
+  });
+
+  test("GET /users/:id - Should be able to return user data from id", async () => {
+    const userSearch = await request(app).post("/login").send(userLoginMock);
+
+    const userSearchData = await request(app)
+      .get("/users/profile")
+      .set("Authorization", `Bearer ${userSearch.body.token}`);
+
+    const userData = await request(app)
+      .get(`/users/${userSearchData.body.id}`)
+      .set("Authorization", `Bearer ${userSearch.body.token}`);
+
+    expect(userData.status).toBe(200);
+    expect(userData.body).toHaveProperty("id");
+    expect(userData.body).toHaveProperty("name");
+    expect(userData.body).toHaveProperty("email");
+    expect(userData.body).toHaveProperty("isActive");
+    expect(userData.body).toHaveProperty("createdAt");
+    expect(userData.body).toHaveProperty("updatedAt");
+    expect(userData.body).toHaveProperty("isAdm");
+    expect(userData.body).not.toHaveProperty("password");
+  });
+
   test("GET /users - Should be able to list users", async () => {
     await request(app).post("/users").send(adminMock);
 

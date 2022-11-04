@@ -41,10 +41,3 @@ export const userWithoutName: IUserRequestTest = {
   password: "12345",
   isAdm: false,
 };
-
-export const userExists: IUserRequestTest = {
-  name: "Felipe",
-  email: "felipe@mail.com",
-  password: "12345678",
-  isAdm: true,
-};
