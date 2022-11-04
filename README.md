@@ -960,6 +960,7 @@
 >> ## Formato da requisição:
 >
 > * Necessário autenticação por `token`;
+> * Apenas o `administrador` pode criar as `categories`;
 >
 >```json
 > {
@@ -984,6 +985,16 @@
 >```json
 > {
 >   "message": "Missing authorization headers",
+> }
+>```
+> ## Criando categorias sem ser administrador
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "User is not admin"
 > }
 >```
 >---
@@ -1066,6 +1077,7 @@
 >> ## Formato da resposta:
 >
 > * Necessário autenticação por `token`;
+> * Apenas o `administrador` pode atualizar as `categorias`;
 > * Apenas `name` pode ser alterado;
 >
 >```json
@@ -1113,6 +1125,16 @@
 >   "message": "Only the name field can be changed"
 > }
 >```
+> ## Atualizando categoria sem ser administrador
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "User is not admin"
+> }
+>```
 >---
 
 <br>
@@ -1121,6 +1143,7 @@
 >> ## Formato da resposta:
 >
 > * Necessário autenticação por `token`;
+> * Apenas o `administrador` pode deletar as categorias;
 > 
 >> ## Formato da resposta:
 >
@@ -1144,6 +1167,16 @@
 >```json
 > {
 >   "message": "Category not found",
+> }
+>```
+> ## Deletando categorias sem ser administrador
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "User is not admin"
 > }
 >```
 >---
