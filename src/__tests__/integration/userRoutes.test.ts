@@ -21,17 +21,6 @@ describe("/users", () => {
     await connection.destroy();
   });
 
-  test("POST /users -  Must be able to create a user", async () => {
-    const response = await request(app).post("/users").send(userMock);
-
-    expect(response.body).not.toHaveProperty("password");
-    expect(response.body.name).toEqual("Felipe");
-    expect(response.body.email).toEqual("felipe@mail.com");
-    expect(response.body.isAdm).toEqual(false);
-    expect(response.body.isActive).toEqual(true);
-    expect(response.status).toBe(201);
-  });
-
   test("GET /users - Should be able to list users", async () => {
     await request(app).post("/users").send(adminMock);
 
