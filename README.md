@@ -9,14 +9,13 @@
   * Typescript
   * Express NodeJs
   * Ts-node-dev
-  * Bcryptjs
+  * Bcrypt
   * Jsonwebtoken
   * Dotenv
   * Class-transformer
   * Express-async-errors
   * Pg
   * Reflect-metadata
-  * Yup
 
 <br>
 
@@ -167,24 +166,6 @@
 >      "isActive": true,
 >      "createdAt": "2022-10-30T17:00:27.841Z",
 >      "updatedAt": "2022-10-30T17:00:27.841Z",
->      "studyTopic": [
->        {
->          "id": "11547a442-0b6a-4920-9177-455e4769931c",
->          "name": "Desenvolvimento Web Front-End",
->          "categoria": [
->            "Tecnologia da Informação",
->            "Desenvolvimento Web",
->          ]
->        },
->        {
->          "id": "95d139f-5c57-46ec-9ca7-545944a2b10b",
->          "name": "JavaScript",
->          "categoria": [
->            "Programação",
->            "Lógica de Programação",
->          ]
->        },
->      ]
 >    },
 >    {
 >      "id": "d43cb0e4-7e4f-4809-969e-d3afcaa3afea",
@@ -193,12 +174,10 @@
 >      "isAdm": false,
 >      "isActive": true,
 >      "createdAt": "2022-11-01T02:01:54.416Z",
->      "updatedAt": "2022-11-01T02:01:54.416Z",
->      "studyTopic": []
+>      "updatedAt": "2022-11-01T02:01:54.416Z"
 >    }
 > ]
 >```
->
 > ## Sem token / token inválido
 >> ## Formato da resposta:
 >
@@ -300,7 +279,7 @@
 >> ## Formato da requisição:
 >
 > * Necessário autenticação por `token`;
-> * Apenas o `administrador` pode deletear `outros usuários`;
+> * Apenas o `administrador` pode deletar `outros usuários`;
 > 
 >> ## Formato da resposta:
 >
@@ -1138,7 +1117,7 @@
 
 <br>
 
-> # Delete Category - DELETE `/lesson/:id-categories`
+> # Delete Category - DELETE `/categories/:id-categories`
 >> ## Formato da resposta:
 >
 > * Necessário autenticação por `token`;
@@ -1176,4 +1155,3 @@
 
 <br>
 
- 

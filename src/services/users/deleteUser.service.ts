@@ -3,9 +3,7 @@ import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppError";
 
 const deleteUserService = async (isAdm: boolean, id: string, idLoggedUser: string): Promise<void> => {
-
   const userRepository = AppDataSource.getRepository(User);
-
   const findUser = await userRepository.findOneBy({ id });
 
   if (id !== idLoggedUser && !isAdm) {
@@ -22,6 +20,6 @@ const deleteUserService = async (isAdm: boolean, id: string, idLoggedUser: strin
       isActive: false
     }
   );
-}
+};
 
 export default deleteUserService;

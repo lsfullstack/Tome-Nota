@@ -8,7 +8,6 @@ const updateUserController = async (req: Request, res: Response) => {
   const idTargetUser: string = req.params.id;
   const user: IUserUpdate = req.body;
   const idLoggedUser: string = req.user.id;
-
   const updatedUser = await updateUserService(isAdm, idTargetUser, user, idLoggedUser);
 
   return res.status(200).json(instanceToPlain(updatedUser));

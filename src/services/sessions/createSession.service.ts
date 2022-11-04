@@ -15,13 +15,13 @@ const createSessionService = async ({ email, password }: IUserLogin): Promise<st
   });
 
   if (!user) {
-    throw new AppError('Invalid email or password', 403);
+    throw new AppError("Invalid email or password", 403);
   }
 
   const passwordMatch = await compare(password, user.password);
 
   if (!passwordMatch) {
-    throw new AppError('Invalid email or password', 403);
+    throw new AppError("Invalid email or password", 403);
   }
 
   const token = jwt.sign({
@@ -29,11 +29,11 @@ const createSessionService = async ({ email, password }: IUserLogin): Promise<st
   },
     process.env.SECRET_KEY as string,
     {
-      expiresIn: '24h',
+      expiresIn: "24h",
       subject: user.id
     });
 
   return token;
-}
+};
 
 export default createSessionService;
