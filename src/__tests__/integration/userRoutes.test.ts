@@ -125,7 +125,6 @@ describe("/users", () => {
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     expect(response.body).not.toHaveProperty("password");
-    expect(response.body).toHaveProperty("studyTopic");
     expect(response.body).toHaveLength(2);
     expect(response.status).toBe(200);
   });
@@ -251,7 +250,7 @@ describe("/users", () => {
 
     expect(response.body).toHaveProperty("message");
     expect(response.body.message).toBe(
-      "Fields isAdm, id and isActive cannot be changed"
+      "Only the name, email and password fields can be changed"
     );
     expect(response.status).toBe(401);
   });
@@ -274,7 +273,7 @@ describe("/users", () => {
 
     expect(response.body).toHaveProperty("message");
     expect(response.body.message).toBe(
-      "Fields isAdm, id and isActive cannot be changed"
+      "Only the name, email and password fields can be changed"
     );
     expect(response.status).toBe(401);
   });
@@ -297,7 +296,7 @@ describe("/users", () => {
 
     expect(response.body).toHaveProperty("message");
     expect(response.body.message).toBe(
-      "Fields isAdm, id and isActive cannot be changed"
+      "Only the name, email and password fields can be changed"
     );
     expect(response.status).toBe(401);
   });

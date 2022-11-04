@@ -5,13 +5,14 @@ import retrieveCategoryController from "../controllers/categories/retrieveCatego
 import updateCategoryController from "../controllers/categories/updateCategory.controller";
 import deleteCategoryController from "../controllers/categories/deleteCategory.controller";
 import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
+import ensureIsAdmMiddleware from "../middlewares/ensureIsAdm.middleware";
 
 const categoriesRoutes = Router();
 
-categoriesRoutes.post("", ensureAuthMiddleware, createCategoryController);
+categoriesRoutes.post("", ensureAuthMiddleware, ensureIsAdmMiddleware, createCategoryController);
 categoriesRoutes.get("", ensureAuthMiddleware, listCategoriesController);
 categoriesRoutes.get("/:id", ensureAuthMiddleware, retrieveCategoryController);
-categoriesRoutes.patch("/:id", ensureAuthMiddleware, updateCategoryController);
-categoriesRoutes.delete("/:id", ensureAuthMiddleware, deleteCategoryController);
+categoriesRoutes.patch("/:id", ensureAuthMiddleware, ensureIsAdmMiddleware, updateCategoryController);
+categoriesRoutes.delete("/:id", ensureAuthMiddleware, ensureIsAdmMiddleware, deleteCategoryController);
 
 export default categoriesRoutes;
