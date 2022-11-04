@@ -1,4 +1,4 @@
-import { IUserLogin, IUserRequest } from "../../interfaces/users.interfaces";
+import {IUserLogin,IUserRequest,IUserRequestTest} from "../../interfaces/users.interfaces";
 
 export const userMock: IUserRequest = {
   name: "Felipe",
@@ -22,4 +22,29 @@ export const userLoginMock: IUserLogin = {
 export const adminLoginMock: IUserLogin = {
   email: "lucas@mail.com",
   password: "12345",
+};
+
+export const userWithoutPassword: IUserRequestTest = {
+  name: "Maria",
+  email: "maria@mail.com",
+  isAdm: false,
+};
+
+export const userWithoutIsAdm: IUserRequestTest = {
+  name: "Naiane",
+  email: "naiane@mail.com",
+  password: "12345",
+};
+
+export const userWithoutName: IUserRequestTest = {
+  email: "leticia@mail.com",
+  password: "12345",
+  isAdm: false,
+};
+
+export const userExists: IUserRequestTest = {
+  name: "Felipe",
+  email: "felipe@mail.com",
+  password: "12345678",
+  isAdm: true,
 };

@@ -2,7 +2,7 @@ import app from "../../app";
 import request from "supertest";
 import { DataSource } from "typeorm";
 import AppDataSource from "../../data-source";
-import { adminMock, adminLoginMock, userMock, userLoginMock } from "../mocks";
+import { adminMock, adminLoginMock, userMock, userLoginMock, userWithoutPassword, userWithoutIsAdm, userWithoutName} from "../mocks";
 
 describe("/users", () => {
   let connection: DataSource;
@@ -19,6 +19,56 @@ describe("/users", () => {
 
   afterAll(async () => {
     await connection.destroy();
+  });
+
+  test("POST /users - Should be able to create a user", async () => {
+    const resultNotAdmin = await request(app).post("/users").send(userMock);
+
+    expect(resultNotAdmin.status).toBe(201);
+    expect(resultNotAdmin.body).toHaveProperty("id");
+    expect(resultNotAdmin.body).toHaveProperty("name");
+    expect(resultNotAdmin.body).toHaveProperty("email");
+    expect(resultNotAdmin.body).toHaveProperty("isActive");
+    expect(resultNotAdmin.body).toHaveProperty("createdAt");
+    expect(resultNotAdmin.body).toHaveProperty("updatedAt");
+    expect(resultNotAdmin.body).toHaveProperty("isAdm");
+    expect(resultNotAdmin.body).not.toHaveProperty("password");
+  });
+
+  test("POST /users - Should not be able to create a user without password field value", async () => {
+    const result = await request(app).post("/users").send(userWithoutPassword);
+
+    expect(result.status).toBe(404);
+    expect(result.body).toMatchObject({
+      message: "email, name, isAdm and password is required fields",
+    });
+  });
+
+  test("POST /users - Should not be able to create a user without isAdm field value", async () => {
+    const result = await request(app).post("/users").send(userWithoutIsAdm);
+
+    expect(result.status).toBe(404);
+    expect(result.body).toMatchObject({
+      message: "email, name, isAdm and password is required fields",
+    });
+  });
+
+  test("POST /users - Should not be able to create a user without name field value", async () => {
+    const result = await request(app).post("/users").send(userWithoutName);
+
+    expect(result.status).toBe(404);
+    expect(result.body).toMatchObject({
+      message: "email, name, isAdm and password is required fields",
+    });
+  });
+
+  test("POST /users - Should not be able to create a user that already exists", async () => {
+    const result = await request(app).post("/users").send(userMock);
+
+    expect(result.status).toBe(409);
+    expect(result.body).toMatchObject({
+      message: "E-mail already exists",
+    });
   });
 
   test("GET /users - Should be able to list users", async () => {
