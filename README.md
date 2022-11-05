@@ -63,6 +63,16 @@
 >   "message": "E-mail already exists"
 > }
 >```
+> ## Faltando campo obrigatório
+>> ## Formato da resposta:
+>
+> * Status: `400 BAD REQUEST`;
+>
+>```json
+> {
+>   "message": "Name, e-mail, password and isAdm are required fields"
+> }
+>```
 >---
 
 <br>
@@ -706,10 +716,6 @@
 >   "studyTopic": {
 >     "id": "18637a442-0b6a-4033-9177-428e4947939e",
 >     "name": "JavaScript",
->     "categories": [
->       "Programação",
->       "Lógica de Programação"
->     ],
 >     "createdAt": "2022-10-25T20:47:27.856Z",
 >     "updatedAt": "2022-10-25T20:47:27.856Z"
 >   }
@@ -757,10 +763,6 @@
 >     "studyTopic": {
 >       "id": "18637a442-0b6a-4033-9177-428e4947939e",
 >       "name": "JavaScript",
->       "categories": [
->         "Programação",
->         "Lógica de Programação"
->       ],
 >       "createdAt": "2022-10-25T20:47:27.856Z",
 >       "updatedAt": "2022-10-25T20:47:27.856Z"
 >     }
@@ -771,10 +773,6 @@
 >     "studyTopic": {
 >       "id": "18637a442-0b6a-4033-9177-428e4947939e",
 >       "name": "JavaScript",
->       "categories": [
->         "Programação",
->         "Lógica de Programação"
->       ],
 >       "createdAt": "2022-10-25T20:30:27.856Z",
 >       "updatedAt": "2022-10-25T20:30:27.856Z"
 >     }
@@ -822,10 +820,6 @@
 >   "studyTopic": {
 >     "id": "18637a442-0b6a-4033-9177-428e4947939e",
 >     "name": "JavaScript",
->     "categories": [
->       "Programação",
->       "Lógica de Programação"
->     ],
 >     "createdAt": "2022-10-25T20:47:27.856Z",
 >     "updatedAt": "2022-10-25T20:47:27.856Z"
 >   }
@@ -875,10 +869,6 @@
 >   "studyTopic": {
 >     "id": "18637a442-0b6a-4033-9177-428e4947939e",
 >     "name": "JavaScript",
->     "categories": [
->       "Programação",
->       "Lógica de Programação"
->     ],
 >     "createdAt": "2022-10-25T20:47:27.856Z",
 >     "updatedAt": "2022-10-25T20:47:27.856Z"
 >   }

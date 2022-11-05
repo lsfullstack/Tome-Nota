@@ -15,6 +15,6 @@ export interface IStudyTopic {
     id: string
     name: string
     user: IUser
-    categories: ICategories[]
+    categories?: ICategories[]
 }
  
