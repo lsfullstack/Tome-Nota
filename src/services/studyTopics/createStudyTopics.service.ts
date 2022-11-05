@@ -27,25 +27,27 @@ const createStudyTopicService = async (userId: string, { name, categories }: ISt
   const { id, lessons, createdAt, updatedAt } = newStudyTopic;
 
   const categoriesList: ICategories[] = [];
+  
+  if(categories && categories.length > 0) {
+    for (const category of categories) {
+      const currentCategory = await categoryRepository.findOneBy({
+        name: category
+      });
 
-  for (const category of categories) {
-    const currentCategory = await categoryRepository.findOneBy({
-      name: category
-    });
+      if (!currentCategory) {
+        throw new AppError("Category not found", 404);
+      }
 
-    if (!currentCategory) {
-      throw new AppError("Category not found", 404);
+      categoriesList.push(currentCategory);
     }
 
-    categoriesList.push(currentCategory);
-  }
-
-  categoriesList.forEach(async (category) => {
-    await studyTopicCategoryRepository.save({
-      studyTopic: newStudyTopic,
-      category
+    categoriesList.forEach(async (category) => {
+      await studyTopicCategoryRepository.save({
+        studyTopic: newStudyTopic,
+        category
+      });
     });
-  });
+  }
 
   const studyTopic = {
     id,
