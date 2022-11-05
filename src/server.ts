@@ -5,13 +5,13 @@ import "dotenv/config";
 (async () => {
   await AppDataSource.initialize()
     .then(() => {
-      console.log("Database connected");
+      console.log(" Database connected ");
     })
     .catch((error) => {
       console.log(error);
     });
 
   app.listen(process.env.PORT || 3000, () => {
-    console.log("Server running");
+    console.log(" Server running ");
   });
 })();

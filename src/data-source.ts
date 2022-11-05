@@ -1,4 +1,4 @@
-/* eslint-disable indent */
+/*eslint-disable indent*/
 import { DataSource } from "typeorm";
 import "dotenv/config";
 
