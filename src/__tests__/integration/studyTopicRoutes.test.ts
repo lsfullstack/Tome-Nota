@@ -51,100 +51,227 @@ describe("/study-topics", () => {
     expect(response.body).toHaveProperty("id");
     expect(response.body).toHaveProperty("name");
     expect(response.body).toHaveProperty("categories");
-    expect(response.body).toHaveProperty("lessons");
     expect(response.body).toHaveProperty("user");
     expect(response.body).toHaveProperty("createdAt");
     expect(response.body).toHaveProperty("updatedAt");
     expect(response.status).toBe(201);
   });
 
-  // test("POST /properties -  should not be able to create property that already exists", async () => {
-  //   const categories = await request(app).get("/categories");
-  //   const adminLoginResponse = await request(app)
-  //     .post("/login")
-  //     .send(mockedAdminLogin);
-  //   mockedProperty.categoryId = categories.body[0].id;
-  //   const response = await request(app)
-  //     .post("/properties")
-  //     .set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
-  //     .send(mockedProperty);
+  test("POST /study-topics - Should not be able to create a study topic without authentication", async () => {
+    const response = await request(app)
+      .post("/study-topics")
+      .send(studyTopicMock);
 
-  //   expect(response.body).toHaveProperty("message");
-  //   expect(response.status).toBe(400);
-  // });
+    expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe("Missing authorization headers");
+    expect(response.status).toBe(401);
+  });
 
-  // test("POST /properties -  should not be able to create property not being admin", async () => {
-  //   const categories = await request(app).get("/categories");
-  //   const userLoginResponse = await request(app)
-  //     .post("/login")
-  //     .send(mockedUserLogin);
-  //   mockedProperty.categoryId = categories.body[0].id;
-  //   const response = await request(app)
-  //     .post("/properties")
-  //     .set("Authorization", `Bearer ${userLoginResponse.body.token}`)
-  //     .send(mockedProperty);
+  test("GET /study-topics/:id - Should be able to return study topic by id", async () => {
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
 
-  //   expect(response.body).toHaveProperty("message");
-  //   expect(response.status).toBe(403);
-  // });
+    const studyTopic = await request(app)
+      .get("/study-topics")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
-  // test("POST /properties -  should not be able to create property without authentication", async () => {
-  //   const categories = await request(app).get("/categories");
-  //   mockedProperty.categoryId = categories.body[0].id;
-  //   const response = await request(app)
-  //     .post("/properties")
-  //     .send(mockedProperty);
+    const response = await request(app)
+      .get(`/study-topics/${studyTopic.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
-  //   expect(response.body).toHaveProperty("message");
-  //   expect(response.status).toBe(401);
-  // });
+    expect(response.body).toHaveProperty("id");
+    expect(response.body).toHaveProperty("name");
+    expect(response.body).toHaveProperty("categories");
+    expect(response.body).toHaveProperty("user");
+    expect(response.body).toHaveProperty("createdAt");
+    expect(response.body).toHaveProperty("updatedAt");
+    expect(response.status).toBe(200);
+  });
 
-  // test("POST /properties -  should not be able to create property with invalid categoryId", async () => {
-  //   const adminLoginResponse = await request(app)
-  //     .post("/login")
-  //     .send(mockedAdminLogin);
-  //   const response = await request(app)
-  //     .post("/properties")
-  //     .set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
-  //     .send(mockedPropertyInvalidCategoryId);
+  test("GET /study-topics/:id - Should not be able to return study topic without authentication", async () => {
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
 
-  //   expect(response.body).toHaveProperty("message");
-  //   expect(response.status).toBe(404);
-  // });
+    const studyTopic = await request(app)
+      .get("/study-topics")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
-  // test("POST /properties -  must not be able to create a property with invalid zipCode", async () => {
-  //   const categories = await request(app).get("/categories");
-  //   const adminLoginResponse = await request(app)
-  //     .post("/login")
-  //     .send(mockedAdminLogin);
-  //   mockedPropertyInvalidZipCode.categoryId = categories.body[0].id;
-  //   const response = await request(app)
-  //     .post("/properties")
-  //     .set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
-  //     .send(mockedPropertyInvalidZipCode);
+    const response = await request(app).get(
+      `/study-topics/${studyTopic.body[0].id}`
+    );
 
-  //   expect(response.body).toHaveProperty("message");
-  //   expect(response.status).toBe(400);
-  // });
+    expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe("Missing authorization headers");
+    expect(response.status).toBe(401);
+  });
 
-  // test("POST /properties -  must not be able to create a property with invalid state", async () => {
-  //   const categories = await request(app).get("/categories");
-  //   const adminLoginResponse = await request(app)
-  //     .post("/login")
-  //     .send(mockedAdminLogin);
-  //   mockedPropertyInvalidState.categoryId = categories.body[0].id;
-  //   const response = await request(app)
-  //     .post("/properties")
-  //     .set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
-  //     .send(mockedPropertyInvalidState);
+  test("GET /study-topics/:id - Should not be able to return study topic without authentication", async () => {
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
 
-  //   expect(response.body).toHaveProperty("message");
-  //   expect(response.status).toBe(400);
-  // });
+    const response = await request(app)
+      .get("/study-topics/ce381027-d5b3-463a-bdea-c92884c8e362")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
-  // test("GET /properties -  Must be able to list all properties", async () => {
-  //   const response = await request(app).get("/properties");
-  //   expect(response.body).toHaveLength(1);
-  //   expect(response.status).toBe(200);
-  // });
+    expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe("Study topic not found");
+    expect(response.status).toBe(404);
+  });
+
+  test("GET /study-topics - Should be able to list study topics", async () => {
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
+
+    const response = await request(app)
+      .get("/study-topics")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    expect(response.body).toHaveLength(1);
+    expect(response.status).toBe(200);
+  });
+
+  test("GET /study-topics - Should not be able to list study topics without authentication", async () => {
+    const response = await request(app).get("/study-topics");
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe("Missing authorization headers");
+    expect(response.status).toBe(401);
+  });
+
+  test("PATCH /study-topics/:id - Should be able to update study topic", async () => {
+    const data = { name: "Front-End" };
+
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
+
+    const studyTopic = await request(app)
+      .get("/study-topics")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const response = await request(app)
+      .patch(`/study-topics/${studyTopic.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`)
+      .send(data);
+
+    const updatedStudyTopic = await request(app)
+      .get("/study-topics")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    expect(updatedStudyTopic.body[0].name).toEqual("Front-End");
+    expect(response.status).toBe(200);
+  });
+
+  test("PATCH /study-topics/:id - Should not be able to update study topic without authentication", async () => {
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
+
+    const studyTopic = await request(app)
+      .get("/study-topics")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const response = await request(app).patch(
+      `/study-topics/${studyTopic.body[0].id}`
+    );
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe("Missing authorization headers");
+    expect(response.status).toBe(401);
+  });
+
+  test("PATCH /study-topics/:id - Should not be able to update study topic with invalid id", async () => {
+    const data = { name: "Front-End" };
+
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
+
+    const response = await request(app)
+      .patch("/study-topics/ce381027-d5b3-463a-bdea-c92884c8e362")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`)
+      .send(data);
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe("Study topic not found");
+    expect(response.status).toBe(404);
+  });
+
+  test("PATCH /study-topics/:id - Should not be able to update id field value", async () => {
+    const data = { id: "ce381027-d5b3-463a-bdea-c92884c8e362" };
+
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
+
+    const studyTopic = await request(app)
+      .get("/study-topics")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const response = await request(app)
+      .patch(`/study-topics/${studyTopic.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`)
+      .send(data);
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe(
+      "Only the name and categories fields can be changed"
+    );
+    expect(response.status).toBe(401);
+  });
+
+  test("PATCH /study-topics/:id - Should not be able to update user field value", async () => {
+    const data = { user: { name: "Kenzie" } };
+
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
+
+    const studyTopic = await request(app)
+      .get("/study-topics")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const response = await request(app)
+      .patch(`/study-topics/${studyTopic.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`)
+      .send(data);
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe(
+      "Only the name and categories fields can be changed"
+    );
+    expect(response.status).toBe(401);
+  });
+
+  test("DELETE /study-topics/:id - Should be able to delete study topic", async () => {
+    await request(app).post("/study-topics").send(studyTopicMock);
+
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
+
+    const studyTopic = await request(app)
+      .get("/study-topics")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const response = await request(app)
+      .delete(`/study-topics/${studyTopic.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    expect(response.status).toBe(204);
+  });
+
+  test("DELETE /study-topics/:id - Should not be able to delete study topic without authentication", async () => {
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
+
+    const studyTopic = await request(app)
+      .get("/study-topics")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const response = await request(app).delete(
+      `/study-topics/${studyTopic.body[0].id}`
+    );
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe("Missing authorization headers");
+    expect(response.status).toBe(401);
+  });
+
+  test("DELETE /study-topics/:id - Should not be able to delete study topic invalid id", async () => {
+    await request(app).post("/study-topics").send(studyTopicMock);
+
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
+
+    const response = await request(app)
+      .delete("/study-topics/ce381027-d5b3-463a-bdea-c92884c8e362")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe("Study topic not found");
+    expect(response.status).toBe(404);
+  });
 });
