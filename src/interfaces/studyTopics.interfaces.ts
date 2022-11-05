@@ -1,20 +1,24 @@
 import { IUser } from "./users.interfaces";
 
 export interface ICategories {
-    id: string
-    name: string
+  id: string;
+  name: string;
 }
 
 export interface IStudyTopicRequest {
-    id: string
-    name: string
-    categories: string[]
+  id: string;
+  name: string;
+  categories: string[];
 }
- 
+
 export interface IStudyTopic {
-    id: string
-    name: string
-    user: IUser
-    categories: ICategories[]
+  id: string;
+  name: string;
+  user: IUser;
+  categories: ICategories[];
 }
- 
+
+export interface IStudyTopicRequestTest {
+  name: string;
+  categories: string[];
+}

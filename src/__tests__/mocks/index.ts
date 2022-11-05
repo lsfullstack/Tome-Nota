@@ -1,4 +1,10 @@
-import {IUserLogin,IUserRequest,IUserRequestTest} from "../../interfaces/users.interfaces";
+import { ICategoryRequest } from "../../interfaces/categories.interfaces";
+import { IStudyTopicRequestTest } from "../../interfaces/studyTopics.interfaces";
+import {
+  IUserLogin,
+  IUserRequest,
+  IUserRequestTest,
+} from "../../interfaces/users.interfaces";
 
 export const userMock: IUserRequest = {
   name: "Felipe",
@@ -40,4 +46,13 @@ export const userWithoutName: IUserRequestTest = {
   email: "leticia@mail.com",
   password: "12345",
   isAdm: false,
+};
+
+export const categoryMock: ICategoryRequest = {
+  name: "Desenvolvimento Web",
+};
+
+export const studyTopicMock: IStudyTopicRequestTest = {
+  name: "Desenvolvimento Web Front-End",
+  categories: ["Desenvolvimento Web"],
 };
