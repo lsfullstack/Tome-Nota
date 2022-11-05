@@ -1,13 +1,13 @@
-import {IStudyTopic} from "./studyTopics.interfaces";
+import { IStudyTopic } from "./studyTopics.interfaces";
 
-export interface ILessonRequest{
+export interface ILessonRequest {
   name: string;
 }
-export interface ILesson{
-    name :string;
-    studyTopic: IStudyTopic;
+export interface ILesson {
+  name: string;
+  studyTopic: IStudyTopic;
 }
 
-export interface ILessonUpdate{
-  name :string;
+export interface ILessonUpdate {
+  name: string;
 }
