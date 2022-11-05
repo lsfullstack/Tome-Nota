@@ -6,6 +6,7 @@ import usersRoutes from "./routes/users.routes";
 import sessionRoutes from "./routes/session.routes";
 import categoriesRoutes from "./routes/categories.routes";
 import studyTopicsRoutes from "./routes/studyTopics.routes";
+import lessonRoutes from "./routes/lessons.routes";
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use("/users", usersRoutes);
 app.use("/login", sessionRoutes);
 app.use("/categories", categoriesRoutes);
 app.use("/study-topics", studyTopicsRoutes);
+app.use("/lesson", lessonRoutes);
 
 app.use(handleErrorMiddleware);
 
