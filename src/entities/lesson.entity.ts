@@ -29,7 +29,7 @@ class Lesson {
   @OneToMany(() => ExtraContent, (extraContent) => extraContent.lesson)
   extraContents: ExtraContent[];
 
-  @OneToOne(() => Video, { eager: true })
+  @OneToOne(() => Video, { eager: true, nullable: true })
   @JoinColumn()
   video: Video;
 }
