@@ -105,7 +105,7 @@
 >
 >```json
 > {
->   "message": "Missing authorization headers",
+>   "message": "Missing authorization headers"
 > }
 >```
 >---
@@ -130,7 +130,7 @@
 >   "isAdm": false,
 >   "isActive": true,
 >   "createdAt": "2022-10-21T23:19:09.501Z",
->   "updatedAt": "2022-10-21T23:19:09.501Z",
+>   "updatedAt": "2022-10-21T23:19:09.501Z"
 > }
 >```
 > ## Sem token / token inválido
@@ -175,7 +175,7 @@
 >      "isAdm": false,
 >      "isActive": true,
 >      "createdAt": "2022-10-30T17:00:27.841Z",
->      "updatedAt": "2022-10-30T17:00:27.841Z",
+>      "updatedAt": "2022-10-30T17:00:27.841Z"
 >    },
 >    {
 >      "id": "d43cb0e4-7e4f-4809-969e-d3afcaa3afea",
@@ -248,7 +248,7 @@
 >
 >```json
 > {
->   "message": "Missing authorization headers",
+>   "message": "Missing authorization headers"
 > }
 >```
 > ## Id inválido
@@ -258,7 +258,7 @@
 >
 >```json
 > {
->   "message": "User not found",
+>   "message": "User not found"
 > }
 >```
 > ## Atualizando outro usuário sem ser administrador
@@ -362,7 +362,7 @@
 >
 >```json
 > {
->   "message": "Invalid e-mail or password",
+>   "message": "Invalid e-mail or password"
 > }
 >```
 >---
@@ -448,11 +448,11 @@
 >   "lessons": [
 >     {
 >       "id": "6c485c93-3dc5-422c-bbc4-51223eb4ace5",
->       "name": "Estrutura básica do HTML",
+>       "name": "Estrutura básica do HTML"
 >     },
 >     {
 >       "id": "8acbc942-3f8f-416e-95e7-9c288ec33f39",
->       "name": "Aplicando CSS no HTML",
+>       "name": "Aplicando CSS no HTML"
 >     }
 >   ],
 >   "user": {
@@ -485,7 +485,7 @@
 >
 >```json
 > {
->   "message": "Study topic not found",
+>   "message": "Study topic not found"
 > }
 >```
 >---
@@ -513,11 +513,11 @@
 >     "lessons": [
 >       {
 >         "id": "6c485c93-3dc5-422c-bbc4-51223eb4ace5",
->         "name": "Estrutura básica do HTML",
+>         "name": "Estrutura básica do HTML"
 >       },
 >       {
 >         "id": "8acbc942-3f8f-416e-95e7-9c288ec33f39",
->         "name": "Aplicando CSS no HTML",
+>         "name": "Aplicando CSS no HTML"
 >       }
 >     ],
 >     "user": {
@@ -542,7 +542,7 @@
 >     "lessons": [
 >       {
 >         "id": "2ff79724-455d-4a41-b160-382640580f95",
->         "name": "Métodos de Array",
+>         "name": "Métodos de Array"
 >       },
 >     ],
 >     "user": {
@@ -556,7 +556,7 @@
 >     },
 >     "createdAt": "2022-10-25T20:47:27.856Z",
 >     "updatedAt": "2022-10-25T20:47:27.856Z"
->   },
+>   }
 > ]
 >```
 > ## Sem token / token inválido
@@ -585,7 +585,7 @@
 >   "categories": [
 >     "Programação",
 >     "Desenvolvimento Web"
->   ],
+>   ]
 > }
 >```
 >> ## Formato da resposta:
@@ -603,11 +603,11 @@
 >   "lessons": [
 >     {
 >       "id": "6c485c93-3dc5-422c-bbc4-51223eb4ace5",
->       "name": "Estrutura básica do HTML",
+>       "name": "Estrutura básica do HTML"
 >     },
 >     {
 >       "id": "8acbc942-3f8f-416e-95e7-9c288ec33f39",
->       "name": "Aplicando CSS no HTML",
+>       "name": "Aplicando CSS no HTML"
 >     }
 >   ],
 >   "user": {
@@ -640,7 +640,7 @@
 >
 >```json
 > {
->   "message": "Study topic not found",
+>   "message": "Study topic not found"
 > }
 >```
 > ## Atualizando outros campos
@@ -683,7 +683,7 @@
 >
 >```json
 > {
->   "message": "Study topic not found",
+>   "message": "Study topic not found"
 > }
 >```
 >---
@@ -728,7 +728,7 @@
 >
 >```json
 > {
->   "message": "Missing authorization headers",
+>   "message": "Missing authorization headers"
 > }
 >```
 > ## Id inválido
@@ -786,7 +786,7 @@
 >
 >```json
 > {
->   "message": "Missing authorization headers",
+>   "message": "Missing authorization headers"
 > }
 >```
 > ## Id inválido
@@ -891,7 +891,7 @@
 >
 >```json
 > {
->   "message": "Lesson not found",
+>   "message": "Lesson not found"
 > }
 >```
 > ## Atualizando outros campos
@@ -934,7 +934,7 @@
 >
 >```json
 > {
->   "message": "Lesson not found",
+>   "message": "Lesson not found"
 > }
 >```
 >---
@@ -974,7 +974,7 @@
 >
 >```json
 > {
->   "message": "Missing authorization headers",
+>   "message": "Missing authorization headers"
 > }
 >```
 > ## Criando categorias sem ser administrador
@@ -1019,7 +1019,7 @@
 >
 >```json
 > {
->   "message": "Missing authorization headers",
+>   "message": "Missing authorization headers"
 > }
 >```
 >---
@@ -1056,7 +1056,7 @@
 > * Status: `404 NOT FOUND`;
 >```json
 > {
->   "message": "category not found"
+>   "message": "Category not found"
 > }
 >```
 >---
@@ -1102,7 +1102,7 @@
 >
 >```json
 > {
->   "message": "category not found",
+>   "message": "Category not found"
 > }
 >```
 > ## Atualizando outros campos
@@ -1156,7 +1156,7 @@
 >
 >```json
 > {
->   "message": "Category not found",
+>   "message": "Category not found"
 > }
 >```
 > ## Deletando categorias sem ser administrador
@@ -1178,3 +1178,226 @@
 
 <br>
 
+> # Create Text - POST `/text/:id-lesson`
+>> ## Formato da requisição:
+>
+> * Necessário autenticação por `token`;
+>
+>```json
+> {
+>   "title": "Método ForEach"
+> }
+>```
+>> ## Formato da resposta:
+>
+> * Status: `201 CREATED`;
+>
+>```json
+> {
+>   "id": "1fe4fdb6-344d-42c1-bad9-6379458d46ce",
+>   "title": "Método ForEach",
+>   "paragraphs": [],
+>   "lesson": {
+>     "id": "6f7b8806-38f4-4bc6-b8d7-02a0c330ef7f",
+>     "name": "JavaScript - Métodos de Array"
+>   }
+> }
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>
+> * Status: `404 NOT FOUND`;
+>```json
+> {
+>   "message": "Lesson not found"
+> }
+>```
+>---
+
+<br>
+
+> # List Texts - GET `/text/:id-lesson`
+>> ## Formato da requisição:
+>
+> * Necessário autenticação por `token`;
+>      
+>> ## Formato da resposta:
+>
+> * Status: `200 OK`;
+>
+>```json
+> [
+>   {
+>     "id": "1fe4fdb6-344d-42c1-bad9-6379458d46ce",
+>     "title": "Método ForEach",
+>     "paragraphs": [
+>       {
+>         "id": "44e5d0b9-ea1c-4578-a806-10e96a484bc5",
+>         "description": "O método forEach( ) executa uma dada função em cada elemento de um array."
+>       },
+>       {
+>         "id": "574a5ddb-20b5-440e-b919-5bda4d48c4fa",
+>         "description": "O forEach executa o callback fornecido uma vez para cada elemento da ordem com um valor atribuido. Ele não é invocado para propriedades de índices que foram deletados ou que não foram inicializados (por ex. em arrays esparsos)."
+>       }
+>     ],
+>     "lesson": {
+>       "id": "6f7b8806-38f4-4bc6-b8d7-02a0c330ef7f",
+>       "name": "JavaScript - Métodos de Array"
+>     }
+>   },
+>   {
+>     "id": "4279dc65-d045-4f50-b4b9-e2d7bd500e06",
+>     "title": "Método Map",
+>     "paragraphs": [
+>       {
+>         "id": "897d298b-cec5-455c-b789-eb47cfbe4b12",
+>         "description": "O método map( ) cria uma nova matriz preenchida com os resultados da chamada de uma função fornecida em cada elemento na matriz de chamada."
+>       }
+>     ],
+>     "lesson": {
+>       "id": "6f7b8806-38f4-4bc6-b8d7-02a0c330ef7f",
+>       "name": "JavaScript - Métodos de Array"
+>     }
+>   },
+> ]
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>
+> * Status: `404 NOT FOUND`;
+>```json
+> {
+>   "message": "Lesson not found"
+> }
+>```
+>---
+
+<br>
+
+> # Update Text - PATCH `/text/:id-text`
+>> ## Formato da resposta:
+>
+> * Necessário autenticação por `token`;
+> * Apenas `title` pode ser alterado;
+>
+>```json
+> {
+>   "title": "Método de Array - ForEach"
+> }
+>```
+>> ## Formato da resposta:
+>
+> * Status: `200 OK`;
+>
+>```json
+> {
+>   "id": "1fe4fdb6-344d-42c1-bad9-6379458d46ce",
+>   "title": "Método de Array - ForEach",
+>   "paragraphs": [
+>     {
+>       "id": "44e5d0b9-ea1c-4578-a806-10e96a484bc5",
+>       "description": "O método forEach( ) executa uma dada função em cada elemento de um array."
+>     },
+>     {
+>       "id": "574a5ddb-20b5-440e-b919-5bda4d48c4fa",
+>       "description": "O forEach executa o callback fornecido uma vez para cada elemento da ordem com um valor atribuido. Ele não é invocado para propriedades de índices que foram deletados ou que não foram inicializados (por ex. em arrays esparsos)."
+>     }
+>   ],
+>   "lesson": {
+>     "id": "6f7b8806-38f4-4bc6-b8d7-02a0c330ef7f",
+>     "name": "JavaScript - Métodos de Array"
+>   }
+> }
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+> 
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>
+> * Status: `404 NOT FOUND`;
+>```json
+> {
+>   "message": "Text not found"
+> }
+>```
+> ## Atualizando outros campos
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Only the title field can be changed"
+> }
+>```
+>---
+
+<br>
+
+> # Delete Text - DELETE `/text/:id-text`
+>> ## Formato da resposta:
+>
+> * Necessário autenticação por `token`;
+> 
+>> ## Formato da resposta:
+>
+> * Status: `204 NO CONTENT`;
+>
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+> 
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>  
+> * Status: `404 NOT FOUND`;
+>
+>```json
+> {
+>   "message": "Text not found"
+> }
+>```
+>---
+
+<br>
+
+---
+---
+
+<br>
+
+ 
