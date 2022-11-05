@@ -2,15 +2,7 @@ import app from "../../app";
 import request from "supertest";
 import { DataSource } from "typeorm";
 import AppDataSource from "../../data-source";
-import {
-  adminMock,
-  adminLoginMock,
-  userMock,
-  userLoginMock,
-  userWithoutPassword,
-  userWithoutIsAdm,
-  userWithoutName,
-} from "../mocks";
+import { adminMock, adminLoginMock, userMock, userLoginMock, userWithoutPassword, userWithoutIsAdm, userWithoutName} from "../mocks";
 
 describe("/users", () => {
   let connection: DataSource;

@@ -2,14 +2,7 @@ import app from "../../app";
 import request from "supertest";
 import { DataSource } from "typeorm";
 import AppDataSource from "../../data-source";
-import {
-  adminLoginMock,
-  adminMock,
-  categoryMock,
-  studyTopicMock,
-  userLoginMock,
-  userMock,
-} from "../mocks";
+import { adminLoginMock, adminMock, categoryMock, studyTopicMock, userLoginMock, userMock} from "../mocks";
 
 describe("/study-topics", () => {
   let connection: DataSource;
@@ -103,7 +96,7 @@ describe("/study-topics", () => {
     expect(response.status).toBe(401);
   });
 
-  test("GET /study-topics/:id - Should not be able to return study topic without authentication", async () => {
+  test("GET /study-topics/:id - Should not be able to return study topic with invalid id", async () => {
     const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const response = await request(app)
@@ -230,9 +223,12 @@ describe("/study-topics", () => {
   });
 
   test("DELETE /study-topics/:id - Should be able to delete study topic", async () => {
-    await request(app).post("/study-topics").send(studyTopicMock);
-
     const loginResponse = await request(app).post("/login").send(userLoginMock);
+
+    await request(app)
+      .post("/study-topics")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`)
+      .send(studyTopicMock);
 
     const studyTopic = await request(app)
       .get("/study-topics")
@@ -261,10 +257,13 @@ describe("/study-topics", () => {
     expect(response.status).toBe(401);
   });
 
-  test("DELETE /study-topics/:id - Should not be able to delete study topic invalid id", async () => {
-    await request(app).post("/study-topics").send(studyTopicMock);
-
+  test("DELETE /study-topics/:id - Should not be able to delete study topic with invalid id", async () => {
     const loginResponse = await request(app).post("/login").send(userLoginMock);
+
+    await request(app)
+      .post("/study-topics")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`)
+      .send(studyTopicMock);
 
     const response = await request(app)
       .delete("/study-topics/ce381027-d5b3-463a-bdea-c92884c8e362")

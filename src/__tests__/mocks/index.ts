@@ -1,10 +1,7 @@
 import { ICategoryRequest } from "../../interfaces/categories.interfaces";
+import { ILessonRequest } from "../../interfaces/lessons.interface";
 import { IStudyTopicRequestTest } from "../../interfaces/studyTopics.interfaces";
-import {
-  IUserLogin,
-  IUserRequest,
-  IUserRequestTest,
-} from "../../interfaces/users.interfaces";
+import { IUserLogin, IUserRequest, IUserRequestTest} from "../../interfaces/users.interfaces";
 
 export const userMock: IUserRequest = {
   name: "Felipe",
@@ -55,4 +52,8 @@ export const categoryMock: ICategoryRequest = {
 export const studyTopicMock: IStudyTopicRequestTest = {
   name: "Desenvolvimento Web Front-End",
   categories: ["Desenvolvimento Web"],
+};
+
+export const lessonMock: ILessonRequest = {
+  name: "JavaScript - Métodos de Array",
 };
