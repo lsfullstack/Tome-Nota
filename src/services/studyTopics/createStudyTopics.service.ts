@@ -4,13 +4,21 @@ import { StudyTopic } from "../../entities/studyTopic.entity";
 import { StudyTopicCategory } from "../../entities/studyTopicCategory.entity";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppError";
-import { ICategories, IStudyTopic, IStudyTopicRequest } from "../../interfaces/studyTopics.interfaces";
+import {
+  ICategories,
+  IStudyTopic,
+  IStudyTopicRequest,
+} from "../../interfaces/studyTopics.interfaces";
 
-const createStudyTopicService = async (userId: string, { name, categories }: IStudyTopicRequest): Promise<IStudyTopic> => {
+const createStudyTopicService = async (
+  userId: string,
+  { name, categories }: IStudyTopicRequest
+): Promise<IStudyTopic> => {
   const userRepository = AppDataSource.getRepository(User);
   const categoryRepository = AppDataSource.getRepository(Category);
   const studyTopicRepository = AppDataSource.getRepository(StudyTopic);
-  const studyTopicCategoryRepository = AppDataSource.getRepository(StudyTopicCategory);
+  const studyTopicCategoryRepository =
+    AppDataSource.getRepository(StudyTopicCategory);
 
   const user = await userRepository.findOneBy({ id: userId });
 
@@ -20,18 +28,19 @@ const createStudyTopicService = async (userId: string, { name, categories }: ISt
 
   const newStudyTopic = studyTopicRepository.create({
     name,
-    user
+    lessons: [],
+    user,
   });
   await studyTopicRepository.save(newStudyTopic);
 
   const { id, lessons, createdAt, updatedAt } = newStudyTopic;
 
   const categoriesList: ICategories[] = [];
-  
-  if(categories && categories.length > 0) {
+
+  if (categories && categories.length > 0) {
     for (const category of categories) {
       const currentCategory = await categoryRepository.findOneBy({
-        name: category
+        name: category,
       });
 
       if (!currentCategory) {
@@ -44,7 +53,7 @@ const createStudyTopicService = async (userId: string, { name, categories }: ISt
     categoriesList.forEach(async (category) => {
       await studyTopicCategoryRepository.save({
         studyTopic: newStudyTopic,
-        category
+        category,
       });
     });
   }
