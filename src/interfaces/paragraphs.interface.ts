@@ -2,6 +2,7 @@ export interface IParagraphRequest {
   description: string;
 }
 export interface IParagraph {
+  id: string;
   description: string;
 }
 

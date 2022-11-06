@@ -7,10 +7,7 @@ import {
   IParagraphRequest,
 } from "../../interfaces/paragraphs.interface";
 
-const createParagraphService = async (
-  { description }: IParagraphRequest,
-  textId: string
-): Promise<IParagraph> => {
+const createParagraphService = async ({ description }: IParagraphRequest, textId: string): Promise<IParagraph> => {
   const paragraphRepository = AppDataSource.getRepository(Paragraph);
   const textRepository = AppDataSource.getRepository(Text);
   const text = await textRepository.findOneBy({

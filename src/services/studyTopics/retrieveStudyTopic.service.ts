@@ -3,27 +3,21 @@ import { Category } from "../../entities/category.entity";
 import { StudyTopic } from "../../entities/studyTopic.entity";
 import { StudyTopicCategory } from "../../entities/studyTopicCategory.entity";
 import { AppError } from "../../errors/AppError";
-import {
-  ICategories,
-  IStudyTopic,
-} from "../../interfaces/studyTopics.interfaces";
+import { ICategory } from "../../interfaces/categories.interfaces";
+import { IStudyTopic } from "../../interfaces/studyTopics.interfaces";
 
-const retrieveStudyTopicService = async (
-  studyTopicId: string
-): Promise<IStudyTopic> => {
+const retrieveStudyTopicService = async (studyTopicId: string): Promise<IStudyTopic> => {
   const studyTopicRepository = AppDataSource.getRepository(StudyTopic);
-  const studyCategoryRepository =
-    AppDataSource.getRepository(StudyTopicCategory);
+  const studyCategoryRepository = AppDataSource.getRepository(StudyTopicCategory);
   const categoryRepository = AppDataSource.getRepository(Category);
-
   const findStudyTopic = await studyTopicRepository.findOne({
     where: {
       id: studyTopicId,
     },
     relations: {
       user: true,
-      lessons: true,
-    },
+      lessons: true
+    }
   });
 
   if (!findStudyTopic) {
@@ -35,19 +29,19 @@ const retrieveStudyTopicService = async (
   const categories = await studyCategoryRepository.find({
     where: {
       studyTopic: {
-        id: studyTopicId,
-      },
+        id: studyTopicId
+      }
     },
     relations: {
-      category: true,
-    },
+      category: true
+    }
   });
 
-  const categoriesList: ICategories[] = [];
+  const categoriesList: ICategory[] = [];
 
   for (const category of categories) {
     const currentCategory = await categoryRepository.findOneBy({
-      name: category.category.name,
+      name: category.category.name
     });
 
     if (!currentCategory) {
@@ -64,7 +58,7 @@ const retrieveStudyTopicService = async (
     lessons,
     user,
     createdAt,
-    updatedAt,
+    updatedAt
   };
 
   return studyTopic;

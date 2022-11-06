@@ -2,7 +2,7 @@ import AppDataSource from "../../data-source";
 import { Text } from "../../entities/text.entity";
 import { AppError } from "../../errors/AppError";
 
-const deleteTextService = async (id: string) => {
+const deleteTextService = async (id: string): Promise<void> => {
   const textRepository = AppDataSource.getRepository(Text);
   const text = await textRepository.findOneBy({ id });
 
@@ -10,7 +10,7 @@ const deleteTextService = async (id: string) => {
     throw new AppError("Text not found", 404);
   }
 
-  await textRepository.delete({ id: id });
+  await textRepository.delete({ id });
 };
 
 export default deleteTextService;

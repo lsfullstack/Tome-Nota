@@ -2,7 +2,7 @@ import AppDataSource from "../../data-source";
 import { StudyTopic } from "../../entities/studyTopic.entity";
 import { AppError } from "../../errors/AppError";
 
-const deleteStudyTopicService = async (id: string) => {
+const deleteStudyTopicService = async (id: string): Promise<void> => {
   const studyTopicRepository = AppDataSource.getRepository(StudyTopic);
   const findStudyTopic = await studyTopicRepository.findOneBy({ id });
 
@@ -10,7 +10,7 @@ const deleteStudyTopicService = async (id: string) => {
     throw new AppError("Study topic not found", 404);
   }
 
-  await studyTopicRepository.delete({ id: id });
+  await studyTopicRepository.delete({ id });
 };
 
 export default deleteStudyTopicService;

@@ -1,12 +1,11 @@
 import AppDataSource from "../../data-source";
 import { Category } from "../../entities/category.entity";
 import { AppError } from "../../errors/AppError";
-import { ICategoryUpdate } from "../../interfaces/categories.interfaces";
+import { ICategory, ICategoryUpdate } from "../../interfaces/categories.interfaces";
 
-const updateCategoryService = async (name: ICategoryUpdate, id: string) => {
+const updateCategoryService = async (name: ICategoryUpdate, id: string): Promise<ICategory> => {
   const categoryRepository = AppDataSource.getRepository(Category);
   const findCategory = await categoryRepository.findOneBy({ id });
-
   const verifyBlockedFields = Object.keys(name).some((e) => e === "id");
 
   if (verifyBlockedFields) {
@@ -20,7 +19,7 @@ const updateCategoryService = async (name: ICategoryUpdate, id: string) => {
   await categoryRepository.update(id, name);
 
   const updatedCategory = await categoryRepository.findOneBy({
-    id,
+    id
   });
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

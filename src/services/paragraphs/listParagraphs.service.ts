@@ -2,11 +2,11 @@ import AppDataSource from "../../data-source";
 import { Paragraph } from "../../entities/paragraph.entity";
 import { Text } from "../../entities/text.entity";
 import { AppError } from "../../errors/AppError";
+import { IParagraph } from "../../interfaces/paragraphs.interface";
 
-const listParagraphsService = async (id: string) => {
+const listParagraphsService = async (id: string): Promise<IParagraph[]> => {
   const paragraphRepository = AppDataSource.getRepository(Paragraph);
   const textRepository = AppDataSource.getRepository(Text);
-
   const findText = await textRepository.findOneBy({ id });
 
   if (!findText) {
@@ -16,12 +16,12 @@ const listParagraphsService = async (id: string) => {
   const paragraphs = await paragraphRepository.find({
     where: {
       text: {
-        id: findText.id,
-      },
+        id: findText.id
+      }
     },
     relations: {
-      text: true,
-    },
+      text: true
+    }
   });
 
   return paragraphs;

@@ -1,10 +1,10 @@
 import AppDataSource from "../../data-source";
 import { Lesson } from "../../entities/lesson.entity";
 import { AppError } from "../../errors/AppError";
+import { ILesson } from "../../interfaces/lessons.interface";
 
-const updateLessonService = async (id: string, name: string) => {
+const updateLessonService = async (id: string, name: string): Promise<ILesson> => {
   const lessonRepository = AppDataSource.getRepository(Lesson);
-
   const lesson = await lessonRepository.findOneBy({ id });
 
   if (!lesson) {
@@ -24,7 +24,7 @@ const updateLessonService = async (id: string, name: string) => {
     },
   });
 
-  return updatedLesson;
+  return updatedLesson!;
 };
 
 export default updateLessonService;

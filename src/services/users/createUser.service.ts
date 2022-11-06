@@ -9,7 +9,7 @@ const createUserService = async ({ name, email, password, isAdm }: IUserRequest)
     name,
     email,
     isAdm,
-    password: await hash(password, 10),
+    password: await hash(password, 10)
   });
 
   await userRepository.save(newUser);

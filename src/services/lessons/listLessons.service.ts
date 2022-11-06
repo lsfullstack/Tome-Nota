@@ -2,8 +2,9 @@ import AppDataSource from "../../data-source";
 import { Lesson } from "../../entities/lesson.entity";
 import { StudyTopic } from "../../entities/studyTopic.entity";
 import { AppError } from "../../errors/AppError";
+import { ILesson } from "../../interfaces/lessons.interface";
 
-const listLessonsService = async (id: string) => {
+const listLessonsService = async (id: string): Promise<ILesson[]> => {
   const lessonRepository = AppDataSource.getRepository(Lesson);
   const studyTopicRepository = AppDataSource.getRepository(StudyTopic);
 

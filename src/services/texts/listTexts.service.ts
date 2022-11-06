@@ -6,7 +6,6 @@ import { AppError } from "../../errors/AppError";
 const listTextsService = async (id: string) => {
   const textRepository = AppDataSource.getRepository(Text);
   const studyTopicRepository = AppDataSource.getRepository(Lesson);
-
   const findLesson = await studyTopicRepository.findOneBy({ id });
 
   if (!findLesson) {
@@ -16,13 +15,13 @@ const listTextsService = async (id: string) => {
   const texts = await textRepository.find({
     where: {
       lesson: {
-        id: findLesson.id,
-      },
+        id: findLesson.id
+      }
     },
     relations: {
       paragraphs: true,
-      lesson: true,
-    },
+      lesson: true
+    }
   });
 
   return texts;
