@@ -4,19 +4,13 @@ import { AppError } from "../../errors/AppError";
 
 const deleteStudyTopicService = async (id: string) => {
   const studyTopicRepository = AppDataSource.getRepository(StudyTopic);
-  const findStudyTopic = await studyTopicRepository.findOneBy({
-    // where: {
-    id
-    // }
-  });
-  console.log(findStudyTopic);
+  const findStudyTopic = await studyTopicRepository.findOneBy({ id });
 
-  if(!findStudyTopic){
+  if (!findStudyTopic) {
     throw new AppError("Study topic not found", 404);
   }
 
-  await studyTopicRepository.delete(id);
-
+  await studyTopicRepository.delete({ id: id });
 };
 
 export default deleteStudyTopicService;
