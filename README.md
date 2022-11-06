@@ -1400,7 +1400,7 @@
 
 <br>
 
-> # Create Paragraph - POST `/paragraph/:id-text`
+> # Create Paragraph - POST `/paragraphs/:id-text`
 >> ## Formato da requisição:
 >
 > * Necessário autenticação por `token`;
@@ -1447,7 +1447,7 @@
 
 <br>
 
-> # List Paragraphs - GET `/paragraph/:id-text`
+> # List Paragraphs - GET `/paragraphs/:id-text`
 >> ## Formato da requisição:
 >
 > * Necessário autenticação por `token`;
@@ -1499,7 +1499,7 @@
 
 <br>
 
-> # Update Paragraph - PATCH `/text/:id-paragraph`
+> # Update Paragraph - PATCH `/paragraphs/:id-paragraph`
 >> ## Formato da resposta:
 >
 > * Necessário autenticação por `token`;
@@ -1557,7 +1557,7 @@
 
 <br>
 
-> # Delete Paragraph - DELETE `/text/:id-paragraph`
+> # Delete Paragraph - DELETE `/paragraphs/:id-paragraph`
 >> ## Formato da resposta:
 >
 > * Necessário autenticação por `token`;
@@ -1584,6 +1584,195 @@
 >```json
 > {
 >   "message": "Paragraph not found"
+> }
+>```
+>---
+
+<br>
+
+---
+---
+
+<br>
+
+> # Create Video - POST `/video/:id-lesson`
+>> ## Formato da requisição:
+>
+> * Necessário autenticação por `token`;
+>
+>```json
+> {
+>   "name": "10 Métodos de Array que todo desenvolvedor precisa conhecer",
+>   "link": "https://www.youtube.com/watch?v=mnjQeXqA3Z0&ab_channel=MatheusBattisti-HoradeCodar"
+> }
+>```
+>> ## Formato da resposta:
+>
+> * Status: `201 CREATED`;
+>
+>```json
+> {
+>   "id": "fe534ca8-0b0b-42c6-beb7-42d8d7df77d6",
+>   "name": "10 Métodos de Array que todo desenvolvedor precisa conhecer",
+>   "link": "https://www.youtube.com/watch?v=mnjQeXqA3Z0&ab_channel=MatheusBattisti-HoradeCodar",
+>   "lesson": {
+>     "id": "6f7b8806-38f4-4bc6-b8d7-02a0c330ef7f",
+>     "name": "JavaScript - Métodos de Array"
+>   }
+> }
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>
+> * Status: `404 NOT FOUND`;
+>```json
+> {
+>   "message": "Lesson not found"
+> }
+>```
+>---
+
+<br>
+
+> # Retrieve Video - GET `/video/:id-video`
+>> ## Formato da requisição:
+>
+> * Necessário autenticação por `token`;
+>
+>> ## Formato da resposta:
+>
+> * Status: `200 OK`;
+>
+>```json
+> {
+>   "id": "fe534ca8-0b0b-42c6-beb7-42d8d7df77d6",
+>   "name": "10 Métodos de Array que todo desenvolvedor precisa conhecer",
+>   "link": "https://www.youtube.com/watch?v=mnjQeXqA3Z0&ab_channel=MatheusBattisti-HoradeCodar",
+>   "lesson": {
+>     "id": "6f7b8806-38f4-4bc6-b8d7-02a0c330ef7f",
+>     "name": "JavaScript - Métodos de Array"
+>   }
+> }
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>
+> * Status: `404 NOT FOUND`;
+>```json
+> {
+>   "message": "Video not found"
+> }
+>```
+>---
+
+<br>
+
+> # Update Video - PATCH `/video/:id-video`
+>> ## Formato da resposta:
+>
+> * Necessário autenticação por `token`;
+> * Apenas `name` e `link` podem ser alterados;
+>
+>```json
+> {
+>   "name": "Métodos que irão facilitar sua vida ao trabalhar com Arrays em Java - Curso de Java - Aula 30",
+>   "link": "https://www.youtube.com/watch?v=h-DohVfEslo&ab_channel=CFBCursos"
+> }
+>```
+>> ## Formato da resposta:
+>
+> * Status: `200 OK`;
+>
+>```json
+> {
+>   "id": "fe534ca8-0b0b-42c6-beb7-42d8d7df77d6",
+>   "name": "Métodos que irão facilitar sua vida ao trabalhar com Arrays em Java - Curso de Java - Aula 30",
+>   "link": "https://www.youtube.com/watch?v=h-DohVfEslo&ab_channel=CFBCursos",
+>   "lesson": {
+>     "id": "6f7b8806-38f4-4bc6-b8d7-02a0c330ef7f",
+>     "name": "JavaScript - Métodos de Array"
+>   }
+> }
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+> 
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>
+> * Status: `404 NOT FOUND`;
+>```json
+> {
+>   "message": "Video not found"
+> }
+>```
+> ## Atualizando outros campos
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Only the name and link fields can be changed"
+> }
+>```
+>---
+
+<br>
+
+> # Delete Video - DELETE `/video/:id-video`
+>> ## Formato da resposta:
+>
+> * Necessário autenticação por `token`;
+> 
+>> ## Formato da resposta:
+>
+> * Status: `204 NO CONTENT`;
+>
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+> 
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>  
+> * Status: `404 NOT FOUND`;
+>
+>```json
+> {
+>   "message": "Video not found"
 > }
 >```
 >---
