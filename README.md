@@ -1400,4 +1400,197 @@
 
 <br>
 
- 
+> # Create Paragraph - POST `/paragraph/:id-text`
+>> ## Formato da requisição:
+>
+> * Necessário autenticação por `token`;
+>
+>```json
+> {
+>   "description": "O método forEach( ) executa uma dada função em cada elemento de um array."
+> }
+>```
+>> ## Formato da resposta:
+>
+> * Status: `201 CREATED`;
+>
+>```json
+> {
+>   "id": "44e5d0b9-ea1c-4578-a806-10e96a484bc5",
+>   "description": "O método forEach( ) executa uma dada função em cada elemento de um array.",
+>   "text": {
+>     "id": "1fe4fdb6-344d-42c1-bad9-6379458d46ce",
+>     "title": "Método ForEach"
+>   }
+> }
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>
+> * Status: `404 NOT FOUND`;
+>```json
+> {
+>   "message": "Text not found"
+> }
+>```
+>---
+
+<br>
+
+> # List Paragraphs - GET `/paragraph/:id-text`
+>> ## Formato da requisição:
+>
+> * Necessário autenticação por `token`;
+>      
+>> ## Formato da resposta:
+>
+> * Status: `200 OK`;
+>
+>```json
+> [
+>   {
+>     "id": "44e5d0b9-ea1c-4578-a806-10e96a484bc5",
+>     "description": "O método forEach( ) executa uma dada função em cada elemento de um array.",
+>     "text": {
+>       "id": "1fe4fdb6-344d-42c1-bad9-6379458d46ce",
+>       "title": "Método ForEach"
+>     }
+>   },
+>   {
+>     "id": "574a5ddb-20b5-440e-b919-5bda4d48c4fa",
+>     "description": "O forEach executa o callback fornecido uma vez para cada elemento da ordem com um valor atribuido. Ele não é invocado para propriedades de índices que foram deletados ou que não foram inicializados (por ex. em arrays esparsos).",
+>     "text": {
+>       "id": "1fe4fdb6-344d-42c1-bad9-6379458d46ce",
+>       "title": "Método ForEach"
+>     }
+>   }
+> ]
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>
+> * Status: `404 NOT FOUND`;
+>```json
+> {
+>   "message": "Text not found"
+> }
+>```
+>---
+
+<br>
+
+> # Update Paragraph - PATCH `/text/:id-paragraph`
+>> ## Formato da resposta:
+>
+> * Necessário autenticação por `token`;
+> * Apenas `description` pode ser alterado;
+>
+>```json
+> {
+>   "description": "O método forEach( ) é usado para percorrer um Array, erxecutando uma função em cada elemento."
+> }
+>```
+>> ## Formato da resposta:
+>
+> * Status: `200 OK`;
+>
+>```json
+> {
+>   "id": "44e5d0b9-ea1c-4578-a806-10e96a484bc5",
+>   "description": "O método forEach( ) é usado para percorrer um Array, erxecutando uma função em cada elemento.",
+>   "text": {
+>     "id": "1fe4fdb6-344d-42c1-bad9-6379458d46ce",
+>     "title": "Método ForEach"
+>   }
+> }
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+> 
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>
+> * Status: `404 NOT FOUND`;
+>```json
+> {
+>   "message": "Paragraph not found"
+> }
+>```
+> ## Atualizando outros campos
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Only the descrition field can be changed"
+> }
+>```
+>---
+
+<br>
+
+> # Delete Paragraph - DELETE `/text/:id-paragraph`
+>> ## Formato da resposta:
+>
+> * Necessário autenticação por `token`;
+> 
+>> ## Formato da resposta:
+>
+> * Status: `204 NO CONTENT`;
+>
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+> 
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>  
+> * Status: `404 NOT FOUND`;
+>
+>```json
+> {
+>   "message": "Paragraph not found"
+> }
+>```
+>---
+
+<br>
+
+---
+---
+
+<br>
