@@ -8,6 +8,7 @@ import categoriesRoutes from "./routes/categories.routes";
 import studyTopicsRoutes from "./routes/studyTopics.routes";
 import lessonRoutes from "./routes/lessons.routes";
 import textRoutes from "./routes/text.routes";
+import paragraphsRoutes from "./routes/paragraphs.routes";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use("/categories", categoriesRoutes);
 app.use("/study-topics", studyTopicsRoutes);
 app.use("/lesson", lessonRoutes);
 app.use("/text", textRoutes);
+app.use("/paragraphs", paragraphsRoutes);
 
 app.use(handleErrorMiddleware);
 
