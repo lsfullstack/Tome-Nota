@@ -7,13 +7,10 @@ import { AppError } from "../../errors/AppError";
 import "dotenv/config";
 
 const createSessionService = async ({ email, password }: IUserLogin): Promise<string> => {
-
   const userRepository = AppDataSource.getRepository(User);
-
   const user = await userRepository.findOneBy({
-    email: email
+    email
   });
-
 
   const passwordMatch = await compare(password, user!.password);
 

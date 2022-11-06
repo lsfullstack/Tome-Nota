@@ -4,18 +4,15 @@ import { Lesson } from "../../entities/lesson.entity";
 import { AppError } from "../../errors/AppError";
 import { IText, ITextRequest } from "../../interfaces/texts.interface";
 
-const createTextService = async (
-  { title }: ITextRequest,
-  lessonId: string
-): Promise<IText> => {
+const createTextService = async ({ title }: ITextRequest, lessonId: string): Promise<IText> => {
   const textRepository = AppDataSource.getRepository(Text);
   const lessonRepository = AppDataSource.getRepository(Lesson);
   const lesson = await lessonRepository.findOneBy({
-    id: lessonId,
+    id: lessonId
   });
 
   if (!lesson) {
-    throw new AppError("Lesson not found");
+    throw new AppError("Lesson not found", 404);
   }
 
   const newText = textRepository.create({

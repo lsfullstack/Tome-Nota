@@ -1,10 +1,10 @@
 import AppDataSource from "../../data-source";
 import { Text } from "../../entities/text.entity";
 import { AppError } from "../../errors/AppError";
+import { IText } from "../../interfaces/texts.interface";
 
-const updateTextService = async (id: string, title: string) => {
+const updateTextService = async (id: string, title: string): Promise<IText> => {
   const textRepository = AppDataSource.getRepository(Text);
-
   const text = await textRepository.findOneBy({ id });
 
   if (!text) {
@@ -12,7 +12,7 @@ const updateTextService = async (id: string, title: string) => {
   }
 
   await textRepository.update(id, {
-    title,
+    title
   });
 
   const updatedText = await textRepository.findOne({
@@ -21,11 +21,11 @@ const updateTextService = async (id: string, title: string) => {
     },
     relations: {
       paragraphs: true,
-      lesson: true,
-    },
+      lesson: true
+    }
   });
 
-  return updatedText;
+  return updatedText!;
 };
 
 export default updateTextService;

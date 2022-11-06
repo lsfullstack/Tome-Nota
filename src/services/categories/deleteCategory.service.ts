@@ -4,16 +4,14 @@ import { StudyTopicCategory } from "../../entities/studyTopicCategory.entity";
 import { AppError } from "../../errors/AppError";
 
 const deleteCategoryService = async (id: string): Promise<void> => {
-
   const categoryRepository = AppDataSource.getRepository(Category);
   const studyTopicCategoryRepository = AppDataSource.getRepository(StudyTopicCategory);
-
   const findCategory = await categoryRepository.findOneBy({ id });
 
   if (!findCategory) {
     throw new AppError("Category not found", 404);
   }
-  console.log(findCategory);
+
   const findStudyTopicCategory = await studyTopicCategoryRepository.find({
     where:{
       category: findCategory

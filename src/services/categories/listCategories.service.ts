@@ -4,7 +4,6 @@ import { ICategory } from "../../interfaces/categories.interfaces";
 
 const listCategoriesService = async (): Promise<ICategory[]> => {
   const categoryRepository = AppDataSource.getRepository(Category);
-
   const categories = categoryRepository.find();
 
   return categories;

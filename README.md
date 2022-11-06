@@ -950,6 +950,7 @@
 >> ## Formato da requisição:
 >
 > * Necessário autenticação por `token`;
+> * Não deve ser possivel criar uma nova `categoria` com `name` já registrado;
 > * Apenas o `administrador` pode criar as `categories`;
 >
 >```json
@@ -985,6 +986,16 @@
 >```json
 > {
 >   "message": "User is not admin"
+> }
+>```
+> ## Criando categorias que já existem
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Category already exists"
 > }
 >```
 >---
@@ -1026,7 +1037,7 @@
 
 <br>
 
-> # Retrieve Category - GET `/categories/:id-categories`
+> # Retrieve Category - GET `/categories/:id-category`
 >> ## Formato da requisição:
 >
 > * Necessário autenticação por `token`;
@@ -1063,7 +1074,7 @@
 
 <br>
 
-> # Update Category - PATCH `/categories/:id-categories`
+> # Update Category - PATCH `/categories/:id-category`
 >> ## Formato da resposta:
 >
 > * Necessário autenticação por `token`;
@@ -1129,7 +1140,7 @@
 
 <br>
 
-> # Delete Category - DELETE `/categories/:id-categories`
+> # Delete Category - DELETE `/categories/:id-category`
 >> ## Formato da resposta:
 >
 > * Necessário autenticação por `token`;

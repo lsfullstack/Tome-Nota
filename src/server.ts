@@ -7,7 +7,7 @@ import AppDataSource from "./data-source";
   }).catch((error) => {
     console.log(error);
   });
-
+  
   app.listen(3000, () => {
     console.log("Server running");
   });
