@@ -18,7 +18,8 @@ export interface IStudyTopic {
   categories?: ICategories[];
 }
 
-export interface IStudyTopicRequestTest {
+export interface IStudyTopicUpdate {
+  id: string;
   name: string;
-  categories: string[];
+  categories?: ICategories[];
 }
