@@ -1,7 +1,6 @@
 import { instanceToPlain } from "class-transformer";
 import { Request, Response } from "express";
-import listStudyTopicsService from "../../services/studyTopics/listStudyTopics.services";
-
+import listStudyTopicsService from "../../services/studyTopics/listStudyTopics.service";
 
 const listStudyTopicsController = async (req: Request, res: Response) => {
   const userId = req.user.id;
