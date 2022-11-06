@@ -6,11 +6,12 @@ const listStudyTopicsService = async (id: string) => {
 
   const findStudyTopic = await studyTopicRepository.find({
     where: {
-      user: {id}
+      user: { id },
     },
     relations: {
-      user: true
-    }
+      user: true,
+      lessons: true,
+    },
   });
   console.log(findStudyTopic);
 
