@@ -746,7 +746,7 @@
 
 <br>
 
-> # List Lessons - GET `/lesson/:id-study-topic`
+> # List Lessons - GET `/lesson/study-topic/:id-study-topic`
 >> ## Formato da requisição:
 >
 > * Necessário autenticação por `token`;
@@ -1773,6 +1773,213 @@
 >```json
 > {
 >   "message": "Video not found"
+> }
+>```
+>---
+
+<br>
+
+---
+---
+
+<br>
+
+> # Create Chapter in Timeline - POST `/timeline/:id-video`
+>> ## Formato da requisição:
+>
+> * Necessário autenticação por `token`;
+>
+>```json
+> {
+>   "time": "00:09:54",
+>   "description": "Método Map"
+> }
+>```
+>> ## Formato da resposta:
+>
+> * Status: `201 CREATED`;
+> * O `time` (ex: "00:12:05 - ...") deve ser retornado em `descrition` automaticamente;
+>
+>```json
+> {
+>   "id": "2a5f7065-3dec-4337-b3c5-f140148c4945",
+>   "time": "00:09:54",
+>   "description": "00:09:54 - Método Map",
+>   "video": {
+>     "id": "fe534ca8-0b0b-42c6-beb7-42d8d7df77d6",
+>     "name": "10 Métodos de Array que todo desenvolvedor precisa conhecer",
+>     "link": "https://www.youtube.com/watch?v=mnjQeXqA3Z0&ab_channel=MatheusBattisti-HoradeCodar"
+>   }
+> }
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>
+> * Status: `404 NOT FOUND`;
+>```json
+> {
+>   "message": "Video not found"
+> }
+>```
+>---
+
+<br>
+
+> # List Chapters in the Timeline - GET `/timeline/:id-video`
+>> ## Formato da requisição:
+>
+> * Necessário autenticação por `token`;
+>      
+>> ## Formato da resposta:
+>
+> * Status: `200 OK`;
+>
+>```json
+> [
+>   {
+>     "id": "2a5f7065-3dec-4337-b3c5-f140148c4945",
+>     "time": "00:09:54",
+>     "description": "00:09:54 - Método Map",
+>     "video": {
+>       "id": "fe534ca8-0b0b-42c6-beb7-42d8d7df77d6",
+>       "name": "10 Métodos de Array que todo desenvolvedor precisa conhecer",
+>       "link": "https://www.youtube.com/watch?v=mnjQeXqA3Z0&ab_channel=MatheusBattisti-HoradeCodar"
+>     }
+>   },
+>   {
+>     "id": "d81f8306-2961-427b-8eb5-e5b4deae8dbb",
+>     "time": "00:15:10",
+>     "description": "00:15:10 - Método Find",
+>     "video": {
+>       "id": "fe534ca8-0b0b-42c6-beb7-42d8d7df77d6",
+>       "name": "10 Métodos de Array que todo desenvolvedor precisa conhecer",
+>       "link": "https://www.youtube.com/watch?v=mnjQeXqA3Z0&ab_channel=MatheusBattisti-HoradeCodar"
+>     }
+>   },
+> ]
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>
+> * Status: `404 NOT FOUND`;
+>```json
+> {
+>   "message": "Video not found"
+> }
+>```
+>---
+
+<br>
+
+> # Update Chapter in Timeline - PATCH `/timeline/:id-chapter`
+>> ## Formato da resposta:
+>
+> * Necessário autenticação por `token`;
+> * Apenas `time` e `description` podem ser alterados;
+> * O `time` (ex: "00:12:05 - ...") deve ser retornado em `descrition` automaticamente;
+>
+>```json
+> {
+>   "time": "00:14:22",
+>   "descrition": "Como usar Find em Array"
+> }
+>```
+>> ## Formato da resposta:
+>
+> * Status: `200 OK`;
+>
+>```json
+> {
+>   "id": "d81f8306-2961-427b-8eb5-e5b4deae8dbb",
+>   "time": "00:14:22",
+>   "description": "00:14:22 - Como usar Find em Array",
+>   "video": {
+>     "id": "fe534ca8-0b0b-42c6-beb7-42d8d7df77d6",
+>     "name": "10 Métodos de Array que todo desenvolvedor precisa conhecer",
+>     "link": "https://www.youtube.com/watch?v=mnjQeXqA3Z0&ab_channel=MatheusBattisti-HoradeCodar"
+>   }
+> }
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+> 
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>
+> * Status: `404 NOT FOUND`;
+>```json
+> {
+>   "message": "Chapter not found"
+> }
+>```
+> ## Atualizando outros campos
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Only the time and description fields can be changed"
+> }
+>```
+>---
+
+<br>
+
+> # Delete Chapter in Timeline - DELETE `/timeline/:id-chapter`
+>> ## Formato da resposta:
+>
+> * Necessário autenticação por `token`;
+> 
+>> ## Formato da resposta:
+>
+> * Status: `204 NO CONTENT`;
+>
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+> 
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>  
+> * Status: `404 NOT FOUND`;
+>
+>```json
+> {
+>   "message": "Chapter not found"
 > }
 >```
 >---
