@@ -1990,3 +1990,206 @@
 ---
 
 <br>
+
+> # Create Extra Content - POST `/extra-content/:id-lesson`
+>> ## Formato da requisição:
+>
+> * Necessário autenticação por `token`;
+>
+>```json
+> {
+>   "name": "Documentação método forEach()",
+>   "link": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach"
+> }
+>```
+>> ## Formato da resposta:
+>
+> * Status: `201 CREATED`;
+>
+>```json
+> {
+>   "id": "67e96f3f-304c-4785-900a-40934e93228f",
+>   "name": "Documentação método forEach()",
+>   "link": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach",
+>   "lesson": {
+>     "id": "6f7b8806-38f4-4bc6-b8d7-02a0c330ef7f",
+>     "name": "JavaScript - Métodos de Array"
+>   }
+> }
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>
+> * Status: `404 NOT FOUND`;
+>```json
+> {
+>   "message": "Lesson not found"
+> }
+>```
+>---
+
+<br>
+
+> # List Extra Content - GET `/extra-content/:id-lesson`
+>> ## Formato da requisição:
+>
+> * Necessário autenticação por `token`;
+>      
+>> ## Formato da resposta:
+>
+> * Status: `200 OK`;
+>
+>```json
+> [
+>   {
+>     "id": "67e96f3f-304c-4785-900a-40934e93228f",
+>     "name": "Documentação método forEach()",
+>     "link": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach",
+>     "lesson": {
+>       "id": "6f7b8806-38f4-4bc6-b8d7-02a0c330ef7f",
+>       "name": "JavaScript - Métodos de Array"
+>     }
+>   },
+>   {
+>     "id": "73442c2f-8813-44bd-a8de-e8032fdeabe5",
+>     "name": "Documentação método map()",
+>     "link": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map",
+>     "lesson": {
+>       "id": "6f7b8806-38f4-4bc6-b8d7-02a0c330ef7f",
+>       "name": "JavaScript - Métodos de Array"
+>     }
+>   },
+>   {
+>     "id": "98f819a7-05f5-45cf-a36f-da4ef220976c",
+>     "name": "Documentação método find()",
+>     "link": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/find",
+>     "lesson": {
+>       "id": "6f7b8806-38f4-4bc6-b8d7-02a0c330ef7f",
+>       "name": "JavaScript - Métodos de Array"
+>     }
+>   }
+> ]
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>
+> * Status: `404 NOT FOUND`;
+>```json
+> {
+>   "message": "Lesson not found"
+> }
+>```
+>---
+
+<br>
+
+> # Update Extra Content - PATCH `/extra-content/:id-extra-content`
+>> ## Formato da resposta:
+>
+> * Necessário autenticação por `token`;
+> * Apenas `name` e `link` podem ser alterados;
+>
+>```json
+> {
+>   "name": "ForEach - Documentação MDN",
+>   "link": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach"
+> }
+>```
+>> ## Formato da resposta:
+>
+> * Status: `200 OK`;
+>
+>```json
+> {
+>   "id": "67e96f3f-304c-4785-900a-40934e93228f",
+>   "name": "ForEach - Documentação MDN",
+>   "link": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach",
+>   "lesson": {
+>     "id": "6f7b8806-38f4-4bc6-b8d7-02a0c330ef7f",
+>     "name": "JavaScript - Métodos de Array"
+>   }
+> }
+>```
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+> 
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>
+> * Status: `404 NOT FOUND`;
+>```json
+> {
+>   "message": "Extra content not found"
+> }
+>```
+> ## Atualizando outros campos
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "Only the name and link fields can be changed"
+> }
+>```
+>---
+
+<br>
+
+> # Delete Extra Content - DELETE `/extra-content/:id-extra-content`
+>> ## Formato da resposta:
+>
+> * Necessário autenticação por `token`;
+> 
+>> ## Formato da resposta:
+>
+> * Status: `204 NO CONTENT`;
+>
+> ## Sem token / token inválido
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+> 
+>```json
+> {
+>   "message": "Missing authorization headers"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>  
+> * Status: `404 NOT FOUND`;
+>
+>```json
+> {
+>   "message": "Extra content not found"
+> }
+>```
+>---
