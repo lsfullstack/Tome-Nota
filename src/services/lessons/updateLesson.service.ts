@@ -2,20 +2,27 @@ import AppDataSource from "../../data-source";
 import { Lesson } from "../../entities/lesson.entity";
 import { AppError } from "../../errors/AppError";
 
-const updateLessonService = async (id:string, name:string) => {
+const updateLessonService = async (id: string, name: string) => {
   const lessonRepository = AppDataSource.getRepository(Lesson);
 
-  const lesson = await lessonRepository.findOneBy({id});
+  const lesson = await lessonRepository.findOneBy({ id });
 
-  if(!lesson){
+  if (!lesson) {
     throw new AppError("Lesson not found", 404);
   }
 
-  await lessonRepository.update(id,{
-    name:name
+  await lessonRepository.update(id, {
+    name,
   });
 
-  const updatedLesson = await lessonRepository.findOneBy({id});
+  const updatedLesson = await lessonRepository.findOne({
+    where: {
+      id,
+    },
+    relations: {
+      studyTopic: true,
+    },
+  });
 
   return updatedLesson;
 };
