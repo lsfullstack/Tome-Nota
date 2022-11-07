@@ -19,8 +19,3 @@ export interface IStudyTopicUpdate {
   name?: string;
   categories?: ICategory[];
 }
-
-export interface IStudyTopicRequestTest {
-  name: string;
-  categories?: string[];
-}
