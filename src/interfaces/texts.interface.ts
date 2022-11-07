@@ -7,5 +7,5 @@ export interface IText {
 }
 
 export interface ITextUpdate {
-  title: string;
+  title?: string;
 }

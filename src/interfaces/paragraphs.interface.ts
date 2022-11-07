@@ -7,5 +7,5 @@ export interface IParagraph {
 }
 
 export interface IParagraphUpdate {
-  description: string;
+  description?: string;
 }
