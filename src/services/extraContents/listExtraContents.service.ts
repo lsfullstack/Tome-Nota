@@ -13,7 +13,7 @@ const listExtraContentsService = async (
   const findLesson = await studyTopicRepository.findOneBy({ id });
 
   if (!findLesson) {
-    throw new AppError("Study topic not found", 404);
+    throw new AppError("Lesson not found", 404);
   }
 
   const extraContents = await extraContentRepository.find({

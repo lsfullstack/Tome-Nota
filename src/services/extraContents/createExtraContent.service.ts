@@ -18,7 +18,7 @@ const createExtraContentService = async (
   });
 
   if (!lesson) {
-    throw new AppError("Study topic not found", 404);
+    throw new AppError("Lesson not found", 404);
   }
 
   const newExtraContent = extraContentRepository.create({

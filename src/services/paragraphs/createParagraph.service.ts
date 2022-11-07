@@ -15,7 +15,7 @@ const createParagraphService = async ({ description }: IParagraphRequest, textId
   });
 
   if (!text) {
-    throw new AppError("Text not found");
+    throw new AppError("Text not found", 404);
   }
 
   const newParagraph = paragraphRepository.create({
