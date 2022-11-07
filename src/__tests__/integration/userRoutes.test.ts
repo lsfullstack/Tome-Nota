@@ -91,6 +91,14 @@ describe("/users", () => {
     expect(userData.body).not.toHaveProperty("password");
   });
 
+  test("GET /users/profile - Should not be able to return the logged user without authentication", async () => {
+    const response = await request(app).get("/users/profile");
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe("Missing authorization headers");
+    expect(response.status).toBe(401);
+  });
+
   test("GET /users/:id - Should be able to return user by id", async () => {
     const userSearch = await request(app).post("/login").send(userLoginMock);
 
@@ -111,6 +119,32 @@ describe("/users", () => {
     expect(userData.body).toHaveProperty("updatedAt");
     expect(userData.body).toHaveProperty("isAdm");
     expect(userData.body).not.toHaveProperty("password");
+  });
+
+  test("GET /users/:id - Should not be able to return user by id without authentication", async () => {
+    const userSearch = await request(app).post("/login").send(userLoginMock);
+
+    const userSearchData = await request(app)
+      .get("/users/profile")
+      .set("Authorization", `Bearer ${userSearch.body.token}`);
+
+    const userData = await request(app).get(`/users/${userSearchData.body.id}`);
+
+    expect(userData.body).toHaveProperty("message");
+    expect(userData.body.message).toBe("Missing authorization headers");
+    expect(userData.status).toBe(401);
+  });
+
+  test("GET /users/:id - Should not be able to return user by id with invalid id", async () => {
+    const userSearch = await request(app).post("/login").send(userLoginMock);
+
+    const userData = await request(app)
+      .get("/users/ce381027-d5b3-463a-bdea-c92884c8e362")
+      .set("Authorization", `Bearer ${userSearch.body.token}`);
+
+    expect(userData.body).toHaveProperty("message");
+    expect(userData.body.message).toBe("User not found");
+    expect(userData.status).toBe(404);
   });
 
   test("GET /users - Should be able to list users", async () => {

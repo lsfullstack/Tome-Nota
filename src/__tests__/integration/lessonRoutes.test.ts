@@ -77,7 +77,7 @@ describe("/lesson", () => {
     expect(response.status).toBe(404);
   });
 
-  test("GET /lesson/:id - Should be able to list lessons", async () => {
+  test("GET /lesson/study-topic/:id - Should be able to list lessons", async () => {
     const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const studyTopic = await request(app)
@@ -85,32 +85,34 @@ describe("/lesson", () => {
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     const response = await request(app)
-      .get(`/lesson/${studyTopic.body[0].id}`)
+      .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     expect(response.body).toHaveLength(1);
     expect(response.status).toBe(200);
   });
 
-  test("GET /lesson/:id - Should not be able to list lessons without authentication", async () => {
+  test("GET /lesson/study-topic/:id - Should not be able to list lessons without authentication", async () => {
     const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const studyTopic = await request(app)
       .get("/study-topics")
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
-    const response = await request(app).get(`/lesson/${studyTopic.body[0].id}`);
+    const response = await request(app).get(
+      `/lesson/study-topic/${studyTopic.body[0].id}`
+    );
 
     expect(response.body).toHaveProperty("message");
     expect(response.body.message).toBe("Missing authorization headers");
     expect(response.status).toBe(401);
   });
 
-  test("GET /lesson/:id - Should not be able to list lessons with invalid id", async () => {
+  test("GET /lesson/study-topic/:id - Should not be able to list lessons with invalid id", async () => {
     const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const response = await request(app)
-      .get("/lesson/ce381027-d5b3-463a-bdea-c92884c8e362")
+      .get("/lesson/study-topic/ce381027-d5b3-463a-bdea-c92884c8e362")
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     expect(response.body).toHaveProperty("message");
@@ -126,7 +128,7 @@ describe("/lesson", () => {
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     const lesson = await request(app)
-      .get(`/lesson/${studyTopic.body[0].id}`)
+      .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     const response = await request(app)
@@ -147,7 +149,7 @@ describe("/lesson", () => {
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     const lesson = await request(app)
-      .get(`/lesson/${studyTopic.body[0].id}`)
+      .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     const response = await request(app).get(`/lesson/${lesson.body[0].id}`);
@@ -179,7 +181,7 @@ describe("/lesson", () => {
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     const lesson = await request(app)
-      .get(`/lesson/${studyTopic.body[0].id}`)
+      .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     const response = await request(app)
@@ -188,7 +190,7 @@ describe("/lesson", () => {
       .send(data);
 
     const updatedLesson = await request(app)
-      .get(`/lesson/${studyTopic.body[0].id}`)
+      .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     expect(updatedLesson.body[0].name).toEqual("Principais métodos de Array");
@@ -203,7 +205,7 @@ describe("/lesson", () => {
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     const lesson = await request(app)
-      .get(`/lesson/${studyTopic.body[0].id}`)
+      .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     const response = await request(app).patch(`/lesson/${lesson.body[0].id}`);
@@ -238,30 +240,7 @@ describe("/lesson", () => {
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     const lesson = await request(app)
-      .get(`/lesson/${studyTopic.body[0].id}`)
-      .set("Authorization", `Bearer ${loginResponse.body.token}`);
-
-    const response = await request(app)
-      .patch(`/lesson/${lesson.body[0].id}`)
-      .set("Authorization", `Bearer ${loginResponse.body.token}`)
-      .send(data);
-
-    expect(response.body).toHaveProperty("message");
-    expect(response.body.message).toBe("Only the name field can be changed");
-    expect(response.status).toBe(401);
-  });
-
-  test("PATCH /lesson/:id - Should not be able to update studyTopic field value", async () => {
-    const data = { studyTopic: "Back-End" };
-
-    const loginResponse = await request(app).post("/login").send(userLoginMock);
-
-    const studyTopic = await request(app)
-      .get("/study-topics")
-      .set("Authorization", `Bearer ${loginResponse.body.token}`);
-
-    const lesson = await request(app)
-      .get(`/lesson/${studyTopic.body[0].id}`)
+      .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     const response = await request(app)
@@ -287,7 +266,7 @@ describe("/lesson", () => {
       .send(lessonMock);
 
     const lesson = await request(app)
-      .get(`/lesson/${studyTopic.body[0].id}`)
+      .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     const response = await request(app)
@@ -310,7 +289,7 @@ describe("/lesson", () => {
       .send(lessonMock);
 
     const lesson = await request(app)
-      .get(`/lesson/${studyTopic.body[0].id}`)
+      .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     const response = await request(app).delete(`/lesson/${lesson.body[0].id}`);
