@@ -3,6 +3,7 @@ export interface IExtraContentRequest {
   link: string;
 }
 export interface IExtraContent {
+  id: string;
   name: string;
   link: string;
 }

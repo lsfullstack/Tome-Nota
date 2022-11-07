@@ -9,7 +9,7 @@ const deleteStudyTopicService = async (id: string): Promise<void> => {
   if (!findStudyTopic) {
     throw new AppError("Study topic not found", 404);
   }
-  /* deleção recursiva */
+
   await studyTopicRepository.delete({ id });
 };
 

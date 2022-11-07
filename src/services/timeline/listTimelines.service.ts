@@ -7,9 +7,8 @@ import { ITimeline } from "../../interfaces/timeline.interface";
 const listTimelinesService = async (id: string): Promise<ITimeline[]> => {
   const timelineRepository = AppDataSource.getRepository(Timeline);
   const videoRepository = AppDataSource.getRepository(Video);
-
   const findVideo = await videoRepository.findOneBy({ id });
-  console.log(findVideo);
+
   if (!findVideo) {
     throw new AppError("Video not found", 404);
   }
@@ -24,7 +23,6 @@ const listTimelinesService = async (id: string): Promise<ITimeline[]> => {
       video: true,
     },
   });
-  console.log(timelines);
 
   return timelines;
 };
