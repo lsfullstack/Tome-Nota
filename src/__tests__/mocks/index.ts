@@ -1,9 +1,10 @@
 import { ITextRequest } from "../../interfaces/texts.interface";
 import { IVideoRequest } from "../../interfaces/video.interface";
 import { ILessonRequest } from "../../interfaces/lessons.interface";
-import { ICategoryRequest, ICategoryUpdate } from "../../interfaces/categories.interfaces";
 import { IParagraphRequest } from "../../interfaces/paragraphs.interface";
 import { IStudyTopicRequest } from "../../interfaces/studyTopics.interfaces";
+import { IExtraContentRequest } from "../../interfaces/extraContents.interface";
+import { ICategoryRequest, ICategoryUpdate } from "../../interfaces/categories.interfaces";
 import { IUserLogin, IUserRequest, IUserRequestTest} from "../../interfaces/users.interfaces";
 
 export const userMock: IUserRequest = {
@@ -52,13 +53,7 @@ export const categoryMock: ICategoryRequest = {
   name: "Desenvolvimento Web",
 };
 
-export const categoryMock2: ICategoryRequest = {
-  name: "Desenvolvimento Web",
-};
-
-export const categoryMockWithoutName: ICategoryUpdate = {
-  
-};
+export const categoryMockWithoutName: ICategoryUpdate = {};
 
 export const categoryForPatch: ICategoryUpdate = {
   name: "Web Design",
@@ -85,4 +80,9 @@ export const paragraphMock: IParagraphRequest = {
 export const videoMock: IVideoRequest = {
   name: "10 Métodos de Array que todo desenvolvedor precisa conhecer",
   link: "https://www.youtube.com/watch?v=mnjQeXqA3Z0&ab_channel=MatheusBattisti-HoradeCodar",
+};
+
+export const extraContentMock: IExtraContentRequest = {
+  name: "Documentação método forEach()",
+  link: "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach",
 };
