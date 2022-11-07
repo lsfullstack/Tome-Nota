@@ -2,7 +2,7 @@ import AppDataSource from "../../data-source";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppError";
 
-const retrieveUserService = async (id: string) => {
+const retrieveUserService = async (id: string, adm:boolean) => {
   const userRepository = AppDataSource.getRepository(User);
   const findUser = await userRepository.findOneBy({ id });
 
@@ -10,7 +10,11 @@ const retrieveUserService = async (id: string) => {
     throw new AppError("User not found", 404);
   }
 
-  return findUser;
+  if(adm){
+    return findUser;
+  }
+  const {isAdm, isActive, ...resto} = findUser;
+  return resto;
 };
 
 
