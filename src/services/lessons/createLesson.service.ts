@@ -13,7 +13,7 @@ const createLessonService = async ({name}: ILessonRequest, studyTopicId: string)
   });
 
   if(!studyTopic) {
-    throw new AppError("Study topic not found");
+    throw new AppError("Study topic not found", 404);
  
   }
 
