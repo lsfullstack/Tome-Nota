@@ -7,10 +7,10 @@ class StudyTopicCategory {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @ManyToOne(() => StudyTopic)
+  @ManyToOne(() => StudyTopic, { onDelete: 'CASCADE' })
   studyTopic: StudyTopic;
 
-  @ManyToOne(() => Category)
+  @ManyToOne(() => Category, { onDelete: 'CASCADE' })
   category: Category;
 }
 
