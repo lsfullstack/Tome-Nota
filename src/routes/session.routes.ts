@@ -6,4 +6,5 @@ const sessionRoutes = Router();
 
 sessionRoutes.post("", ensureIsActiveMiddleware, createSessionController);
 
+
 export default sessionRoutes;

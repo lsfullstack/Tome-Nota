@@ -11,7 +11,8 @@ class Category {
 
   @OneToMany(
     () => StudyTopicCategory,
-    (studyTopicCategory) => studyTopicCategory.category
+    (studyTopicCategory) => studyTopicCategory.category,
+    { cascade: true }
   )
   studyTopicCategories: StudyTopicCategory[];
 }

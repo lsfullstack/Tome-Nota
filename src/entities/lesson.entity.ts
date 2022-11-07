@@ -20,16 +20,17 @@ class Lesson {
   @Column({ length: 60 })
   name: string;
 
-  @OneToMany(() => Text, (text) => text.lesson)
+  @OneToMany(() => Text, (text) => text.lesson, { cascade: true })
   texts: Text[];
 
-  @ManyToOne(() => StudyTopic)
+  @ManyToOne(() => StudyTopic, { onDelete: 'CASCADE' })
   studyTopic: StudyTopic;
 
-  @OneToMany(() => ExtraContent, (extraContent) => extraContent.lesson)
+  @OneToMany(() => ExtraContent, (extraContent) => extraContent.lesson,
+  { cascade: true })
   extraContents: ExtraContent[];
 
-  @OneToOne(() => Video, { eager: true })
+  @OneToOne(() => Video, { eager: true, nullable: true, cascade: true, onDelete: 'CASCADE' })
   @JoinColumn()
   video: Video;
 }

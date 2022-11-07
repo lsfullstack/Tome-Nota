@@ -12,7 +12,7 @@ class ExtraContent {
   @Column({ length: 300 })
   link: string;
 
-  @ManyToOne(() => Lesson)
+  @ManyToOne(() => Lesson, { onDelete: 'CASCADE' })
   lesson: Lesson;
 }
 

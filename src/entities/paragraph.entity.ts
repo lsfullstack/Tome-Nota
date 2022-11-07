@@ -9,7 +9,7 @@ class Paragraph {
   @Column({ length: 5000 })
   description: string;
 
-  @ManyToOne(() => Text)
+  @ManyToOne(() => Text, { onDelete: 'CASCADE' })
   text: Text;
 }
 
