@@ -13,7 +13,7 @@ const retrieveUserService = async (id: string, adm:boolean) => {
   if(adm){
     return findUser;
   }
-  const {isAdm, isActive, ...resto} = findUser;
+  const {isAdm, isActive, password, ...resto} = findUser;
   return resto;
 };
 
