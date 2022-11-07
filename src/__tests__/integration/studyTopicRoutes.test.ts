@@ -260,11 +260,6 @@ describe("/study-topics", () => {
   test("DELETE /study-topics/:id - Should not be able to delete study topic with invalid id", async () => {
     const loginResponse = await request(app).post("/login").send(userLoginMock);
 
-    await request(app)
-      .post("/study-topics")
-      .set("Authorization", `Bearer ${loginResponse.body.token}`)
-      .send(studyTopicMock);
-
     const response = await request(app)
       .delete("/study-topics/ce381027-d5b3-463a-bdea-c92884c8e362")
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
