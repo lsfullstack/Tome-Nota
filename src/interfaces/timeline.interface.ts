@@ -4,6 +4,7 @@ export interface ITimelineRequest {
 }
 
 export interface ITimeline {
+  id: string;
   time: string;
   description: string;
 }

@@ -73,6 +73,16 @@
 >   "message": "Name, e-mail, password and isAdm are required fields"
 > }
 >```
+> ## Enviando outros campos
+>> ## Formato da resposta:
+>
+> * Status: `400 BAD REQUEST`;
+>
+>```json
+> {
+>   "message": "Only name, email, password and isAdm can be sent"
+> }
+>```
 >---
 
 <br>
@@ -116,6 +126,7 @@
 >> ## Formato da requisição:
 >
 > * Necessário autenticação por `token`;
+> * Apenas o `administrador` pode ver os dados de outro `administrador` e de usuário desativados - `(IsActive = false)`;
 >
 >> ## Formato da resposta:
 >
@@ -149,6 +160,16 @@
 >```json
 > {
 >   "message": "User not found"
+> }
+>```
+> ## Buscando administrador ou usuário desatvado sem ser administrador
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>
+>```json
+> {
+>   "message": "User is not admin"
 > }
 >```
 >---
@@ -306,7 +327,7 @@
 >   "message": "Missing authorization headers"
 > }
 >```
-> ## Id inválido
+> ## Id inválido | Usuário que já está desativado - `(IsActive = false)`
 >> ## Formato da resposta:
 >
 > * Status: `404 NOT FOUND`;
@@ -355,7 +376,7 @@
 >   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbSI6dHJ1ZSwiaXNBY3RpdmUiOnRydWUsImlhdCI6MTY2NzE0OTIzNiwiZXhwIjoxNjY3MjM1NjM2LCJzdWIiOiI3YTZiNTk0MS04YjdjLTQyZjItYWYyZC1jODAxNjMzYjdhNWYifQ.QYCFK6a9u-3cUkNgZ9yo5NmCBQ3afyutsRqDeO-_b_M"
 > }
 >```
-> ## E-mail ou senha inválidos
+> ## E-mail ou senha inválidos | E-mail de usuário desativado - `(IsActive - false)`
 >> ## Formato da resposta:
 >
 > * Status: `403 FORBIDDEN`;
@@ -378,6 +399,7 @@
 >> ## Formato da requisição:
 > 
 > * Necessário autenticação por `token`;
+> * Deve ser possível criar um `study topic` sem enviar nenhuma `category`;
 > 
 >```json
 > {
@@ -397,8 +419,14 @@
 >   "id": "11547a442-0b6a-4920-9177-455e4769931c",
 >   "name": "Desenvolvimento Web Front-End",
 >   "categories": [
->     "Tecnologia da Informação",
->     "Desenvolvimento Web"
+> 		{
+>			  "id": "85c940c5-c3fa-4367-8aae-bf538908fe06",
+>			  "name": "Tecnologia da Informação"
+>		  },
+>		  {
+>		  	"id": "b0e59fd4-25f6-4972-b5c8-7ea4fa21b77a",
+>		  	"name": "Desenvolvimento Web"
+>		  }
 >   ],
 >   "lessons": [],
 >   "user": {
@@ -1561,7 +1589,7 @@
 >
 >```json
 > {
->   "message": "Only the descrition field can be changed"
+>   "message": "Only the description field can be changed"
 > }
 >```
 >---
@@ -1809,7 +1837,7 @@
 >> ## Formato da resposta:
 >
 > * Status: `201 CREATED`;
-> * O `time` (ex: "00:12:05 - ...") deve ser retornado em `descrition` automaticamente;
+> * O `time` (ex: "00:12:05 - ...") deve ser retornado em `description` automaticamente;
 >
 >```json
 > {
@@ -1907,12 +1935,12 @@
 >
 > * Necessário autenticação por `token`;
 > * Apenas `time` e `description` podem ser alterados;
-> * O `time` (ex: "00:12:05 - ...") deve ser retornado em `descrition` automaticamente;
+> * O `time` (ex: "00:12:05 - ...") deve ser retornado em `description` automaticamente;
 >
 >```json
 > {
 >   "time": "00:14:22",
->   "descrition": "Como usar Find em Array"
+>   "description": "Como usar Find em Array"
 > }
 >```
 >> ## Formato da resposta:

@@ -12,7 +12,7 @@ const updateExtraContentService = async (
   const extraContent = await extraContentRepository.findOneBy({ id });
 
   if (!extraContent) {
-    throw new AppError("ExtraContent not found", 404);
+    throw new AppError("Extra content not found", 404);
   }
 
   await extraContentRepository.update(id, {
