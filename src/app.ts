@@ -10,6 +10,7 @@ import lessonRoutes from "./routes/lessons.routes";
 import textRoutes from "./routes/text.routes";
 import paragraphsRoutes from "./routes/paragraphs.routes";
 import extraContentRoutes from "./routes/extraContent.routes";
+import videoRoutes from "./routes/video.routes";
 
 const app = express();
 
@@ -22,6 +23,8 @@ app.use("/lesson", lessonRoutes);
 app.use("/text", textRoutes);
 app.use("/paragraphs", paragraphsRoutes);
 app.use("/extra-content", extraContentRoutes);
+app.use("/video", videoRoutes);
+
 app.use(handleErrorMiddleware);
 
 export default app;

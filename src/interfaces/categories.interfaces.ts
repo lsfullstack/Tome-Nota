@@ -8,5 +8,5 @@ export interface ICategory {
 }
 
 export interface ICategoryUpdate {
-  name: string;
+  name?: string;
 }
