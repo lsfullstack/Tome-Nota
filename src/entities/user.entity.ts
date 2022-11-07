@@ -36,7 +36,7 @@ class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(() => StudyTopic, (studyTopic) => studyTopic.user)
+  @OneToMany(() => StudyTopic, (studyTopic) => studyTopic.user, { cascade: true })
   studyTopics: StudyTopic[];
 }
 

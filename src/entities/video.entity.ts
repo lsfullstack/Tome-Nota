@@ -12,7 +12,7 @@ class Video {
   @Column({ length: 300 })
   link: string;
 
-  @OneToMany(() => Timeline, (timeline) => timeline.video)
+  @OneToMany(() => Timeline, (timeline) => timeline.video, { onDelete: 'CASCADE' })
   timelines: Timeline[];
 }
 

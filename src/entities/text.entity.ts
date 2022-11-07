@@ -16,10 +16,10 @@ class Text {
   @Column({ length: 100 })
   title: string;
 
-  @ManyToOne(() => Lesson)
+  @ManyToOne(() => Lesson, { onDelete: 'CASCADE' })
   lesson: Lesson;
 
-  @OneToMany(() => Paragraph, (paragraph) => paragraph.text)
+  @OneToMany(() => Paragraph, (paragraph) => paragraph.text, { cascade: true })
   paragraphs: Paragraph[];
 }
 
