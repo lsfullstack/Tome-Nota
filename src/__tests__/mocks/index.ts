@@ -1,7 +1,7 @@
 import { ITextRequest } from "../../interfaces/texts.interface";
 import { IVideoRequest } from "../../interfaces/video.interface";
 import { ILessonRequest } from "../../interfaces/lessons.interface";
-import { ICategoryRequest } from "../../interfaces/categories.interfaces";
+import { ICategoryRequest, ICategoryUpdate } from "../../interfaces/categories.interfaces";
 import { IParagraphRequest } from "../../interfaces/paragraphs.interface";
 import { IStudyTopicRequest } from "../../interfaces/studyTopics.interfaces";
 import { IUserLogin, IUserRequest, IUserRequestTest} from "../../interfaces/users.interfaces";
@@ -50,6 +50,18 @@ export const userWithoutName: IUserRequestTest = {
 
 export const categoryMock: ICategoryRequest = {
   name: "Desenvolvimento Web",
+};
+
+export const categoryMock2: ICategoryRequest = {
+  name: "Desenvolvimento Web",
+};
+
+export const categoryMockWithoutName: ICategoryUpdate = {
+  
+};
+
+export const categoryForPatch: ICategoryUpdate = {
+  name: "Web Design",
 };
 
 export const studyTopicMock: IStudyTopicRequest = {
