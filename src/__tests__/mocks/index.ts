@@ -1,6 +1,6 @@
-import { ICategoryRequest } from "../../interfaces/categories.interfaces";
 import { ILessonRequest } from "../../interfaces/lessons.interface";
-import { IStudyTopicRequestTest } from "../../interfaces/studyTopics.interfaces";
+import { ICategoryRequest } from "../../interfaces/categories.interfaces";
+import { IStudyTopicRequest } from "../../interfaces/studyTopics.interfaces";
 import { IUserLogin, IUserRequest, IUserRequestTest} from "../../interfaces/users.interfaces";
 
 export const userMock: IUserRequest = {
@@ -49,7 +49,7 @@ export const categoryMock: ICategoryRequest = {
   name: "Desenvolvimento Web",
 };
 
-export const studyTopicMock: IStudyTopicRequestTest = {
+export const studyTopicMock: IStudyTopicRequest = {
   name: "Desenvolvimento Web Front-End",
   categories: ["Desenvolvimento Web"],
 };
