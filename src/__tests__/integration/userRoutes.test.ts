@@ -38,27 +38,27 @@ describe("/users", () => {
   test("POST /users - Should not be able to create a user without password field value", async () => {
     const result = await request(app).post("/users").send(userWithoutPassword);
 
-    expect(result.status).toBe(404);
+    expect(result.status).toBe(400);
     expect(result.body).toMatchObject({
-      message: "email, name, isAdm and password is required fields",
+      message: "Name, e-mail, password and isAdm are required fields",
     });
   });
 
   test("POST /users - Should not be able to create a user without isAdm field value", async () => {
     const result = await request(app).post("/users").send(userWithoutIsAdm);
 
-    expect(result.status).toBe(404);
+    expect(result.status).toBe(400);
     expect(result.body).toMatchObject({
-      message: "email, name, isAdm and password is required fields",
+      message: "Name, e-mail, password and isAdm are required fields",
     });
   });
 
   test("POST /users - Should not be able to create a user without name field value", async () => {
     const result = await request(app).post("/users").send(userWithoutName);
 
-    expect(result.status).toBe(404);
+    expect(result.status).toBe(400);
     expect(result.body).toMatchObject({
-      message: "email, name, isAdm and password is required fields",
+      message: "Name, e-mail, password and isAdm are required fields",
     });
   });
 
@@ -71,7 +71,7 @@ describe("/users", () => {
     });
   });
 
-  test("GET /users/profile - Should be able to return the logged user data", async () => {
+  test("GET /users/profile - Should be able to return the logged user", async () => {
     const userLoginResponse = await request(app)
       .post("/login")
       .send(userLoginMock);
@@ -91,7 +91,7 @@ describe("/users", () => {
     expect(userData.body).not.toHaveProperty("password");
   });
 
-  test("GET /users/:id - Should be able to return user data from id", async () => {
+  test("GET /users/:id - Should be able to return user by id", async () => {
     const userSearch = await request(app).post("/login").send(userLoginMock);
 
     const userSearchData = await request(app)

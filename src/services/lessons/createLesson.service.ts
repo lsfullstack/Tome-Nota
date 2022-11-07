@@ -5,6 +5,7 @@ import { AppError } from "../../errors/AppError";
 import { ILesson, ILessonRequest } from "../../interfaces/lessons.interface";
 
 const createLessonService = async ({name}: ILessonRequest, studyTopicId: string): Promise<ILesson> => {
+
   const lessonRepository = AppDataSource.getRepository(Lesson);
   const studyTopicRepository = AppDataSource.getRepository(StudyTopic);
   const studyTopic = await studyTopicRepository.findOneBy({
@@ -13,6 +14,7 @@ const createLessonService = async ({name}: ILessonRequest, studyTopicId: string)
 
   if(!studyTopic) {
     throw new AppError("Study topic not found");
+ 
   }
 
   const newLesson = lessonRepository.create({
@@ -26,3 +28,4 @@ const createLessonService = async ({name}: ILessonRequest, studyTopicId: string)
 };
 
 export default createLessonService;
+

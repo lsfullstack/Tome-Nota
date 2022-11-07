@@ -31,3 +31,4 @@ export interface IUserRequestTest {
   password?: string;
   isAdm?: boolean;
 }
+

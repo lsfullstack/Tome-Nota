@@ -34,3 +34,4 @@ const createSessionService = async ({ email, password }: IUserLogin): Promise<st
 };
 
 export default createSessionService;
+

@@ -13,4 +13,5 @@ const retrieveUserService = async (id: string) => {
   return findUser;
 };
 
+
 export default retrieveUserService;

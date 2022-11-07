@@ -9,3 +9,4 @@ const retriveLessonController = async (req: Request, res: Response) => {
 };
 
 export default retriveLessonController;
+

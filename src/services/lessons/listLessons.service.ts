@@ -12,6 +12,7 @@ const listLessonsService = async (id: string) => {
   });
 
   if(!findStudyTopic){
+
     throw new AppError("Study topic not found", 404);
   }
 

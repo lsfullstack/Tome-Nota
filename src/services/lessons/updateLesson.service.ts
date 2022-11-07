@@ -21,3 +21,4 @@ const updateLessonService = async (id:string, name:string) => {
 };
 
 export default updateLessonService;
+

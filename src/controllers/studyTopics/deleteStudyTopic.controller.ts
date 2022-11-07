@@ -2,10 +2,8 @@ import { Request, Response } from "express";
 import deleteStudyTopicService from "../../services/studyTopics/deleteStudyTopic.service";
 
 const deleteStudyTopicController = async (req: Request, res: Response) => {
-  const studyTopicId: string = req.params.id;
-  console.log(studyTopicId);
-  await deleteStudyTopicService(studyTopicId);
-
+  const id = req.params.id;
+  await deleteStudyTopicService(id);
   return res.status(204).send();
 };
 

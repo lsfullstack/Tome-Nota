@@ -25,16 +25,17 @@ class StudyTopic {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { onDelete: 'CASCADE' })
   user: User;
 
   @OneToMany(
     () => StudyTopicCategory,
-    (studyTopicCategory) => studyTopicCategory.studyTopic
+    (studyTopicCategory) => studyTopicCategory.studyTopic,
+    { cascade: true }
   )
   studyTopicCategories: StudyTopicCategory[];
 
-  @OneToMany(() => Lesson, (lesson) => lesson.studyTopic)
+  @OneToMany(() => Lesson, (lesson) => lesson.studyTopic, { onDelete: 'CASCADE' })
   lessons: Lesson[];
 }
 

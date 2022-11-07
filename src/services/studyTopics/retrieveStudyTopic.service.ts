@@ -3,27 +3,28 @@ import { Category } from "../../entities/category.entity";
 import { StudyTopic } from "../../entities/studyTopic.entity";
 import { StudyTopicCategory } from "../../entities/studyTopicCategory.entity";
 import { AppError } from "../../errors/AppError";
-import { ICategories, IStudyTopic } from "../../interfaces/studyTopics.interfaces";
+import { ICategory } from "../../interfaces/categories.interfaces";
+import { IStudyTopic } from "../../interfaces/studyTopics.interfaces";
 
 const retrieveStudyTopicService = async (studyTopicId: string): Promise<IStudyTopic> => {
   const studyTopicRepository = AppDataSource.getRepository(StudyTopic);
   const studyCategoryRepository = AppDataSource.getRepository(StudyTopicCategory);
   const categoryRepository = AppDataSource.getRepository(Category);
-
   const findStudyTopic = await studyTopicRepository.findOne({
     where: {
-      id: studyTopicId
+      id: studyTopicId,
     },
     relations: {
-      user: true
+      user: true,
+      lessons: true
     }
   });
 
-  if(!findStudyTopic) {
+  if (!findStudyTopic) {
     throw new AppError("Study topic not found", 404);
   }
 
-  const {id, name, lessons, user, createdAt, updatedAt} = findStudyTopic;
+  const { id, name, lessons, user, createdAt, updatedAt } = findStudyTopic;
 
   const categories = await studyCategoryRepository.find({
     where: {
@@ -35,8 +36,8 @@ const retrieveStudyTopicService = async (studyTopicId: string): Promise<IStudyTo
       category: true
     }
   });
-  
-  const categoriesList: ICategories[] = [];
+
+  const categoriesList: ICategory[] = [];
 
   for (const category of categories) {
     const currentCategory = await categoryRepository.findOneBy({
@@ -57,7 +58,7 @@ const retrieveStudyTopicService = async (studyTopicId: string): Promise<IStudyTo
     lessons,
     user,
     createdAt,
-    updatedAt,
+    updatedAt
   };
 
   return studyTopic;

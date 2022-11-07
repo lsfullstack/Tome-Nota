@@ -8,3 +8,4 @@ const listLessonsController = async (req: Request, res: Response) => {
 };
 
 export default listLessonsController;
+

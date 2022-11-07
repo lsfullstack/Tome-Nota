@@ -39,4 +39,5 @@ const updateUserService = async (isAdm: boolean, id: string, user: IUserUpdate, 
   return updatedUser;
 };
 
+
 export default updateUserService;

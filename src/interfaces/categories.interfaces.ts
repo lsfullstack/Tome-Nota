@@ -1,11 +1,12 @@
 export interface ICategoryRequest {
-  name: string
+  name: string;
 }
 
 export interface ICategory {
-  name: string
+  id: string;
+  name: string;
 }
 
 export interface ICategoryUpdate {
-  name?: string
+  name?: string;
 }

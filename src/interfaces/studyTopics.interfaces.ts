@@ -1,20 +1,26 @@
+import { ICategory } from "./categories.interfaces";
+import { ILesson } from "./lessons.interface";
 import { IUser } from "./users.interfaces";
 
-export interface ICategories {
-    id: string
-    name: string
+export interface IStudyTopicRequest {
+  name: string;
+  categories?: string[];
 }
 
-export interface IStudyTopicRequest {
-    id: string
-    name: string
-    categories: string[]
-}
- 
 export interface IStudyTopic {
-    id: string
-    name: string
-    user: IUser
-    categories?: ICategories[]
+  id: string;
+  name: string;
+  user: IUser;
+  lessons?: ILesson[];
+  categories?: ICategory[];
 }
- 
+
+export interface IStudyTopicUpdate {
+  name?: string;
+  categories?: ICategory[];
+}
+
+export interface IStudyTopicRequestTest {
+  name: string;
+  categories?: string[];
+}

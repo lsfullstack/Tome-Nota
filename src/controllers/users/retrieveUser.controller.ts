@@ -10,4 +10,5 @@ const retrieveUserController = async (req: Request, res: Response) => {
   return res.status(200).json(instanceToPlain(user));
 };
 
+
 export default retrieveUserController;
