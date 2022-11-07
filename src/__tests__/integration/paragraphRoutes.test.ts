@@ -2,9 +2,9 @@ import app from "../../app";
 import request from "supertest";
 import { DataSource } from "typeorm";
 import AppDataSource from "../../data-source";
-import { lessonMock, studyTopicMock, userLoginMock, userMock } from "../mocks";
+import { lessonMock, paragraphMock, studyTopicMock, textMock, userLoginMock, userMock} from "../mocks";
 
-describe("/lesson", () => {
+describe("/paragraphs", () => {
   let connection: DataSource;
 
   beforeAll(async () => {
@@ -24,83 +24,210 @@ describe("/lesson", () => {
       .post("/study-topics")
       .set("Authorization", `Bearer ${loginResponse.body.token}`)
       .send(studyTopicMock);
+
+    const studyTopic = await request(app)
+      .get("/study-topics")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    await request(app)
+      .post(`/lesson/${studyTopic.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`)
+      .send(lessonMock);
+
+    const lesson = await request(app)
+      .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    await request(app)
+      .post(`/text/${lesson.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`)
+      .send(textMock);
   });
 
   afterAll(async () => {
     await connection.destroy();
   });
 
-  test("POST /lesson/:id - Should be able to create a lesson", async () => {
+  test("POST /paragraphs/:id - Should be able to create a paragraph", async () => {
     const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const studyTopic = await request(app)
       .get("/study-topics")
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
+    const lesson = await request(app)
+      .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const text = await request(app)
+      .get(`/text/${lesson.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
     const response = await request(app)
-      .post(`/lesson/${studyTopic.body[0].id}`)
+      .post(`/paragraphs/${text.body[0].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`)
-      .send(lessonMock);
+      .send(paragraphMock);
 
     expect(response.body).toHaveProperty("id");
-    expect(response.body).toHaveProperty("name");
-    expect(response.body).toHaveProperty("studyTopic");
+    expect(response.body).toHaveProperty("description");
+    expect(response.body).toHaveProperty("text");
     expect(response.status).toBe(201);
   });
 
-  test("POST /lesson/:id - Should not be able to create a lesson without authentication", async () => {
+  test("POST /paragraphs/:id - Should not be able to create a paragraph without authentication", async () => {
     const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const studyTopic = await request(app)
       .get("/study-topics")
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
+    const lesson = await request(app)
+      .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const text = await request(app)
+      .get(`/text/${lesson.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
     const response = await request(app)
-      .post(`/lesson/${studyTopic.body[0].id}`)
-      .send(lessonMock);
+      .post(`/paragraphs/${text.body[0].id}`)
+      .send(paragraphMock);
 
     expect(response.body).toHaveProperty("message");
     expect(response.body.message).toBe("Missing authorization headers");
     expect(response.status).toBe(401);
   });
 
-  test("POST /lesson/:id - Should not be able to create a lesson with invalid id", async () => {
+  test("POST /paragraphs/:id - Should not be able to create a paragraph with invalid id", async () => {
     const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const response = await request(app)
-      .post("/lesson/ce381027-d5b3-463a-bdea-c92884c8e362")
+      .post("/paragraphs/ce381027-d5b3-463a-bdea-c92884c8e362")
       .set("Authorization", `Bearer ${loginResponse.body.token}`)
-      .send(lessonMock);
+      .send(paragraphMock);
 
     expect(response.body).toHaveProperty("message");
-    expect(response.body.message).toBe("Study topic not found");
+    expect(response.body.message).toBe("Text not found");
     expect(response.status).toBe(404);
   });
 
-  test("GET /lesson/study-topic/:id - Should be able to list lessons", async () => {
+  test("GET /paragraphs/:id - Should be able to list paragraphs", async () => {
     const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const studyTopic = await request(app)
       .get("/study-topics")
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
-    const response = await request(app)
+    const lesson = await request(app)
       .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const text = await request(app)
+      .get(`/text/${lesson.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const response = await request(app)
+      .get(`/paragraphs/${text.body[0].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     expect(response.body).toHaveLength(1);
     expect(response.status).toBe(200);
   });
 
-  test("GET /lesson/study-topic/:id - Should not be able to list lessons without authentication", async () => {
+  test("GET /paragraphs/:id - Should not be able to list paragraphs without authentication", async () => {
     const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const studyTopic = await request(app)
       .get("/study-topics")
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
-    const response = await request(app).get(
-      `/lesson/study-topic/${studyTopic.body[0].id}`
+    const lesson = await request(app)
+      .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const text = await request(app)
+      .get(`/text/${lesson.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const response = await request(app).get(`/paragraphs/${text.body[0].id}`);
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe("Missing authorization headers");
+    expect(response.status).toBe(401);
+  });
+
+  test("GET /paragraphs/:id - Should not be able to list paragraphs with invalid id", async () => {
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
+
+    const response = await request(app)
+      .get("/paragraphs/ce381027-d5b3-463a-bdea-c92884c8e362")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe("Text not found");
+    expect(response.status).toBe(404);
+  });
+
+  test("PATCH /paragraphs/:id - Should be able to update paragraph", async () => {
+    const data = {
+      description:
+        "O método forEach( ) é usado para percorrer um Array, executando uma função em cada elemento.",
+    };
+
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
+
+    const studyTopic = await request(app)
+      .get("/study-topics")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const lesson = await request(app)
+      .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const text = await request(app)
+      .get(`/text/${lesson.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const paragraph = await request(app)
+      .get(`/paragraphs/${text.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const response = await request(app)
+      .patch(`/paragraphs/${paragraph.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`)
+      .send(data);
+
+    const updatedParagraph = await request(app)
+      .get(`/paragraphs/${text.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    expect(updatedParagraph.body[0].description).toEqual(
+      "O método forEach( ) é usado para percorrer um Array, executando uma função em cada elemento."
+    );
+    expect(response.status).toBe(200);
+  });
+
+  test("PATCH /paragraphs/:id - Should not be able to update paragraph without authentication", async () => {
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
+
+    const studyTopic = await request(app)
+      .get("/study-topics")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const lesson = await request(app)
+      .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const text = await request(app)
+      .get(`/text/${lesson.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const paragraph = await request(app)
+      .get(`/paragraphs/${text.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const response = await request(app).patch(
+      `/paragraphs/${paragraph.body[0].id}`
     );
 
     expect(response.body).toHaveProperty("message");
@@ -108,129 +235,25 @@ describe("/lesson", () => {
     expect(response.status).toBe(401);
   });
 
-  test("GET /lesson/study-topic/:id - Should not be able to list lessons with invalid id", async () => {
-    const loginResponse = await request(app).post("/login").send(userLoginMock);
-
-    const response = await request(app)
-      .get("/lesson/study-topic/ce381027-d5b3-463a-bdea-c92884c8e362")
-      .set("Authorization", `Bearer ${loginResponse.body.token}`);
-
-    expect(response.body).toHaveProperty("message");
-    expect(response.body.message).toBe("Study topic not found");
-    expect(response.status).toBe(404);
-  });
-
-  test("GET /lesson/:id - Should be able to return lesson by id", async () => {
-    const loginResponse = await request(app).post("/login").send(userLoginMock);
-
-    const studyTopic = await request(app)
-      .get("/study-topics")
-      .set("Authorization", `Bearer ${loginResponse.body.token}`);
-
-    const lesson = await request(app)
-      .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
-      .set("Authorization", `Bearer ${loginResponse.body.token}`);
-
-    const response = await request(app)
-      .get(`/lesson/${lesson.body[0].id}`)
-      .set("Authorization", `Bearer ${loginResponse.body.token}`);
-
-    expect(response.body).toHaveProperty("id");
-    expect(response.body).toHaveProperty("name");
-    expect(response.body).toHaveProperty("studyTopic");
-    expect(response.status).toBe(200);
-  });
-
-  test("GET /lesson/:id - Should not be able to return lesson without authentication", async () => {
-    const loginResponse = await request(app).post("/login").send(userLoginMock);
-
-    const studyTopic = await request(app)
-      .get("/study-topics")
-      .set("Authorization", `Bearer ${loginResponse.body.token}`);
-
-    const lesson = await request(app)
-      .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
-      .set("Authorization", `Bearer ${loginResponse.body.token}`);
-
-    const response = await request(app).get(`/lesson/${lesson.body[0].id}`);
-
-    expect(response.body).toHaveProperty("message");
-    expect(response.body.message).toBe("Missing authorization headers");
-    expect(response.status).toBe(401);
-  });
-
-  test("GET /study-topics/:id - Should not be able to return lesson with invalid id", async () => {
-    const loginResponse = await request(app).post("/login").send(userLoginMock);
-
-    const response = await request(app)
-      .get("/lesson/ce381027-d5b3-463a-bdea-c92884c8e362")
-      .set("Authorization", `Bearer ${loginResponse.body.token}`);
-
-    expect(response.body).toHaveProperty("message");
-    expect(response.body.message).toBe("Lesson not found");
-    expect(response.status).toBe(404);
-  });
-
-  test("PATCH /lesson/:id - Should be able to update lesson", async () => {
-    const data = { name: "Principais métodos de Array" };
-
-    const loginResponse = await request(app).post("/login").send(userLoginMock);
-
-    const studyTopic = await request(app)
-      .get("/study-topics")
-      .set("Authorization", `Bearer ${loginResponse.body.token}`);
-
-    const lesson = await request(app)
-      .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
-      .set("Authorization", `Bearer ${loginResponse.body.token}`);
-
-    const response = await request(app)
-      .patch(`/lesson/${lesson.body[0].id}`)
-      .set("Authorization", `Bearer ${loginResponse.body.token}`)
-      .send(data);
-
-    const updatedLesson = await request(app)
-      .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
-      .set("Authorization", `Bearer ${loginResponse.body.token}`);
-
-    expect(updatedLesson.body[0].name).toEqual("Principais métodos de Array");
-    expect(response.status).toBe(200);
-  });
-
-  test("PATCH /lesson/:id - Should not be able to update lesson without authentication", async () => {
-    const loginResponse = await request(app).post("/login").send(userLoginMock);
-
-    const studyTopic = await request(app)
-      .get("/study-topics")
-      .set("Authorization", `Bearer ${loginResponse.body.token}`);
-
-    const lesson = await request(app)
-      .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
-      .set("Authorization", `Bearer ${loginResponse.body.token}`);
-
-    const response = await request(app).patch(`/lesson/${lesson.body[0].id}`);
-
-    expect(response.body).toHaveProperty("message");
-    expect(response.body.message).toBe("Missing authorization headers");
-    expect(response.status).toBe(401);
-  });
-
-  test("PATCH /lesson/:id - Should not be able to update lesson with invalid id", async () => {
-    const data = { name: "Principais métodos de Array" };
+  test("PATCH /paragraphs/:id - Should not be able to update paragraph with invalid id", async () => {
+    const data = {
+      description:
+        "O método forEach( ) é usado para percorrer um Array, executando uma função em cada elemento.",
+    };
 
     const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const response = await request(app)
-      .patch("/lesson/ce381027-d5b3-463a-bdea-c92884c8e362")
+      .patch("/paragraphs/ce381027-d5b3-463a-bdea-c92884c8e362")
       .set("Authorization", `Bearer ${loginResponse.body.token}`)
       .send(data);
 
     expect(response.body).toHaveProperty("message");
-    expect(response.body.message).toBe("Lesson not found");
+    expect(response.body.message).toBe("Paragraph not found");
     expect(response.status).toBe(404);
   });
 
-  test("PATCH /lesson/:id - Should not be able to update id field value", async () => {
+  test("PATCH /paragraphs/:id - Should not be able to update id field value", async () => {
     const data = { id: "ce381027-d5b3-463a-bdea-c92884c8e362" };
 
     const loginResponse = await request(app).post("/login").send(userLoginMock);
@@ -243,71 +266,99 @@ describe("/lesson", () => {
       .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
+    const text = await request(app)
+      .get(`/text/${lesson.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const paragraph = await request(app)
+      .get(`/paragraphs/${text.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
     const response = await request(app)
-      .patch(`/lesson/${lesson.body[0].id}`)
+      .patch(`/paragraphs/${paragraph.body[0].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`)
       .send(data);
 
     expect(response.body).toHaveProperty("message");
-    expect(response.body.message).toBe("Only the name field can be changed");
+    expect(response.body.message).toBe(
+      "Only the description field can be changed"
+    );
     expect(response.status).toBe(401);
   });
 
-  test("DELETE /lesson/:id - Should be able to delete lesson", async () => {
+  test("DELETE /paragraphs/:id - Should be able to delete paragraph", async () => {
     const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const studyTopic = await request(app)
       .get("/study-topics")
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
-    await request(app)
-      .post(`/lesson/${studyTopic.body[0].id}`)
-      .set("Authorization", `Bearer ${loginResponse.body.token}`)
-      .send(lessonMock);
-
     const lesson = await request(app)
       .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
+    const text = await request(app)
+      .get(`/text/${lesson.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    await request(app)
+      .post(`/paragraphs/${text.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`)
+      .send(paragraphMock);
+
+    const paragraph = await request(app)
+      .get(`/paragraphs/${text.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
     const response = await request(app)
-      .delete(`/lesson/${lesson.body[0].id}`)
+      .delete(`/paragraphs/${paragraph.body[0].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     expect(response.status).toBe(204);
   });
 
-  test("DELETE /lesson/:id - Should not be able to delete lesson without authentication", async () => {
+  test("DELETE /paragraphs/:id - Should not be able to delete paragraph without authentication", async () => {
     const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const studyTopic = await request(app)
       .get("/study-topics")
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
-    await request(app)
-      .post(`/lesson/${studyTopic.body[0].id}`)
-      .set("Authorization", `Bearer ${loginResponse.body.token}`)
-      .send(lessonMock);
-
     const lesson = await request(app)
       .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
-    const response = await request(app).delete(`/lesson/${lesson.body[0].id}`);
+    const text = await request(app)
+      .get(`/text/${lesson.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    await request(app)
+      .post(`/paragraphs/${text.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`)
+      .send(paragraphMock);
+
+    const paragraph = await request(app)
+      .get(`/paragraphs/${text.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const response = await request(app).delete(
+      `/paragraphs/${paragraph.body[0].id}`
+    );
 
     expect(response.body).toHaveProperty("message");
     expect(response.body.message).toBe("Missing authorization headers");
     expect(response.status).toBe(401);
   });
 
-  test("DELETE /lesson/:id - Should not be able to delete lesson with invalid id", async () => {
+  test("DELETE /paragraphs/:id - Should not be able to delete paragraph with invalid id", async () => {
     const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const response = await request(app)
-      .delete("/lesson/ce381027-d5b3-463a-bdea-c92884c8e362")
+      .delete("/paragraphs/ce381027-d5b3-463a-bdea-c92884c8e362")
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     expect(response.body).toHaveProperty("message");
-    expect(response.body.message).toBe("Lesson not found");
+    expect(response.body.message).toBe("Paragraph not found");
     expect(response.status).toBe(404);
   });
 });

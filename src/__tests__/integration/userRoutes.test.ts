@@ -375,8 +375,6 @@ describe("/users", () => {
   });
 
   test("DELETE /users/:id - Should not be able to delete user with invalid id", async () => {
-    await request(app).post("/users").send(adminMock);
-
     const loginResponse = await request(app)
       .post("/login")
       .send(adminLoginMock);
