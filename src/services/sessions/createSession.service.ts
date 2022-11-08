@@ -1,5 +1,5 @@
 import AppDataSource from "../../data-source";
-import { compare } from "bcrypt";
+import { compare } from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { IUserLogin } from "../../interfaces/users.interfaces";
 import { User } from "../../entities/user.entity";
