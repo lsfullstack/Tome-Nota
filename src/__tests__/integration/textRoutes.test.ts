@@ -20,15 +20,17 @@ describe("/text", () => {
 
     const loginResponse = await request(app).post("/login").send(userLoginMock);
 
-    await request(app)
-      .post("/study-topics")
-      .set("Authorization", `Bearer ${loginResponse.body.token}`)
-      .send(studyTopicMock);
-
     const studyTopic = await request(app)
       .get("/study-topics")
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
+
+    await request(app)
+      .post(`/study-topics/${studyTopic.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`)
+      .send(studyTopicMock);
+
+   
     await request(app)
       .post(`/lesson/${studyTopic.body[0].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`)

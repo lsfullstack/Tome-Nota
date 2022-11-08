@@ -15,6 +15,14 @@ export interface IStudyTopic {
   categories?: ICategory[];
 }
 
+export interface IStudyTopicList {
+  id: string;
+  name: string;
+  user: IUser;
+  lessons?: ILesson[];
+  categories?: (string | undefined)[];
+}
+
 export interface IStudyTopicUpdate {
   name?: string;
   categories?: string[];
