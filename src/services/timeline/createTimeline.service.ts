@@ -23,7 +23,7 @@ const createTimelineService = async (
 
   const timeline = timelineRepository.create({
     time,
-    description,
+    description: `${time} - ${description}`,
     video: findVideo,
   });
 

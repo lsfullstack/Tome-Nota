@@ -1,11 +1,17 @@
 import AppDataSource from "../../data-source";
 import { Text } from "../../entities/text.entity";
 import { AppError } from "../../errors/AppError";
-import { IText } from "../../interfaces/texts.interface";
+import { IText, ITextUpdate } from "../../interfaces/texts.interface";
 
-const updateTextService = async (id: string, title: string): Promise<IText> => {
+const updateTextService = async (id: string, data: ITextUpdate): Promise<IText> => {
+  const { title } = data;
   const textRepository = AppDataSource.getRepository(Text);
   const text = await textRepository.findOneBy({ id });
+  const verifyBlockedFields = Object.keys(data).some(e => e !== "title");
+
+  if (verifyBlockedFields) {
+    throw new AppError("Only the title field can be changed", 401);
+  }
 
   if (!text) {
     throw new AppError("Text not found", 404);

@@ -6,11 +6,18 @@ import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppError";
 import "dotenv/config";
 
-const createSessionService = async ({ email, password }: IUserLogin): Promise<string> => {
+const createSessionService = async (data: IUserLogin): Promise<string> => {
+  const { email, password } = data;
   const userRepository = AppDataSource.getRepository(User);
   const user = await userRepository.findOneBy({
     email
   });
+
+  const verifyBlockedFields = Object.keys(data).some(e => e !== "email" && e !== "password");
+
+  if (verifyBlockedFields) {
+    throw new AppError("Only the email and password fields can be send", 401);
+  }
 
   const passwordMatch = await compare(password, user!.password);
 
