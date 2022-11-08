@@ -9,8 +9,9 @@ import {
 
 const createTimelineService = async (
   id: string,
-  { time, description }: ITimelineRequest
+  data: ITimelineRequest
 ): Promise<ITimeline> => {
+  const { time, description } = data;
   const videoRepository = AppDataSource.getRepository(Video);
   const timelineRepository = AppDataSource.getRepository(Timeline);
   const findVideo = await videoRepository.findOneBy({
@@ -19,6 +20,10 @@ const createTimelineService = async (
 
   if (!findVideo) {
     throw new AppError("Video not found", 404);
+  }
+
+  if (!time || !description) {
+    throw new AppError("Time and description are required fields", 401);
   }
 
   const timeline = timelineRepository.create({

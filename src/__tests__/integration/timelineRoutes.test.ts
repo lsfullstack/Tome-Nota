@@ -42,7 +42,7 @@ describe("/timeline", () => {
   });
 
   test("POST /timeline - Should be able to create a timeLine", async () => {
-    const loginResponse = await request(app).post("/login").send(userMock);
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const studyTopicList = await request(app)
       .get("/study-topics")
@@ -57,14 +57,10 @@ describe("/timeline", () => {
       .get(`/lesson/study-topic/${studyTopicList.body[0].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
-    await request(app)
+    const videoResponse = await request(app)
       .post(`/video/${lessonList.body[0].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`)
       .send(videoMock);
-
-    const videoResponse = await request(app)
-      .get(`/video/${lessonList.body[0].video.id}`)
-      .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     const response = await request(app)
       .post(`/timeline/${videoResponse.body.id}`)
@@ -79,7 +75,7 @@ describe("/timeline", () => {
   });
 
   test("POST /timeline - Should not be able to create timeline without authentication", async () => {
-    const loginResponse = await request(app).post("/login").send(userMock);
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const studyTopicList = await request(app)
       .get("/study-topics")
@@ -109,7 +105,7 @@ describe("/timeline", () => {
   });
 
   test("POST /timeline - Should not be able to create timeline with invalid id", async () => {
-    const loginResponse = await request(app).post("/login").send(userMock);
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const response = await request(app)
       .post("/timeline/ce381027-d5b3-463a-bdea-c92884c8e362")
@@ -122,7 +118,7 @@ describe("/timeline", () => {
   });
 
   test("POST/timeline - Should not be able to create a timeline without description field value", async () => {
-    const loginResponse = await request(app).post("/login").send(userMock);
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const studyTopicList = await request(app)
       .get("/study-topics")
@@ -149,10 +145,13 @@ describe("/timeline", () => {
 
     expect(response.status).toBe(401);
     expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe(
+      "Time and description are required fields"
+    );
   });
 
   test("POST/timeline - Should not be able to create a timeline without time field value", async () => {
-    const loginResponse = await request(app).post("/login").send(userMock);
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const studyTopicList = await request(app)
       .get("/study-topics")
@@ -179,10 +178,13 @@ describe("/timeline", () => {
 
     expect(response.status).toBe(401);
     expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe(
+      "Time and description are required fields"
+    );
   });
 
   test("GET/timeline - Should be able to list timelines", async () => {
-    const loginResponse = await request(app).post("/login").send(userMock);
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const studyTopicList = await request(app)
       .get("/study-topics")
@@ -216,7 +218,7 @@ describe("/timeline", () => {
   });
 
   test("GET /timeline - Should not be able to list timeline without authentication", async () => {
-    const loginResponse = await request(app).post("/login").send(userMock);
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const studyTopicList = await request(app)
       .get("/study-topics")
@@ -258,7 +260,7 @@ describe("/timeline", () => {
   });
 
   test("PATCH /timeline/:id - Should be able to update timeline", async () => {
-    const loginResponse = await request(app).post("/login").send(userMock);
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const studyTopicList = await request(app)
       .get("/study-topics")
@@ -296,7 +298,7 @@ describe("/timeline", () => {
   });
 
   test("PATCH /timeline - Should not be able to update timeline without authentication", async () => {
-    const loginResponse = await request(app).post("/login").send(userMock);
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const studyTopicList = await request(app)
       .get("/study-topics")
@@ -339,7 +341,7 @@ describe("/timeline", () => {
   });
 
   test("DELETE /timeline/:id - Should be able to delete timeline", async () => {
-    const loginResponse = await request(app).post("/login").send(userMock);
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const studyTopicList = await request(app)
       .get("/study-topics")
@@ -385,7 +387,7 @@ describe("/timeline", () => {
   });
 
   test("DELETE /timeline - Should not be able to update delete without authentication", async () => {
-    const loginResponse = await request(app).post("/login").send(userMock);
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const studyTopicList = await request(app)
       .get("/study-topics")
