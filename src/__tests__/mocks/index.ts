@@ -16,10 +16,7 @@ import {
   IUserRequest,
   IUserRequestTest,
 } from "../../interfaces/users.interfaces";
-import {
-  ITimeline,
-  ITimelineUpdate,
-} from "../../interfaces/timeline.interface";
+import { ITimelineUpdate } from "../../interfaces/timeline.interface";
 
 export const userMock: IUserRequest = {
   name: "Felipe",
