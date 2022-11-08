@@ -6,6 +6,7 @@ import { IStudyTopicRequest } from "../../interfaces/studyTopics.interfaces";
 import { IExtraContentRequest } from "../../interfaces/extraContents.interface";
 import { ICategoryRequest, ICategoryUpdate } from "../../interfaces/categories.interfaces";
 import { IUserLogin, IUserRequest, IUserRequestTest} from "../../interfaces/users.interfaces";
+import { ITimeline, ITimelineUpdate } from "../../interfaces/timeline.interface";
 
 export const userMock: IUserRequest = {
   name: "Felipe",
@@ -85,4 +86,23 @@ export const videoMock: IVideoRequest = {
 export const extraContentMock: IExtraContentRequest = {
   name: "Documentação método forEach()",
   link: "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach",
+};
+
+export const timeLineMock: ITimelineUpdate = {
+  description: "Documentação método forEach()",
+  time: "02:20",
+};
+
+export const timeLineWithoutDescriptionMock: ITimelineUpdate = {
+  time: "02:20",
+};
+
+export const timeLineWithoutTimeMock: ITimelineUpdate = {
+  description: "Documentação método forEach()",
+};
+
+
+export const timeLineUpdateMock: ITimelineUpdate = {
+  description: "Documentação método map()",
+  time: "03:40",
 };
