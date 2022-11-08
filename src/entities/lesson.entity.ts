@@ -30,7 +30,7 @@ class Lesson {
   { cascade: true })
   extraContents: ExtraContent[];
 
-  @OneToOne(() => Video, { eager: true, nullable: true, cascade: true, onDelete: 'CASCADE' })
+  @OneToOne(type => Video, { eager: true, nullable: true, onDelete: 'SET NULL' })
   @JoinColumn()
   video: Video;
 }
