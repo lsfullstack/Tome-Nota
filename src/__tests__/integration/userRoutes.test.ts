@@ -21,7 +21,7 @@ describe("/users", () => {
         connection = res;
       })
       .catch((err) => {
-        console.log("Error during Data Source initialization", err);
+        console.error("Error during Data Source initialization", err);
       });
   });
 

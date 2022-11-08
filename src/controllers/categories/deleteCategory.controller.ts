@@ -3,7 +3,6 @@ import deleteCategoryService from "../../services/categories/deleteCategory.serv
 
 const deleteCategoryController = async (req: Request, res: Response) => {
   const idTargetCategory: string = req.params.id;
-
   await deleteCategoryService(idTargetCategory);
 
   return res.status(204).send();

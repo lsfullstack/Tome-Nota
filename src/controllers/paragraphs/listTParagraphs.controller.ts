@@ -4,6 +4,7 @@ import listParagraphsService from "../../services/paragraphs/listParagraphs.serv
 const listParagraphsController = async (req: Request, res: Response) => {
   const id: string = req.params.id;
   const paragraphId = await listParagraphsService(id);
+  
   return res.status(200).json(paragraphId);
 };
 

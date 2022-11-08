@@ -6,6 +6,7 @@ const updateExtraContentController = async (req: Request, res: Response) => {
   const id: string = req.params.id;
   const data: IExtraContentUpdate = req.body;
   const updatedExtraContent = await updateExtraContentService(id, data);
+  
   return res.status(200).json(updatedExtraContent);
 };
 
