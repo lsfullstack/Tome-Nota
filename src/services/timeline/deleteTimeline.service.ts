@@ -7,7 +7,7 @@ const deleteTimelineService = async (id: string): Promise<void> => {
   const findTimeline = await timelineRepository.findOneBy({ id });
 
   if (!findTimeline) {
-    throw new AppError("Timeline not found", 404);
+    throw new AppError("Chapter not found", 404);
   }
 
   await timelineRepository.delete({ id });

@@ -2,7 +2,14 @@ import app from "../../app";
 import request from "supertest";
 import { DataSource } from "typeorm";
 import AppDataSource from "../../data-source";
-import { adminLoginMock, adminMock, categoryMock, studyTopicMock, userLoginMock, userMock} from "../mocks";
+import {
+  adminLoginMock,
+  adminMock,
+  categoryMock,
+  studyTopicMock,
+  userLoginMock,
+  userMock,
+} from "../mocks";
 
 describe("/study-topics", () => {
   let connection: DataSource;
@@ -50,6 +57,24 @@ describe("/study-topics", () => {
     expect(response.status).toBe(201);
   });
 
+  test("POST /study-topics - Should be able to create a study topic without a category", async () => {
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
+
+    const response = await request(app)
+      .post("/study-topics")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`)
+      .send({
+        name: "Desenvolvimento Web Back-End",
+      });
+
+    expect(response.body).toHaveProperty("id");
+    expect(response.body).toHaveProperty("name");
+    expect(response.body).toHaveProperty("user");
+    expect(response.body).toHaveProperty("createdAt");
+    expect(response.body).toHaveProperty("updatedAt");
+    expect(response.status).toBe(201);
+  });
+
   test("POST /study-topics - Should not be able to create a study topic without authentication", async () => {
     const response = await request(app)
       .post("/study-topics")
@@ -60,6 +85,22 @@ describe("/study-topics", () => {
     expect(response.status).toBe(401);
   });
 
+  test("POST /study-topics - Should not be able to create a study topic with category that does not exist", async () => {
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
+
+    const response = await request(app)
+      .post("/study-topics")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`)
+      .send({
+        name: "Desenvolvimento Web Back-End",
+        categories: ["Back End"],
+      });
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe("Category not found");
+    expect(response.status).toBe(404);
+  });
+
   test("GET /study-topics/:id - Should be able to return study topic by id", async () => {
     const loginResponse = await request(app).post("/login").send(userLoginMock);
 
@@ -68,7 +109,7 @@ describe("/study-topics", () => {
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     const response = await request(app)
-      .get(`/study-topics/${studyTopic.body[0].id}`)
+      .get(`/study-topics/${studyTopic.body[1].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     expect(response.body).toHaveProperty("id");
@@ -115,7 +156,7 @@ describe("/study-topics", () => {
       .get("/study-topics")
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
-    expect(response.body).toHaveLength(1);
+    expect(response.body).toHaveLength(3);
     expect(response.status).toBe(200);
   });
 

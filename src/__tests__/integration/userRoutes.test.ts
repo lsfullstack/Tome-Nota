@@ -2,7 +2,15 @@ import app from "../../app";
 import request from "supertest";
 import { DataSource } from "typeorm";
 import AppDataSource from "../../data-source";
-import { adminMock, adminLoginMock, userMock, userLoginMock, userWithoutPassword, userWithoutIsAdm, userWithoutName} from "../mocks";
+import {
+  adminMock,
+  adminLoginMock,
+  userMock,
+  userLoginMock,
+  userWithoutPassword,
+  userWithoutIsAdm,
+  userWithoutName,
+} from "../mocks";
 
 describe("/users", () => {
   let connection: DataSource;
@@ -119,6 +127,26 @@ describe("/users", () => {
     expect(userData.body).toHaveProperty("updatedAt");
     expect(userData.body).toHaveProperty("isAdm");
     expect(userData.body).not.toHaveProperty("password");
+  });
+
+  test("GET /users/:id - Should not be able to return user by id not being admin", async () => {
+    await request(app).post("/users").send(adminMock);
+
+    const admin = await request(app).post("/login").send(adminLoginMock);
+
+    const adminData = await request(app)
+      .get("/users/profile")
+      .set("Authorization", `Bearer ${admin.body.token}`);
+
+    const userLogin = await request(app).post("/login").send(userLoginMock);
+
+    const response = await request(app)
+      .get(`/users/${adminData.body.id}`)
+      .set("Authorization", `Bearer ${userLogin.body.token}`);
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe("User is not admin");
+    expect(response.status).toBe(401);
   });
 
   test("GET /users/:id - Should not be able to return user by id without authentication", async () => {
@@ -388,7 +416,7 @@ describe("/users", () => {
     expect(response.status).toBe(404);
   });
 
-  test("DELETE /users/:id - Should not be able to delete user not being admin", async () => {
+  test("DELETE /users/:id - Should not be able to delete another user not being admin", async () => {
     const loginResponse = await request(app).post("/login").send(userLoginMock);
 
     const adminLoginResponse = await request(app)
@@ -424,6 +452,7 @@ describe("/users", () => {
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe("User not found");
     expect(response.status).toBe(404);
   });
 });
