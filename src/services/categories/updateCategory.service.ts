@@ -6,10 +6,10 @@ import { ICategory, ICategoryUpdate } from "../../interfaces/categories.interfac
 const updateCategoryService = async (name: ICategoryUpdate, id: string): Promise<ICategory> => {
   const categoryRepository = AppDataSource.getRepository(Category);
   const findCategory = await categoryRepository.findOneBy({ id });
-  const verifyBlockedFields = Object.keys(name).some((e) => e === "id");
+  const verifyBlockedFields = Object.keys(name).some((e) => e !== "name");
 
   if (verifyBlockedFields) {
-    throw new AppError("Only the name fields can be changed", 401);
+    throw new AppError("Only the name field can be changed", 401);
   }
 
   if (!findCategory) {

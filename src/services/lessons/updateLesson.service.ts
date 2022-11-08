@@ -16,10 +16,10 @@ const updateLessonService = async (id: string, lesson: ILessonUpdate): Promise<I
     throw new AppError("Lesson not found", 404);
   }
 
-  const { name } = findLesson;
+  const { name } = lesson;
 
   await lessonRepository.update(id, {
-    name,
+    name: name ? name : findLesson.name
   });
 
   const updatedLesson = await lessonRepository.findOne({
