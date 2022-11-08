@@ -7,12 +7,19 @@ import { AppError } from "../../errors/AppError";
 import { ICategory } from "../../interfaces/categories.interfaces";
 import { IStudyTopic, IStudyTopicRequest } from "../../interfaces/studyTopics.interfaces";
 
-const createStudyTopicService = async (userId: string, { name, categories }: IStudyTopicRequest): Promise<IStudyTopic> => {
+const createStudyTopicService = async (userId: string, data: IStudyTopicRequest): Promise<IStudyTopic> => {
+  const { name, categories } = data;
   const userRepository = AppDataSource.getRepository(User);
   const categoryRepository = AppDataSource.getRepository(Category);
   const studyTopicRepository = AppDataSource.getRepository(StudyTopic);
   const studyTopicCategoryRepository = AppDataSource.getRepository(StudyTopicCategory);
   const user = await userRepository.findOneBy({ id: userId });
+
+  const verifyBlockedFields = Object.keys(data).some(e => e !== "name" && e !== "categories");
+
+  if (verifyBlockedFields) {
+    throw new AppError("Only the name and categories fields can be send", 401);
+  }
 
   if (!user) {
     throw new AppError("User not found", 404);

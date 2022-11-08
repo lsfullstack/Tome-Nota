@@ -1,12 +1,17 @@
 import AppDataSource from "../../data-source";
 import { Paragraph } from "../../entities/paragraph.entity";
 import { AppError } from "../../errors/AppError";
-import { IParagraph } from "../../interfaces/paragraphs.interface";
+import { IParagraph, IParagraphUpdate } from "../../interfaces/paragraphs.interface";
 
-const updateParagraphService = async (id: string, description: string): Promise<IParagraph> => {
+const updateParagraphService = async (id: string, data: IParagraphUpdate): Promise<IParagraph> => {
+  const { description } = data;
   const paragraphRepository = AppDataSource.getRepository(Paragraph);
   const paragraph = await paragraphRepository.findOneBy({ id });
+  const verifyBlockedFields = Object.keys(data).some(e => e !== "description");
 
+  if (verifyBlockedFields) {
+    throw new AppError("Only the description field can be send", 401);
+  }
   if (!paragraph) {
     throw new AppError("Paragraph not found", 404);
   }

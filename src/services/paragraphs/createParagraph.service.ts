@@ -7,12 +7,19 @@ import {
   IParagraphRequest,
 } from "../../interfaces/paragraphs.interface";
 
-const createParagraphService = async ({ description }: IParagraphRequest, textId: string): Promise<IParagraph> => {
+const createParagraphService = async (data: IParagraphRequest, textId: string): Promise<IParagraph> => {
+  const { description } = data;
   const paragraphRepository = AppDataSource.getRepository(Paragraph);
   const textRepository = AppDataSource.getRepository(Text);
   const text = await textRepository.findOneBy({
     id: textId,
   });
+
+  const verifyBlockedFields = Object.keys(data).some(e => e !== "description");
+
+  if (verifyBlockedFields) {
+    throw new AppError("Only the description field can be send", 401);
+  }
 
   if (!text) {
     throw new AppError("Text not found", 404);
