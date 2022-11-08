@@ -7,8 +7,7 @@ const sendEmail = async ({
   text,
   to,
 }: IEmailRequest): Promise<void> => {
-  //Fazendo a conexão com o nosso servidor de SMPT
-  //Para a conexão funcionar, precisamos puxar o usuário e senha do outlook que foram colocados no .env
+
   const transporter = createTransport({
     host: "smtp-mail.outlook.com",
     port: 587,
@@ -19,8 +18,6 @@ const sendEmail = async ({
     },
   });
 
-  //Com a conexão feita, usamos o método sendMail
-  //O método fará o envio do email de acordo com os parâmetros passados
   await transporter
     .sendMail({
       from: process.env.SMTP_USER,

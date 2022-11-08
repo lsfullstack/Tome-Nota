@@ -10,9 +10,7 @@ const deleteVideoService = async (id: string): Promise<void> => {
     throw new AppError("Video not found", 404);
   }
 
-  /* está deletando a lesson junto - Falta corrigir migration - set null? */
   await videoRepository.delete({ id });
-
 };
 
 export default deleteVideoService;

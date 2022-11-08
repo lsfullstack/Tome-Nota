@@ -231,8 +231,6 @@ describe("/categories", () => {
     expect(response.status).toBe(404);
   });
 
-  //
-
   test("DELETE /categories/:id - Should be able to delete category => user Adm", async () => {
     const loginResponse = await request(app)
       .post("/login")

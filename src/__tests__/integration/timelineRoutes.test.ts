@@ -25,12 +25,11 @@ describe("/timeline", () => {
       .catch((err) => {
         console.error("Error during Data Source initialization", err);
       });
-    //login
+
     await request(app).post("/users").send(userMock);
 
     const loginResponse = await request(app).post("/login").send(userLoginMock);
 
-    // create study-topics
     await request(app)
       .post("/study-topics")
       .set("Authorization", `Bearer ${loginResponse.body.token}`)

@@ -4,7 +4,7 @@ import { IStudyTopicRequest } from "../../interfaces/studyTopics.interfaces";
 import createStudyTopicService from "../../services/studyTopics/createStudyTopics.service";
 
 const createStudyTopicController = async (req: Request, res: Response) => {
-  const userId = req.user.id;
+  const userId: string = req.user.id;
   const studyTopic: IStudyTopicRequest = req.body;
   const createdStudyTopic = await createStudyTopicService(userId, studyTopic);
 
