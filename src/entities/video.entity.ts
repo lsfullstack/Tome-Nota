@@ -1,4 +1,5 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Lesson } from "./lesson.entity";
 import { Timeline } from "./timeline.entity";
 
 @Entity("video")
