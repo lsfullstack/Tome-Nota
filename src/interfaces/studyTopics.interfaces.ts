@@ -17,5 +17,5 @@ export interface IStudyTopic {
 
 export interface IStudyTopicUpdate {
   name?: string;
-  categories?: ICategory[];
+  categories?: string[];
 }
