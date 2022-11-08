@@ -8,9 +8,10 @@ import {
 } from "../../interfaces/extraContents.interface";
 
 const createExtraContentService = async (
-  { name, link }: IExtraContentRequest,
+  data: IExtraContentRequest,
   lessonId: string
 ): Promise<IExtraContent> => {
+  const { name, link } = data;
   const extraContentRepository = AppDataSource.getRepository(ExtraContent);
   const lessonRepository = AppDataSource.getRepository(Lesson);
   const lesson = await lessonRepository.findOneBy({
@@ -19,6 +20,18 @@ const createExtraContentService = async (
 
   if (!lesson) {
     throw new AppError("Lesson not found", 404);
+  }
+
+  const verifyBlockedFields = Object.keys(data).some(
+    (e) => e !== "name" && e !== "link"
+  );
+
+  if (verifyBlockedFields) {
+    throw new AppError("Only the name and link fields can be send", 401);
+  }
+
+  if (!name || !link) {
+    throw new AppError("Name and link are required fields", 401);
   }
 
   const newExtraContent = extraContentRepository.create({

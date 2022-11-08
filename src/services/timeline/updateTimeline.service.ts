@@ -26,7 +26,7 @@ const updateTimelineService = async (
     );
   }
   if (!findTimeline) {
-    throw new AppError("Timeline not found", 404);
+    throw new AppError("Chapter not found", 404);
   }
 
   const findVideo = await videoRepository.findOne({

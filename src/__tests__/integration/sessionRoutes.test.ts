@@ -54,9 +54,7 @@ describe("/login", () => {
 
   test("POST /login - Should not be able to login with the user with isActive = false", async () => {
     await request(app).post("/users").send(userMock);
-    const loginResponse = await request(app)
-      .post("/login")
-      .send(userLoginMock);
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
     const user = await request(app)
       .get("/users/profile")
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
@@ -69,7 +67,7 @@ describe("/login", () => {
     });
 
     expect(response.body).toHaveProperty("message");
-    expect(response.body.message).toBe("User not found");
-    expect(response.status).toBe(404);
+    expect(response.body.message).toBe("Invalid e-mail or password");
+    expect(response.status).toBe(403);
   });
 });

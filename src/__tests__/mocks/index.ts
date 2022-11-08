@@ -3,10 +3,23 @@ import { IVideoRequest } from "../../interfaces/video.interface";
 import { ILessonRequest } from "../../interfaces/lessons.interface";
 import { IParagraphRequest } from "../../interfaces/paragraphs.interface";
 import { IStudyTopicRequest } from "../../interfaces/studyTopics.interfaces";
-import { IExtraContentRequest } from "../../interfaces/extraContents.interface";
-import { ICategoryRequest, ICategoryUpdate } from "../../interfaces/categories.interfaces";
-import { IUserLogin, IUserRequest, IUserRequestTest} from "../../interfaces/users.interfaces";
-import { ITimeline, ITimelineUpdate } from "../../interfaces/timeline.interface";
+import {
+  IExtraContentRequest,
+  IExtraContentRequestTest,
+} from "../../interfaces/extraContents.interface";
+import {
+  ICategoryRequest,
+  ICategoryUpdate,
+} from "../../interfaces/categories.interfaces";
+import {
+  IUserLogin,
+  IUserRequest,
+  IUserRequestTest,
+} from "../../interfaces/users.interfaces";
+import {
+  ITimeline,
+  ITimelineUpdate,
+} from "../../interfaces/timeline.interface";
 
 export const userMock: IUserRequest = {
   name: "Felipe",
@@ -88,6 +101,14 @@ export const extraContentMock: IExtraContentRequest = {
   link: "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach",
 };
 
+export const extraContentMockWithoutName: IExtraContentRequestTest = {
+  link: "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach",
+};
+
+export const extraContentMockWithoutLink: IExtraContentRequestTest = {
+  name: "Documentação método forEach()",
+};
+
 export const timeLineMock: ITimelineUpdate = {
   description: "Documentação método forEach()",
   time: "02:20",
@@ -100,7 +121,6 @@ export const timeLineWithoutDescriptionMock: ITimelineUpdate = {
 export const timeLineWithoutTimeMock: ITimelineUpdate = {
   description: "Documentação método forEach()",
 };
-
 
 export const timeLineUpdateMock: ITimelineUpdate = {
   description: "Documentação método map()",

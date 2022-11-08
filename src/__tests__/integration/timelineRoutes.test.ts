@@ -3,16 +3,12 @@ import request from "supertest";
 import { DataSource } from "typeorm";
 import AppDataSource from "../../data-source";
 import {
-  categoryMock,
-  adminLoginMock,
   userMock,
   studyTopicMock,
   timeLineMock,
   lessonMock,
   videoMock,
-  categoryMockWithoutName,
   userLoginMock,
-  categoryForPatch,
   timeLineWithoutDescriptionMock,
   timeLineWithoutTimeMock,
   timeLineUpdateMock,
@@ -61,10 +57,14 @@ describe("/timeline", () => {
       .get(`/lesson/study-topic/${studyTopicList.body[0].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
-    const videoResponse = await request(app)
+    await request(app)
       .post(`/video/${lessonList.body[0].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`)
       .send(videoMock);
+
+    const videoResponse = await request(app)
+      .get(`/video/${lessonList.body[0].video.id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     const response = await request(app)
       .post(`/timeline/${videoResponse.body.id}`)
@@ -106,6 +106,19 @@ describe("/timeline", () => {
     expect(response.body).toHaveProperty("message");
     expect(response.body.message).toBe("Missing authorization headers");
     expect(response.status).toBe(401);
+  });
+
+  test("POST /timeline - Should not be able to create timeline with invalid id", async () => {
+    const loginResponse = await request(app).post("/login").send(userMock);
+
+    const response = await request(app)
+      .post("/timeline/ce381027-d5b3-463a-bdea-c92884c8e362")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`)
+      .send(timeLineMock);
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe("Video not found");
+    expect(response.status).toBe(404);
   });
 
   test("POST/timeline - Should not be able to create a timeline without description field value", async () => {
@@ -241,6 +254,7 @@ describe("/timeline", () => {
 
     expect(response.status).toBe(404);
     expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe("Video not found");
   });
 
   test("PATCH /timeline/:id - Should be able to update timeline", async () => {
@@ -321,18 +335,7 @@ describe("/timeline", () => {
 
     expect(response.status).toBe(404);
     expect(response.body).toHaveProperty("message");
-  });
-
-  test("DELETE /timeline/:id - Should not be able to delete timeline with invalid id", async () => {
-    const loginResponse = await request(app).post("/login").send(userLoginMock);
-
-    const response = await request(app)
-      .delete("/timeline/b240b1a2-23a1-4540-a333-ccbd54fcbaeb")
-      .set("Authorization", `Bearer ${loginResponse.body.token}`)
-      .send(timeLineUpdateMock);
-
-    expect(response.status).toBe(404);
-    expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe("Chapter not found");
   });
 
   test("DELETE /timeline/:id - Should be able to delete timeline", async () => {
@@ -366,6 +369,19 @@ describe("/timeline", () => {
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     expect(response.status).toBe(204);
+  });
+
+  test("DELETE /timeline/:id - Should not be able to delete timeline with invalid id", async () => {
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
+
+    const response = await request(app)
+      .delete("/timeline/b240b1a2-23a1-4540-a333-ccbd54fcbaeb")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`)
+      .send(timeLineUpdateMock);
+
+    expect(response.status).toBe(404);
+    expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe("Chapter not found");
   });
 
   test("DELETE /timeline - Should not be able to update delete without authentication", async () => {

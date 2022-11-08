@@ -2,7 +2,15 @@ import app from "../../app";
 import request from "supertest";
 import { DataSource } from "typeorm";
 import AppDataSource from "../../data-source";
-import { extraContentMock, lessonMock, studyTopicMock, userLoginMock, userMock} from "../mocks";
+import {
+  extraContentMock,
+  extraContentMockWithoutLink,
+  extraContentMockWithoutName,
+  lessonMock,
+  studyTopicMock,
+  userLoginMock,
+  userMock,
+} from "../mocks";
 
 describe("/extra-content", () => {
   let connection: DataSource;
@@ -60,6 +68,48 @@ describe("/extra-content", () => {
     expect(response.body).toHaveProperty("link");
     expect(response.body).toHaveProperty("lesson");
     expect(response.status).toBe(201);
+  });
+
+  test("POST /extra-content/:id - Should not be able to create a extra content without name field value", async () => {
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
+
+    const studyTopic = await request(app)
+      .get("/study-topics")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const lesson = await request(app)
+      .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const response = await request(app)
+      .post(`/extra-content/${lesson.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`)
+      .send(extraContentMockWithoutName);
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe("Name and link are required fields");
+    expect(response.status).toBe(401);
+  });
+
+  test("POST /extra-content/:id - Should not be able to create a extra content without link field value", async () => {
+    const loginResponse = await request(app).post("/login").send(userLoginMock);
+
+    const studyTopic = await request(app)
+      .get("/study-topics")
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const lesson = await request(app)
+      .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+    const response = await request(app)
+      .post(`/extra-content/${lesson.body[0].id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`)
+      .send(extraContentMockWithoutLink);
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe("Name and link are required fields");
+    expect(response.status).toBe(401);
   });
 
   test("POST /extra-content/:id - Should not be able to create a extra content without authentication", async () => {
