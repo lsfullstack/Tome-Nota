@@ -239,7 +239,7 @@ describe("/study-topics", () => {
     expect(response.body.message).toBe(
       "Only the name and categories fields can be changed"
     );
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(400);
   });
 
   test("PATCH /study-topics/:id - Should not be able to update user field value", async () => {
@@ -260,7 +260,7 @@ describe("/study-topics", () => {
     expect(response.body.message).toBe(
       "Only the name and categories fields can be changed"
     );
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(400);
   });
 
   test("DELETE /study-topics/:id - Should be able to delete study topic", async () => {

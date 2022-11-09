@@ -4,18 +4,34 @@
 
 <br>
 
-# TECNOLOGIAS
+## DESENVOLVEDORES
+
+  * ### <a href="https://github.com/liviabsl">Lívia Oliveira</a> - Scrum Master
+  * ### <a href="https://github.com/silva-lucas98">Lucas Silva</a> - Tech Lead
+  * ### <a href="https://github.com/leticia-angelim">Letícia Angelin</a> - Product Owner
+  * ### <a href="https://github.com/felipemotavieira">Felipe Vieira</a> - Developer
+  * ### <a href="https://github.com/mariaritabelchior">Maria Belchior</a> - Developer
+  * ### <a href="https://github.com/NaianeReis27">Naiane Reis</a> - Developer
+
+<br>
+
+## TECNOLOGIAS
   * Typeorm
   * Typescript
   * Express NodeJs
   * Ts-node-dev
-  * Bcrypt
+  * Bcryptjs
   * Jsonwebtoken
   * Dotenv
   * Class-transformer
   * Express-async-errors
   * Pg
   * Reflect-metadata
+  * Cross-env
+  * Jest
+  * Sqlite3
+  * Ts-jest
+  * Supertest
 
 <br>
 
@@ -80,7 +96,7 @@
 >
 >```json
 > {
->   "message": "Only name, email, password and isAdm can be sent"
+>   "message": "Only name, email, password and isAdm can be send"
 > }
 >```
 >---
@@ -162,7 +178,7 @@
 >   "message": "User not found"
 > }
 >```
-> ## Buscando administrador ou usuário desatvado sem ser administrador
+> ## Buscando administrador ou usuário desativado sem ser administrador
 >> ## Formato da resposta:
 >
 > * Status: `401 UNAUTHORIZED`;
@@ -295,7 +311,7 @@
 > ## Atualizando outros campos
 >> ## Formato da resposta:
 >
-> * Status: `401 UNAUTHORIZED`;
+> * Status: `400 BAD REQUEST`;
 >
 >```json
 > {
@@ -376,7 +392,7 @@
 >   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbSI6dHJ1ZSwiaXNBY3RpdmUiOnRydWUsImlhdCI6MTY2NzE0OTIzNiwiZXhwIjoxNjY3MjM1NjM2LCJzdWIiOiI3YTZiNTk0MS04YjdjLTQyZjItYWYyZC1jODAxNjMzYjdhNWYifQ.QYCFK6a9u-3cUkNgZ9yo5NmCBQ3afyutsRqDeO-_b_M"
 > }
 >```
-> ## E-mail ou senha inválidos | E-mail de usuário desativado - `(IsActive - false)`
+> ## E-mail ou senha inválidos
 >> ## Formato da resposta:
 >
 > * Status: `403 FORBIDDEN`;
@@ -384,6 +400,16 @@
 >```json
 > {
 >   "message": "Invalid e-mail or password"
+> }
+>```
+> ## Enviando outros campos
+>> ## Formato da resposta:
+>
+> * Status: `400 BAD REQUEST`;
+>
+>```json
+> {
+>   "message": "Only the email and password can be send"
 > }
 >```
 >---
@@ -450,6 +476,26 @@
 >```json
 > {
 >   "message": "Missing authorization headers"
+> }
+>```
+> ## Com categoria que não existe
+>> ## Formato da resposta:
+>
+> * Status: `404 NOT FOUND`;
+> 
+>```json
+> {
+>   "message": "Category not found"
+> }
+>```
+> ## Enviando outro campos
+>> ## Formato da resposta:
+>
+> * Status: `400 BAD REQUEST`;
+> 
+>```json
+> {
+>   "message": "Only the name and categories fields can be send"
 > }
 >```
 >---
@@ -674,7 +720,7 @@
 > ## Atualizando outros campos
 >> ## Formato da resposta:
 >
-> * Status: `401 UNAUTHORIZED`;
+> * Status: `400 BAD REQUEST`;
 >
 >```json
 > {
@@ -760,7 +806,6 @@
 > }
 >```
 > ## Id inválido
->
 >> ## Formato da resposta:
 >
 > * Status: `404 NOT FOUND`;
@@ -768,6 +813,16 @@
 >```json
 > {
 >   "message": "Study topic not found"
+> }
+>```
+> ## Enviando outros campos
+>> ## Formato da resposta:
+>
+> * Status: `400 BAD REQUEST`;
+>
+>```json
+> {
+>   "message": "Only the name field can be send"
 > }
 >```
 >---
@@ -925,7 +980,7 @@
 > ## Atualizando outros campos
 >> ## Formato da resposta:
 >
-> * Status: `401 UNAUTHORIZED`;
+> * Status: `400 BAD REQUEST`;
 >
 >```json
 > {
@@ -1024,6 +1079,16 @@
 >```json
 > {
 >   "message": "Category already exists"
+> }
+>```
+> ## Enviando outros campos
+>> ## Formato da resposta:
+>
+> * Status: `400 BAD REQUEST`;
+>
+>```json
+> {
+>   "message": "Only the name field can be send"
 > }
 >```
 >---
@@ -1147,7 +1212,7 @@
 > ## Atualizando outros campos
 >> ## Formato da resposta:
 >
-> * Status: `401 UNAUTHORIZED`;
+> * Status: `400 BAD REQUEST`;
 >
 >```json
 > {
@@ -1259,6 +1324,15 @@
 >```json
 > {
 >   "message": "Lesson not found"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>
+> * Status: `400 BAD REQUEST`;
+>```json
+> {
+>   "message": "Only the title field can be send"
 > }
 >```
 >---
@@ -1390,7 +1464,7 @@
 > ## Atualizando outros campos
 >> ## Formato da resposta:
 >
-> * Status: `401 UNAUTHORIZED`;
+> * Status: `400 BAD REQUEST`;
 >
 >```json
 > {
@@ -1480,6 +1554,15 @@
 >```json
 > {
 >   "message": "Text not found"
+> }
+>```
+> ## Enviando outros campos
+>> ## Formato da resposta:
+>
+> * Status: `400 BAD REQUEST`;
+>```json
+> {
+>   "message": "Only the description field can be send"
 > }
 >```
 >---
@@ -1585,7 +1668,7 @@
 > ## Atualizando outros campos
 >> ## Formato da resposta:
 >
-> * Status: `401 UNAUTHORIZED`;
+> * Status: `400 BAD REQUEST`;
 >
 >```json
 > {
@@ -1677,6 +1760,15 @@
 >```json
 > {
 >   "message": "Lesson not found"
+> }
+>```
+> ## Enviando outros campos
+>> ## Formato da resposta:
+>
+> * Status: `400 BAD REQUEST`;
+>```json
+> {
+>   "message": "Only the name and link can be send"
 > }
 >```
 >---
@@ -1774,7 +1866,7 @@
 > ## Atualizando outros campos
 >> ## Formato da resposta:
 >
-> * Status: `401 UNAUTHORIZED`;
+> * Status: `400 BAD REQUEST`;
 >
 >```json
 > {
@@ -1827,6 +1919,7 @@
 >> ## Formato da requisição:
 >
 > * Necessário autenticação por `token`;
+> * `Time` e `description` são campos obrigatórios;
 >
 >```json
 > {
@@ -1868,6 +1961,24 @@
 >```json
 > {
 >   "message": "Video not found"
+> }
+>```
+> ## Enviando outros campos
+>> ## Formato da resposta:
+>
+> * Status: `400 BAD REQUEST`;
+>```json
+> {
+>   "message": "Only the time and description can be send"
+> }
+>```
+> ## Enviando sem campos obrigatórios
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>```json
+> {
+>   "message": "Time and description are required fields"
 > }
 >```
 >---
@@ -1981,7 +2092,7 @@
 > ## Atualizando outros campos
 >> ## Formato da resposta:
 >
-> * Status: `401 UNAUTHORIZED`;
+> * Status: `400 BAD REQUEST`;
 >
 >```json
 > {
@@ -2073,6 +2184,24 @@
 >```json
 > {
 >   "message": "Lesson not found"
+> }
+>```
+> ## Id inválido
+>> ## Formato da resposta:
+>
+> * Status: `400 BAD REQUEST`;
+>```json
+> {
+>   "message": "Only the name and link fields can be send"
+> }
+>```
+> ## Enviando sem campos obrigatórios
+>> ## Formato da resposta:
+>
+> * Status: `401 UNAUTHORIZED`;
+>```json
+> {
+>   "message": "Name and link are required fields"
 > }
 >```
 >---
@@ -2191,7 +2320,7 @@
 > ## Atualizando outros campos
 >> ## Formato da resposta:
 >
-> * Status: `401 UNAUTHORIZED`;
+> * Status: `400 BAD REQUEST`;
 >
 >```json
 > {

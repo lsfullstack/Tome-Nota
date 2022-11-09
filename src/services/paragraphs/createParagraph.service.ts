@@ -18,7 +18,7 @@ const createParagraphService = async (data: IParagraphRequest, textId: string): 
   const verifyBlockedFields = Object.keys(data).some(e => e !== "description");
 
   if (verifyBlockedFields) {
-    throw new AppError("Only the description field can be send", 401);
+    throw new AppError("Only the description field can be send");
   }
 
   if (!text) {

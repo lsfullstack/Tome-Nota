@@ -9,7 +9,7 @@ const updateLessonService = async (id: string, lesson: ILessonUpdate): Promise<I
   const verifyBlockedFields = Object.keys(lesson).some(e => e !== "name");
 
   if (verifyBlockedFields) {
-    throw new AppError("Only the name field can be changed", 401);
+    throw new AppError("Only the name field can be changed");
   }
   
   if (!findLesson) {

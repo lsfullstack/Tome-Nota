@@ -9,7 +9,7 @@ const updateCategoryService = async (name: ICategoryUpdate, id: string): Promise
   const verifyBlockedFields = Object.keys(name).some((e) => e !== "name");
 
   if (verifyBlockedFields) {
-    throw new AppError("Only the name field can be changed", 401);
+    throw new AppError("Only the name field can be changed");
   }
 
   if (!findCategory) {

@@ -15,7 +15,7 @@ const createCategoryService = async (category: ICategoryRequest): Promise<ICateg
   const verifyBlockedFields = Object.keys(category).some((e) => e !== "name");
 
   if (verifyBlockedFields) {
-    throw new AppError("Only the name field can be send", 401);
+    throw new AppError("Only the name field can be send");
   }
 
   if(findCategory !== null) {

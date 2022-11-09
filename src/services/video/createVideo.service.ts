@@ -4,7 +4,8 @@ import { Video } from "../../entities/video.entity";
 import { AppError } from "../../errors/AppError";
 import { IVideo, IVideoRequest } from "../../interfaces/video.interface";
 
-const createVideoService = async (id: string,{name, link}: IVideoRequest): Promise<IVideo> => {
+const createVideoService = async (id: string, data: IVideoRequest): Promise<IVideo> => {
+  const { name, link } = data;
   const lessonRepository = AppDataSource.getRepository(Lesson);
   const videoRepository = AppDataSource.getRepository(Video);
   const findLesson = await lessonRepository.findOneBy({
@@ -13,6 +14,14 @@ const createVideoService = async (id: string,{name, link}: IVideoRequest): Promi
 
   if(!findLesson) {
     throw new AppError("Lesson not found", 404);
+  }
+
+  const verifyBlockedFields = Object.keys(data).some(
+    (e) => e !== "name" && e !== "link"
+  );
+
+  if (verifyBlockedFields) {
+    throw new AppError("Only the name and link can be send");
   }
 
   const video = videoRepository.create({

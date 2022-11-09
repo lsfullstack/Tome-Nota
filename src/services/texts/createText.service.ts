@@ -15,7 +15,7 @@ const createTextService = async (data: ITextRequest, lessonId: string): Promise<
   const verifyBlockedFields = Object.keys(data).some(e => e !== "title");
 
   if (verifyBlockedFields) {
-    throw new AppError("Only the title field can be send", 401);
+    throw new AppError("Only the title field can be send");
   }
 
   if (!lesson) {

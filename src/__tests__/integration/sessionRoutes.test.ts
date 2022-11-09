@@ -37,8 +37,8 @@ describe("/login", () => {
     });
 
     expect(response.body).toHaveProperty("message");
-    expect(response.body.message).toBe("User not found");
-    expect(response.status).toBe(404);
+    expect(response.body.message).toBe("Invalid e-mail or password");
+    expect(response.status).toBe(403);
   });
 
   test("POST /login - Should not be able to login with the user with incorrect email or password", async () => {

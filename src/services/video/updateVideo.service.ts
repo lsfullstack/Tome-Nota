@@ -12,8 +12,9 @@ const updateVideoService = async (id: string, data: IVideoUpdate): Promise<IVide
   const verifyBlockedFields = Object.keys(data).some(e => e !== "name" && e !== "link");
 
   if (verifyBlockedFields) {
-    throw new AppError("Only the name and link fields can be changed", 401);
+    throw new AppError("Only the name and link fields can be changed");
   }
+  
   if(!findVideo) {
     throw new AppError("Video not found", 404);
   }

@@ -293,7 +293,7 @@ describe("/extra-content", () => {
     expect(response.body.message).toBe(
       "Only the name and link fields can be changed"
     );
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(400);
   });
 
   test("DELETE /extra-content/:id - Should be able to delete extra content", async () => {

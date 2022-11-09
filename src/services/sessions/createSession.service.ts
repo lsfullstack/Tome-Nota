@@ -16,7 +16,7 @@ const createSessionService = async (data: IUserLogin): Promise<string> => {
   const verifyBlockedFields = Object.keys(data).some(e => e !== "email" && e !== "password");
 
   if (verifyBlockedFields) {
-    throw new AppError("Only the email and password fields can be send", 401);
+    throw new AppError("Only the email and password fields can be send");
   }
 
   const passwordMatch = await compare(password, user!.password);

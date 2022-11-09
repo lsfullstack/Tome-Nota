@@ -10,7 +10,7 @@ const updateTextService = async (id: string, data: ITextUpdate): Promise<IText> 
   const verifyBlockedFields = Object.keys(data).some(e => e !== "title");
 
   if (verifyBlockedFields) {
-    throw new AppError("Only the title field can be changed", 401);
+    throw new AppError("Only the title field can be changed");
   }
 
   if (!text) {

@@ -248,7 +248,7 @@ describe("/video", () => {
     expect(response.body.message).toBe(
       "Only the name and link fields can be changed"
     );
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(400);
   });
 
   test("DELETE /video/:id - Should be able to delete video", async () => {

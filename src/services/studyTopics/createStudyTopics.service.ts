@@ -18,7 +18,7 @@ const createStudyTopicService = async (userId: string, data: IStudyTopicRequest)
   const verifyBlockedFields = Object.keys(data).some(e => e !== "name" && e !== "categories");
 
   if (verifyBlockedFields) {
-    throw new AppError("Only the name and categories fields can be send", 401);
+    throw new AppError("Only the name and categories fields can be send");
   }
 
   if (!user) {

@@ -26,6 +26,14 @@ const createTimelineService = async (
     throw new AppError("Time and description are required fields", 401);
   }
 
+  const verifyBlockedFields = Object.keys(data).some(
+    (e) => e !== "time" && e !== "description"
+  );
+
+  if (verifyBlockedFields) {
+    throw new AppError("Only the time and description can be send");
+  }
+
   const timeline = timelineRepository.create({
     time,
     description: `${time} - ${description}`,

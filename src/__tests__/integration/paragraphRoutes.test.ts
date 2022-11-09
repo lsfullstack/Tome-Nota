@@ -283,7 +283,7 @@ describe("/paragraphs", () => {
     expect(response.body.message).toBe(
       "Only the description field can be changed"
     );
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(400);
   });
 
   test("DELETE /paragraphs/:id - Should be able to delete paragraph", async () => {
