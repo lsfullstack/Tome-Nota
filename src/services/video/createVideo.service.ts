@@ -12,13 +12,13 @@ const createVideoService = async (id: string,{name, link}: IVideoRequest): Promi
   const findLesson = await lessonRepository.findOneBy({
     id
   });
-  ///////////////////
+  
   const s3 = new AWS.S3({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
   });
 
-  const fileName = "/home/felipe/Downloads/Node.js __ Dicionário do Programador.m4a";
+  const fileName = link;
   const fileContent = fs.readFileSync(fileName);
 
   const params = {
@@ -40,7 +40,6 @@ const createVideoService = async (id: string,{name, link}: IVideoRequest): Promi
     console.log("%%%%%%", err);
   }
 
-  //////////////////
   if(!findLesson) {
     throw new AppError("Lesson not found", 404);
   }
