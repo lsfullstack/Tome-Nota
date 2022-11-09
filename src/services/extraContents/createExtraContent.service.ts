@@ -27,7 +27,7 @@ const createExtraContentService = async (
   );
 
   if (verifyBlockedFields) {
-    throw new AppError("Only the name and link fields can be send", 401);
+    throw new AppError("Only the name and link fields can be send");
   }
 
   if (!name || !link) {

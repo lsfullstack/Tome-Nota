@@ -23,7 +23,7 @@ const updateExtraContentService = async (
   );
 
   if (verifyBlockedFields) {
-    throw new AppError("Only the name and link fields can be changed", 401);
+    throw new AppError("Only the name and link fields can be changed");
   }
 
   await extraContentRepository.update(id, {

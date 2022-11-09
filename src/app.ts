@@ -12,7 +12,6 @@ import paragraphsRoutes from "./routes/paragraphs.routes";
 import extraContentRoutes from "./routes/extraContent.routes";
 import videoRoutes from "./routes/video.routes";
 import timelineRoutes from "./routes/timeline.routes";
-import confirmEmailRoutes from "./routes/confirmEmail.routes";
 
 const app = express();
 
@@ -27,7 +26,6 @@ app.use("/paragraphs", paragraphsRoutes);
 app.use("/extra-content", extraContentRoutes);
 app.use("/video", videoRoutes);
 app.use("/timeline", timelineRoutes);
-app.use("/email", confirmEmailRoutes);
 
 app.use(handleErrorMiddleware);
 

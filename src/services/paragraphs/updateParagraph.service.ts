@@ -18,7 +18,7 @@ const updateParagraphService = async (
   );
 
   if (verifyBlockedFields) {
-    throw new AppError("Only the description field can be changed", 401);
+    throw new AppError("Only the description field can be changed");
   }
   if (!paragraph) {
     throw new AppError("Paragraph not found", 404);

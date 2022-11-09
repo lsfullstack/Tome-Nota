@@ -12,7 +12,7 @@ const createUserService = async (user: IUserRequest): Promise<IUser> => {
   );
 
   if (verifyBlockedFields) {
-    throw new AppError("Only name, email, password and isAdm can be sent", 403);
+    throw new AppError("Only name, email, password and isAdm can be send");
   }
 
   const userRepository = AppDataSource.getRepository(User);

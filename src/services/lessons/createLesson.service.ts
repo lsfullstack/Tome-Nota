@@ -15,7 +15,7 @@ const createLessonService = async (lesson: ILessonRequest, studyTopicId: string)
   const verifyBlockedFields = Object.keys(lesson).some(e => e !== "name");
 
   if (verifyBlockedFields) {
-    throw new AppError("Only the name field can be send", 401);
+    throw new AppError("Only the name field can be send");
   }
 
   if (!studyTopic) {

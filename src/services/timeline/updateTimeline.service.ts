@@ -21,10 +21,9 @@ const updateTimelineService = async (
 
   if (verifyBlockedFields) {
     throw new AppError(
-      "Only the time and description fields can be changed",
-      401
-    );
+      "Only the time and description fields can be changed");
   }
+  
   if (!findTimeline) {
     throw new AppError("Chapter not found", 404);
   }

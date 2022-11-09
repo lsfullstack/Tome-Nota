@@ -19,9 +19,7 @@ const updateUserService = async (
 
   if (verifyBlockedFields) {
     throw new AppError(
-      "Only the name, email and password fields can be changed",
-      401
-    );
+      "Only the name, email and password fields can be changed");
   }
 
   if (id !== idLoggedUser && !isAdm) {

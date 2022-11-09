@@ -24,7 +24,7 @@ const updateStudyTopicService = async (id: string, studyTopicBody: IStudyTopicUp
   const verifyBlockedFields = Object.keys(studyTopicBody).some(e => e !== "name" && e !== "categories");
 
   if (verifyBlockedFields) {
-    throw new AppError("Only the name and categories fields can be changed", 401);
+    throw new AppError("Only the name and categories fields can be changed");
   }
 
   if (!studyTopic) {

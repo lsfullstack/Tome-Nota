@@ -15,7 +15,7 @@ const ensureIsActiveMiddleware = async (
   });
 
   if (!user) {
-    throw new AppError("User not found", 404);
+    throw new AppError("Invalid e-mail or password", 403);
   }
 
   if (user && user.isActive === false) {

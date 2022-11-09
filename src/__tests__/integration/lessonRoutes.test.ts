@@ -250,7 +250,7 @@ describe("/lesson", () => {
 
     expect(response.body).toHaveProperty("message");
     expect(response.body.message).toBe("Only the name field can be changed");
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(400);
   });
 
   test("DELETE /lesson/:id - Should be able to delete lesson", async () => {

@@ -314,7 +314,7 @@ describe("/users", () => {
     expect(response.body.message).toBe(
       "Only the name, email and password fields can be changed"
     );
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(400);
   });
 
   test("PATCH /users/:id - Should not be able to update id field value", async () => {
@@ -337,7 +337,7 @@ describe("/users", () => {
     expect(response.body.message).toBe(
       "Only the name, email and password fields can be changed"
     );
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(400);
   });
 
   test("PATCH /users/:id - Should not be able to update isActive field value", async () => {
@@ -360,7 +360,7 @@ describe("/users", () => {
     expect(response.body.message).toBe(
       "Only the name, email and password fields can be changed"
     );
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(400);
   });
 
   test("DELETE /users/:id - Should be able to soft delete user", async () => {
