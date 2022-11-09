@@ -5,7 +5,6 @@ import { AppError } from "../../errors/AppError";
 import { IVideo, IVideoRequest } from "../../interfaces/video.interface";
 import AWS from "aws-sdk";
 import * as fs from "fs";
-import { ManagedUpload } from "aws-sdk/clients/s3";
 
 const createVideoService = async (id: string,{name, link}: IVideoRequest): Promise<IVideo> => {
   const lessonRepository = AppDataSource.getRepository(Lesson);
@@ -30,12 +29,16 @@ const createVideoService = async (id: string,{name, link}: IVideoRequest): Promi
 
   let linkReturn = "";
 
-  const savedData = s3.upload(params, async (err: any, data: any) => {
-    await console.log("@@@@@@", err, data.Location);
-    linkReturn = data.Location;
-  });
+  const savedData = s3.upload(params);
 
-  console.log("######", `https://tome-nota.s3.sa-east-1.amazonaws.com/${fileName}`);
+  try{
+    const putObjectPromise = await savedData.promise();
+    linkReturn = putObjectPromise.Location;
+    console.log("@@@@@@", putObjectPromise);
+  }
+  catch(err) {
+    console.log("%%%%%%", err);
+  }
 
   //////////////////
   if(!findLesson) {
