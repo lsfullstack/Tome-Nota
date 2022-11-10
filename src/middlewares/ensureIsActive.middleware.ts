@@ -3,19 +3,24 @@ import { Request, Response, NextFunction } from "express";
 import AppDataSource from "../data-source";
 import { User } from "../entities/user.entity";
 
-const ensureIsActiveMiddleware = async (req: Request, res: Response, next: NextFunction) => {
-  const id: string = req.params.id;
+const ensureIsActiveMiddleware = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const email: string = req.body.email;
   const userRepository = AppDataSource.getRepository(User);
   const user = await userRepository.findOneBy({
-    id,
-    email
+    email,
   });
 
-  if (!user || !user?.isActive) {
-    throw new AppError("User not found", 404);
+  if (!user) {
+    throw new AppError("Invalid e-mail or password", 403);
   }
 
+  if (user && user.isActive === false) {
+    throw new AppError("Invalid e-mail or password", 403);
+  }
   return next();
 };
 

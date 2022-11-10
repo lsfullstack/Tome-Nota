@@ -12,7 +12,7 @@ class Timeline {
   @Column({ length: 100 })
   description: string;
 
-  @ManyToOne(() => Video)
+  @ManyToOne(() => Video, { onDelete: 'CASCADE' })
   video: Video;
 }
 
