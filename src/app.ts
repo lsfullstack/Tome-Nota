@@ -12,9 +12,11 @@ import paragraphsRoutes from "./routes/paragraphs.routes";
 import extraContentRoutes from "./routes/extraContent.routes";
 import videoRoutes from "./routes/video.routes";
 import timelineRoutes from "./routes/timeline.routes";
+import cors from "cors";
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use("/users", usersRoutes);
 app.use("/login", sessionRoutes);
