@@ -1,5 +1,7 @@
 import { DataSource } from "typeorm";
 import "dotenv/config";
+import { createTables1686414777247 } from "../src/migrations/1686414777247-createTables";
+
 
 const AppDataSource = new DataSource(
   process.env.NODE_ENV === "test" ?
@@ -20,7 +22,7 @@ const AppDataSource = new DataSource(
       synchronize: false,
       logging: true,
       entities: process.env.NODE_ENV === "production" ? ["dist/src/entities/*.js"] : ["src/entities/*.ts"],
-      migrations: process.env.NODE_ENV === "production" ? ["dist/src/migrations/*.js"] : ["src/migrations/*.ts"],
+      migrations: process.env.NODE_ENV === "production" ? ["dist/src/migrations/*.js"] : [createTables1686414777247],
     }
 );
 

@@ -5,10 +5,10 @@ import { IUser, IUserRequest } from "../../interfaces/users.interfaces";
 import { AppError } from "../../errors/AppError";
 
 const createUserService = async (user: IUserRequest): Promise<IUser> => {
-  const { name, email, password, isAdm } = user;
+  const { name, email, password, username, isAdm } = user;
 
   const verifyBlockedFields = Object.keys(user).some(
-    (e) => e !== "name" && e !== "email" && e !== "password" && e !== "isAdm"
+    (e) => e !== "name" && e !== "email" && e !== "password" && e !== "username"
   );
 
   if (verifyBlockedFields) {
@@ -18,6 +18,7 @@ const createUserService = async (user: IUserRequest): Promise<IUser> => {
   const userRepository = AppDataSource.getRepository(User);
   const newUser: IUser = userRepository.create({
     name,
+    username,
     email,
     isAdm,
     password: await hash(password, 10),

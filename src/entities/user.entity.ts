@@ -13,9 +13,12 @@ import { StudyTopic } from "./studyTopic.entity";
 class User {
   @PrimaryGeneratedColumn("uuid")
   id: string;
-
+  
   @Column({ length: 60 })
   name: string;
+
+  @Column({ length: 20 })
+  username: string;
 
   @Column({ length: 60, unique: true })
   email: string;
@@ -24,7 +27,7 @@ class User {
   @Exclude()
   password: string;
 
-  @Column()
+  @Column({ default: false })
   isAdm: boolean;
 
   @Column({ default: true })

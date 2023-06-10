@@ -11,7 +11,9 @@ import "dotenv/config";
       console.log(error);
     });
 
-  app.listen(process.env.PORT || 3000, () => {
-    console.log("Server running");
+  const port = 2023;
+
+  app.listen(process.env.PORT || port, () => {
+    console.log(`Server running in port ${port}`);
   });
 })();
