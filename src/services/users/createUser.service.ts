@@ -8,7 +8,7 @@ const createUserService = async (user: IUserRequest): Promise<IUser> => {
   const { name, email, password, username, isAdm } = user;
 
   const verifyBlockedFields = Object.keys(user).some(
-    (e) => e !== "name" && e !== "email" && e !== "password" && e !== "username"
+    (e) => e !== "name" && e !== "email" && e !== "password" && e !== "username" && e !== "isAdm"
   );
 
   if (verifyBlockedFields) {
