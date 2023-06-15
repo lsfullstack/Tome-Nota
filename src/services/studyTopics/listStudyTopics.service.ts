@@ -20,7 +20,7 @@ const listStudyTopicsService = async (id: string): Promise<IStudyTopicList[]> =>
   const returnableArray = [];
 
   for(const currentStudyTopic of findStudyTopic){
-    const { id, name, lessons, user, createdAt, updatedAt } = currentStudyTopic;
+    const { id, title, description, lessons, user, createdAt, updatedAt } = currentStudyTopic;
     const currentStudyTopicCategories = [];
     for(const currentCategory of currentStudyTopic.studyTopicCategories){
       const findCategory = await categoryRepository.findOne({
@@ -32,7 +32,8 @@ const listStudyTopicsService = async (id: string): Promise<IStudyTopicList[]> =>
     }
     const studyTopic = {
       id, 
-      name, 
+      title,
+      description,
       lessons,
       user, 
       createdAt, 

@@ -24,7 +24,7 @@ const retrieveStudyTopicService = async (studyTopicId: string): Promise<IStudyTo
     throw new AppError("Study topic not found", 404);
   }
 
-  const { id, name, lessons, user, createdAt, updatedAt } = findStudyTopic;
+  const { id, title, description, lessons, user, createdAt, updatedAt } = findStudyTopic;
 
   const categories = await studyCategoryRepository.find({
     where: {
@@ -53,7 +53,8 @@ const retrieveStudyTopicService = async (studyTopicId: string): Promise<IStudyTo
 
   const studyTopic = {
     id,
-    name,
+    title,
+    description,
     categories: categoriesList,
     lessons,
     user,

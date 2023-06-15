@@ -51,7 +51,7 @@ const updateVideoService = async (id: string, data: IVideoUpdate): Promise<IVide
     link: video.link,
     lesson: {
       id: findLesson.id,
-      name: findLesson.name
+      title: findLesson.title
     }
   };
 

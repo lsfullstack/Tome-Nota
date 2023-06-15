@@ -43,7 +43,7 @@ describe("/lesson", () => {
       .send(lessonMock);
 
     expect(response.body).toHaveProperty("id");
-    expect(response.body).toHaveProperty("name");
+    expect(response.body).toHaveProperty("title");
     expect(response.body).toHaveProperty("studyTopic");
     expect(response.status).toBe(201);
   });
@@ -136,7 +136,7 @@ describe("/lesson", () => {
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     expect(response.body).toHaveProperty("id");
-    expect(response.body).toHaveProperty("name");
+    expect(response.body).toHaveProperty("title");
     expect(response.body).toHaveProperty("studyTopic");
     expect(response.status).toBe(200);
   });
@@ -172,7 +172,7 @@ describe("/lesson", () => {
   });
 
   test("PATCH /lesson/:id - Should be able to update lesson", async () => {
-    const data = { name: "Principais métodos de Array" };
+    const data = { title: "Principais métodos de Array" };
 
     const loginResponse = await request(app).post("/login").send(userLoginMock);
 
@@ -193,7 +193,7 @@ describe("/lesson", () => {
       .get(`/lesson/study-topic/${studyTopic.body[0].id}`)
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
-    expect(updatedLesson.body[0].name).toEqual("Principais métodos de Array");
+    expect(updatedLesson.body[0].title).toEqual("Principais métodos de Array");
     expect(response.status).toBe(200);
   });
 
@@ -216,7 +216,7 @@ describe("/lesson", () => {
   });
 
   test("PATCH /lesson/:id - Should not be able to update lesson with invalid id", async () => {
-    const data = { name: "Principais métodos de Array" };
+    const data = { title: "Principais métodos de Array" };
 
     const loginResponse = await request(app).post("/login").send(userLoginMock);
 
@@ -249,7 +249,7 @@ describe("/lesson", () => {
       .send(data);
 
     expect(response.body).toHaveProperty("message");
-    expect(response.body.message).toBe("Only the name field can be changed");
+    expect(response.body.message).toBe("Only the title field can be changed");
     expect(response.status).toBe(400);
   });
 

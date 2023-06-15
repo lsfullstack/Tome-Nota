@@ -49,7 +49,7 @@ describe("/study-topics", () => {
       .send(studyTopicMock);
 
     expect(response.body).toHaveProperty("id");
-    expect(response.body).toHaveProperty("name");
+    expect(response.body).toHaveProperty("title");
     expect(response.body).toHaveProperty("categories");
     expect(response.body).toHaveProperty("user");
     expect(response.body).toHaveProperty("createdAt");
@@ -64,11 +64,11 @@ describe("/study-topics", () => {
       .post("/study-topics")
       .set("Authorization", `Bearer ${loginResponse.body.token}`)
       .send({
-        name: "Desenvolvimento Web Back-End",
+        title: "Desenvolvimento Web Back-End",
       });
 
     expect(response.body).toHaveProperty("id");
-    expect(response.body).toHaveProperty("name");
+    expect(response.body).toHaveProperty("title");
     expect(response.body).toHaveProperty("user");
     expect(response.body).toHaveProperty("createdAt");
     expect(response.body).toHaveProperty("updatedAt");
@@ -92,7 +92,7 @@ describe("/study-topics", () => {
       .post("/study-topics")
       .set("Authorization", `Bearer ${loginResponse.body.token}`)
       .send({
-        name: "Desenvolvimento Web Back-End",
+        title: "Desenvolvimento Web Back-End",
         categories: ["Back End"],
       });
 
@@ -113,7 +113,7 @@ describe("/study-topics", () => {
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     expect(response.body).toHaveProperty("id");
-    expect(response.body).toHaveProperty("name");
+    expect(response.body).toHaveProperty("title");
     expect(response.body).toHaveProperty("categories");
     expect(response.body).toHaveProperty("user");
     expect(response.body).toHaveProperty("createdAt");
@@ -169,7 +169,7 @@ describe("/study-topics", () => {
   });
 
   test("PATCH /study-topics/:id - Should be able to update study topic", async () => {
-    const data = { name: "Front-End" };
+    const data = { title: "Front-End" };
 
     const loginResponse = await request(app).post("/login").send(userLoginMock);
 
@@ -186,7 +186,7 @@ describe("/study-topics", () => {
       .get("/study-topics")
       .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
-    expect(updatedStudyTopic.body[0].name).toEqual("Front-End");
+    expect(updatedStudyTopic.body[0].title).toEqual("Front-End");
     expect(response.status).toBe(200);
   });
 
@@ -207,7 +207,7 @@ describe("/study-topics", () => {
   });
 
   test("PATCH /study-topics/:id - Should not be able to update study topic with invalid id", async () => {
-    const data = { name: "Front-End" };
+    const data = { title: "Front-End" };
 
     const loginResponse = await request(app).post("/login").send(userLoginMock);
 
@@ -237,7 +237,7 @@ describe("/study-topics", () => {
 
     expect(response.body).toHaveProperty("message");
     expect(response.body.message).toBe(
-      "Only the name and categories fields can be changed"
+      "Only the title and categories fields can be changed"
     );
     expect(response.status).toBe(400);
   });
@@ -258,7 +258,7 @@ describe("/study-topics", () => {
 
     expect(response.body).toHaveProperty("message");
     expect(response.body.message).toBe(
-      "Only the name and categories fields can be changed"
+      "Only the title and categories fields can be changed"
     );
     expect(response.status).toBe(400);
   });

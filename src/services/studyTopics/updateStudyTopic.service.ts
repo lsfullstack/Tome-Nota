@@ -8,7 +8,7 @@ import { IStudyTopic, IStudyTopicUpdate } from "../../interfaces/studyTopics.int
 
 const updateStudyTopicService = async (id: string, studyTopicBody: IStudyTopicUpdate
 ): Promise<IStudyTopic> => {
-  const { name, categories } = studyTopicBody;
+  const { title, description, categories } = studyTopicBody;
   const studyTopicRepository = AppDataSource.getRepository(StudyTopic);
   const categoriesRepository = AppDataSource.getRepository(Category);
   const studyTopicCategoryRepository = AppDataSource.getRepository(StudyTopicCategory);
@@ -21,10 +21,10 @@ const updateStudyTopicService = async (id: string, studyTopicBody: IStudyTopicUp
     }
   });
 
-  const verifyBlockedFields = Object.keys(studyTopicBody).some(e => e !== "name" && e !== "categories");
+  const verifyBlockedFields = Object.keys(studyTopicBody).some(e => e !== "title" && e !== "categories");
 
   if (verifyBlockedFields) {
-    throw new AppError("Only the name and categories fields can be changed");
+    throw new AppError("Only the title and categories fields can be changed");
   }
 
   if (!studyTopic) {
@@ -76,7 +76,7 @@ const updateStudyTopicService = async (id: string, studyTopicBody: IStudyTopicUp
   }
   
   await studyTopicRepository.update(id, {
-    name
+    title
   });
 
   const findStudyTopic = await studyTopicRepository.findOne({
@@ -92,7 +92,8 @@ const updateStudyTopicService = async (id: string, studyTopicBody: IStudyTopicUp
 
   const updatedStudyTopic = {
     id,
-    name: name as string,
+    title: title as string,
+    description,
     categories: categoriesList,
     lessons: findStudyTopic!.lessons,
     user: findStudyTopic!.user,

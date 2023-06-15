@@ -33,7 +33,7 @@ const retrieveVideoService = async (id: string): Promise<IVideo> => {
     link,
     lesson: {
       id: findLesson.id,
-      name: findLesson.name
+      title: findLesson.title
     }
   };
 

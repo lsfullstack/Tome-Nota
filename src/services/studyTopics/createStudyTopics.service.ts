@@ -8,17 +8,17 @@ import { ICategory } from "../../interfaces/categories.interfaces";
 import { IStudyTopic, IStudyTopicRequest } from "../../interfaces/studyTopics.interfaces";
 
 const createStudyTopicService = async (userId: string, data: IStudyTopicRequest): Promise<IStudyTopic> => {
-  const { name, categories } = data;
+  const { title,   description, categories } = data;
   const userRepository = AppDataSource.getRepository(User);
   const categoryRepository = AppDataSource.getRepository(Category);
   const studyTopicRepository = AppDataSource.getRepository(StudyTopic);
   const studyTopicCategoryRepository = AppDataSource.getRepository(StudyTopicCategory);
   const user = await userRepository.findOneBy({ id: userId });
 
-  const verifyBlockedFields = Object.keys(data).some(e => e !== "name" && e !== "categories");
+  const verifyBlockedFields = Object.keys(data).some(e => e !== "title" && e!== "description" && e !== "categories");
 
   if (verifyBlockedFields) {
-    throw new AppError("Only the name and categories fields can be send");
+    throw new AppError("Only the title, description and categories fields can be send");
   }
 
   if (!user) {
@@ -26,7 +26,8 @@ const createStudyTopicService = async (userId: string, data: IStudyTopicRequest)
   }
 
   const newStudyTopic = studyTopicRepository.create({
-    name,
+    title,
+    description,
     lessons: [],
     user: user
   });
@@ -59,7 +60,8 @@ const createStudyTopicService = async (userId: string, data: IStudyTopicRequest)
 
   const studyTopic = {
     id,
-    name,
+    title,
+    description,
     categories: categoriesList,
     lessons,
     user,

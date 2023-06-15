@@ -18,7 +18,7 @@ class Lesson {
   id: string;
 
   @Column({ length: 60 })
-  name: string;
+  title: string;
 
   @OneToMany(() => Text, (text) => text.lesson, { cascade: true })
   texts: Text[];

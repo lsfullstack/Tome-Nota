@@ -43,7 +43,7 @@ const createVideoService = async (id: string, data: IVideoRequest): Promise<IVid
     link,
     lesson: {
       id: findLesson.id,
-      name: findLesson.name
+      title: findLesson.title
     }
   };
 

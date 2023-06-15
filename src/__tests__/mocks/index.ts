@@ -20,6 +20,7 @@ import { ITimelineUpdate } from "../../interfaces/timeline.interface";
 
 export const userMock: IUserRequest = {
   name: "Felipe",
+  username: "felipe",
   email: "felipe@mail.com",
   password: "12345",
   isAdm: false,
@@ -27,6 +28,7 @@ export const userMock: IUserRequest = {
 
 export const adminMock: IUserRequest = {
   name: "Lucas",
+  username: "lucas",
   email: "lucas@mail.com",
   password: "12345",
   isAdm: true,
@@ -71,12 +73,12 @@ export const categoryForPatch: ICategoryUpdate = {
 };
 
 export const studyTopicMock: IStudyTopicRequest = {
-  name: "Desenvolvimento Web Front-End",
+  title: "Desenvolvimento Web Front-End",
   categories: ["Desenvolvimento Web"],
 };
 
 export const lessonMock: ILessonRequest = {
-  name: "JavaScript - Métodos de Array",
+  title: "JavaScript - Métodos de Array",
 };
 
 export const textMock: ITextRequest = {

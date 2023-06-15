@@ -5,17 +5,17 @@ import { AppError } from "../../errors/AppError";
 import { ILesson, ILessonRequest } from "../../interfaces/lessons.interface";
 
 const createLessonService = async (lesson: ILessonRequest, studyTopicId: string): Promise<ILesson> => {
-  const { name } = lesson;
+  const { title } = lesson;
   const lessonRepository = AppDataSource.getRepository(Lesson);
   const studyTopicRepository = AppDataSource.getRepository(StudyTopic);
   const studyTopic = await studyTopicRepository.findOneBy({
     id: studyTopicId
   });
 
-  const verifyBlockedFields = Object.keys(lesson).some(e => e !== "name");
+  const verifyBlockedFields = Object.keys(lesson).some(e => e !== "title");
 
   if (verifyBlockedFields) {
-    throw new AppError("Only the name field can be send");
+    throw new AppError("Only the title field can be send");
   }
 
   if (!studyTopic) {
@@ -23,7 +23,7 @@ const createLessonService = async (lesson: ILessonRequest, studyTopicId: string)
   }
 
   const newLesson = lessonRepository.create({
-    name,
+    title,
     studyTopic
   });
 

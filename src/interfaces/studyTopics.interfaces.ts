@@ -3,13 +3,15 @@ import { ILesson } from "./lessons.interface";
 import { IUser } from "./users.interfaces";
 
 export interface IStudyTopicRequest {
-  name: string;
+  title: string;
+  description: string;
   categories?: string[];
 }
 
 export interface IStudyTopic {
   id: string;
-  name: string;
+  title: string;
+  description: string;
   user: IUser;
   lessons?: ILesson[];
   categories?: ICategory[];
@@ -17,13 +19,15 @@ export interface IStudyTopic {
 
 export interface IStudyTopicList {
   id: string;
-  name: string;
+  title: string;
+  description: string;
   user: IUser;
   lessons?: ILesson[];
   categories?: (string | undefined)[];
 }
 
 export interface IStudyTopicUpdate {
-  name?: string;
+  title?: string;
+  description: string;
   categories?: string[];
 }

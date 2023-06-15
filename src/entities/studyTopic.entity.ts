@@ -17,7 +17,10 @@ class StudyTopic {
   id: string;
 
   @Column({ length: 60 })
-  name: string;
+  title: string;
+
+  @Column({ length: 255 })
+  description: string;
 
   @CreateDateColumn()
   createdAt: Date;

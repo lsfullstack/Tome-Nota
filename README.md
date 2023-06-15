@@ -429,7 +429,7 @@
 > 
 >```json
 > {
->   "name": "Desenvolvimento Web Front-End",
+>   "title": "Desenvolvimento Web Front-End",
 >   "categories": [
 >     "Tecnologia da Informação",
 >     "Desenvolvimento Web"
@@ -443,7 +443,7 @@
 >```json
 > {
 >   "id": "11547a442-0b6a-4920-9177-455e4769931c",
->   "name": "Desenvolvimento Web Front-End",
+>   "title": "Desenvolvimento Web Front-End",
 >   "categories": [
 > 		{
 >			  "id": "85c940c5-c3fa-4367-8aae-bf538908fe06",
@@ -514,7 +514,7 @@
 >```json
 > {
 >   "id": "11547a442-0b6a-4920-9177-455e4769931c",
->   "name": "Desenvolvimento Web Front-End",
+>   "title": "Desenvolvimento Web Front-End",
 >   "categories": [
 >     "Tecnologia da Informação",
 >     "Desenvolvimento Web"
@@ -522,11 +522,11 @@
 >   "lessons": [
 >     {
 >       "id": "6c485c93-3dc5-422c-bbc4-51223eb4ace5",
->       "name": "Estrutura básica do HTML"
+>       "title": "Estrutura básica do HTML"
 >     },
 >     {
 >       "id": "8acbc942-3f8f-416e-95e7-9c288ec33f39",
->       "name": "Aplicando CSS no HTML"
+>       "title": "Aplicando CSS no HTML"
 >     }
 >   ],
 >   "user": {
@@ -579,7 +579,7 @@
 > [
 >   {
 >     "id": "11547a442-0b6a-4920-9177-455e4769931c",
->     "name": "Desenvolvimento Web Front-End",
+>     "title": "Desenvolvimento Web Front-End",
 >     "categories": [
 >       "Tecnologia da Informação",
 >       "Desenvolvimento Web"
@@ -587,11 +587,11 @@
 >     "lessons": [
 >       {
 >         "id": "6c485c93-3dc5-422c-bbc4-51223eb4ace5",
->         "name": "Estrutura básica do HTML"
+>         "title": "Estrutura básica do HTML"
 >       },
 >       {
 >         "id": "8acbc942-3f8f-416e-95e7-9c288ec33f39",
->         "name": "Aplicando CSS no HTML"
+>         "title": "Aplicando CSS no HTML"
 >       }
 >     ],
 >     "user": {
@@ -608,7 +608,7 @@
 >   },
 >   {
 >     "id": "18637a442-0b6a-4033-9177-428e4947939e",
->     "name": "JavaScript",
+>     "title": "JavaScript",
 >     "categories": [
 >       "Programação",
 >       "Lógica de Programação"
@@ -616,7 +616,7 @@
 >     "lessons": [
 >       {
 >         "id": "2ff79724-455d-4a41-b160-382640580f95",
->         "name": "Métodos de Array"
+>         "title": "Métodos de Array"
 >       },
 >     ],
 >     "user": {
@@ -655,7 +655,7 @@
 >
 >```json
 > {
->   "name": "Front-End",
+>   "title": "Front-End",
 >   "categories": [
 >     "Programação",
 >     "Desenvolvimento Web"
@@ -669,7 +669,7 @@
 >```json
 > {
 >   "id": "11547a442-0b6a-4920-9177-455e4769931c",
->   "name": "Front-End",
+>   "title": "Front-End",
 >   "categories": [
 >     "Programação",
 >     "Desenvolvimento Web"
@@ -677,11 +677,11 @@
 >   "lessons": [
 >     {
 >       "id": "6c485c93-3dc5-422c-bbc4-51223eb4ace5",
->       "name": "Estrutura básica do HTML"
+>       "title": "Estrutura básica do HTML"
 >     },
 >     {
 >       "id": "8acbc942-3f8f-416e-95e7-9c288ec33f39",
->       "name": "Aplicando CSS no HTML"
+>       "title": "Aplicando CSS no HTML"
 >     }
 >   ],
 >   "user": {
@@ -776,7 +776,7 @@
 >
 >```json
 > {
->   "name": "JavaScript - Métodos de Array"
+>   "title": "JavaScript - Métodos de Array"
 > }
 >```
 >> ## Formato da resposta:
@@ -786,10 +786,10 @@
 >```json
 > {
 >   "id": "6f7b8806-38f4-4bc6-b8d7-02a0c330ef7f",
->   "name": "JavaScript - Métodos de Array",
+>   "title": "JavaScript - Métodos de Array",
 >   "studyTopic": {
 >     "id": "18637a442-0b6a-4033-9177-428e4947939e",
->     "name": "JavaScript",
+>     "title": "JavaScript",
 >     "createdAt": "2022-10-25T20:47:27.856Z",
 >     "updatedAt": "2022-10-25T20:47:27.856Z"
 >   }
@@ -842,20 +842,20 @@
 > {
 >   {
 >     "id": "6f7b8806-38f4-4bc6-b8d7-02a0c330ef7f",
->     "name": "JavaScript - Métodos de Array",
+>     "title": "JavaScript - Métodos de Array",
 >     "studyTopic": {
 >       "id": "18637a442-0b6a-4033-9177-428e4947939e",
->       "name": "JavaScript",
+>       "title": "JavaScript",
 >       "createdAt": "2022-10-25T20:47:27.856Z",
 >       "updatedAt": "2022-10-25T20:47:27.856Z"
 >     }
 >   },
 >   {
 >     "id": "399c8de1-8881-486b-8434-4e06a968549e",
->     "name": "Funções Anônimas",
+>     "title": "Funções Anônimas",
 >     "studyTopic": {
 >       "id": "18637a442-0b6a-4033-9177-428e4947939e",
->       "name": "JavaScript",
+>       "title": "JavaScript",
 >       "createdAt": "2022-10-25T20:30:27.856Z",
 >       "updatedAt": "2022-10-25T20:30:27.856Z"
 >     }
@@ -899,10 +899,10 @@
 >```json
 > {
 >   "id": "6f7b8806-38f4-4bc6-b8d7-02a0c330ef7f",
->   "name": "JavaScript - Métodos de Array",
+>   "title": "JavaScript - Métodos de Array",
 >   "studyTopic": {
 >     "id": "18637a442-0b6a-4033-9177-428e4947939e",
->     "name": "JavaScript",
+>     "title": "JavaScript",
 >     "createdAt": "2022-10-25T20:47:27.856Z",
 >     "updatedAt": "2022-10-25T20:47:27.856Z"
 >   }
@@ -938,7 +938,7 @@
 >
 >```json
 > {
->   "name": "Principais métodos de Array"
+>   "title": "Principais métodos de Array"
 > }
 >```
 >> ## Formato da resposta:
@@ -948,10 +948,10 @@
 >```json
 > {
 >   "id": "6f7b8806-38f4-4bc6-b8d7-02a0c330ef7f",
->   "name": "Principais métodos de Array",
+>   "title": "Principais métodos de Array",
 >   "studyTopic": {
 >     "id": "18637a442-0b6a-4033-9177-428e4947939e",
->     "name": "JavaScript",
+>     "title": "JavaScript",
 >     "createdAt": "2022-10-25T20:47:27.856Z",
 >     "updatedAt": "2022-10-25T20:47:27.856Z"
 >   }
